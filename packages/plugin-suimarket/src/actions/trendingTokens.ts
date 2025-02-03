@@ -20,9 +20,7 @@ const trendingPromptTemplate = `Respond with a JSON markdown block containing on
 Example response:
 \`\`\`json
 {
-    size:5,
-    "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Below are {size} trending coins we have collected:"
-    "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
+    size:5
 }
 \`\`\`
 {{recentMessages}}
@@ -111,7 +109,7 @@ export const trendingTokens: Action = {
                     type: "sui_trending_tokens",
                     data:info.slice(0,content.size)
                 },
-                action_hint:getActionHint(content.actionHintText)
+                action_hint:getActionHint()
             });
         }
 

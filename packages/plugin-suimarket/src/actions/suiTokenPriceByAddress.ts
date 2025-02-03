@@ -23,9 +23,7 @@ const promptSuiTokenInfoTemplate = `Respond with a JSON markdown block containin
 Example response:
     \`\`\`json
     {
-        "token_address": "0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT",
-        "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Here are the token prices:"
-        "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
+        "token_address": "0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
     }
     \`\`\`
 {{recentMessages}}
@@ -108,7 +106,7 @@ export const suiTokenPriceByAddress: Action = {
         console.log(info)
         if (callback) {
             callback({
-                text: content.responseMessage,
+                text: `Here are the token prices:`,
                 action: 'TOKEN_PRICE_INFO_BY_ADDRESS',
                 result: {
                     type: "token_price",
@@ -119,7 +117,7 @@ export const suiTokenPriceByAddress: Action = {
                         price: info.tokenPrice,
                         icon_url: info.iconUrl,
                     },
-                    action_hint:getActionHint(content.actionHintText)
+                    action_hint:getActionHint()
                 }
             });
         }

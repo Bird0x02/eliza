@@ -21,9 +21,7 @@ const topMemeTemplate = `Respond with a JSON markdown block containing only the 
 Example response:
 \`\`\`json
 {
-    size:5,
-    "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Here are the top Meme tokens:"
-    "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
+    size:5
 }
 \`\`\`
 {{recentMessages}}
@@ -102,12 +100,12 @@ export const topMeme: Action = {
         try {
 
             callback({
-               text:content.responseMessage,
+               text:`Here are the top Meme tokens:`,
                action:"TOP_MEME",
                result: {
                 type: "top_token",
                 data:dataResponse,
-                action_hint:getActionHint(content.actionHintText)
+                action_hint:getActionHint()
             }
             })
 

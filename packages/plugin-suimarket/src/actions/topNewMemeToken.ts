@@ -15,9 +15,7 @@ const trendingPromptTemplate = `Respond with a JSON markdown block containing on
 Example response:
 \`\`\`json
 {
-    size:5,
-    "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Below are {{size}} trending coins we have collected:"
-    "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
+    size:5
 }
 \`\`\`
 {{recentMessages}}
@@ -79,13 +77,13 @@ export const topNewMemeToken: Action = {
         const info = await coinGecko.topNewMeMeCoin();
         if (callback) {
             callback({
-                text: content.responseMessage,
+                text: `Below are ${content.size} trending coins we have collected:`,
                 action: 'TOP_TRENDING_TOKENS',
                 result: {
                     type: "sui_new_meme_coin",
                     data:info.slice(0,content.size)
                 },
-                action_hint:getActionHint(content.actionHintText)
+                action_hint:getActionHint()
             });
         }
 

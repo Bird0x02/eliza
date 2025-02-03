@@ -26,8 +26,6 @@ Example response:
     {
     "project_name": "Cetus" | null, // Project crypto  currency name
     "token_symbol": "cetus" | null, // token symbol of crypto currency
-    "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Here are the token prices:"
-    "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
 }
     \`\`\`
 Recent messages:  {{recentMessages}}
@@ -193,7 +191,7 @@ export const projectInfo: Action = {
                     contract_address: tokenSuiInfo&&tokenSuiInfo.type?tokenSuiInfo.type:"",
                     ...infoPrice
                 },
-                action_hint:getActionHint(content.actionHintText)
+                action_hint:getActionHint()
             }
         });
         return true;

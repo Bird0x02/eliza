@@ -1,4 +1,4 @@
-export default function getActionHint(actionHintText:string){
+export default function getActionHint(actionHintText:string = "Do you need any further assistance? Please let me know!"){
     return {
         text: actionHintText,
         actions:[

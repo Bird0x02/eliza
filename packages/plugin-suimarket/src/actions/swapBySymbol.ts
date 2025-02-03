@@ -25,8 +25,7 @@ Extract the swap parameters from the conversation and wallet context above, foll
             "inputTokenSymbol": string | null,     // Token being sold (e.g. "SUI")
             "outputTokenSymbol": string | null,    // Token being bought
             "amount": number | 0,               // Amount to swap
-            "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Please ensure all details are correct before proceeding with the swap to prevent any losses."
-            "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
+
         }
     - Use null for any values that cannot be determined.
     - All property names must use double quotes
@@ -94,12 +93,12 @@ export const executeSwap: Action = {
         }
         try {
             await callback({
-               text:content.responseMessage,
+               text:`Please ensure all details are correct before proceeding with the swap to prevent any losses.`,
                action:"SUI_EXECUTE_SWAP_BY_SYMBOL",
                result: {
                     type: "swap",
                     data: responseData,
-                    action_hint:getActionHint(content.actionHintText)
+                    action_hint:getActionHint()
                 }
             })
             return true;

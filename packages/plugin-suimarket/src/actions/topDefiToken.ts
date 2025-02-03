@@ -21,9 +21,7 @@ const topDefiTemplate = `Respond with a JSON markdown block containing only the 
 Example response:
 \`\`\`json
 {
-    size:5,
-    "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Here are the top DeFi tokens:"
-    "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
+    size:5
 }
 \`\`\`
 {{recentMessages}}
@@ -101,12 +99,12 @@ export const topDefi: Action = {
         try {
 
             callback({
-               text:`${content.responseMessage}`,
+               text:`Here are the top DeFi tokens:`,
                action:"TOP_DEFI",
                result: {
                 type: "top_token",
                 data: dataResponse.slice(0, content.size),
-                action_hint:getActionHint(content.actionHintText)
+                action_hint:getActionHint()
             }
             })
 

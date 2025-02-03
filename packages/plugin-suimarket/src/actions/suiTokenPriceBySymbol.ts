@@ -25,8 +25,6 @@ Example response:
     \`\`\`json
     {
         "token_symbol": "CRAFT",
-        "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Here are the token prices:"
-        "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
     }
     \`\`\`
 {{recentMessages}}
@@ -107,7 +105,7 @@ export const suiTokenPriceBySymbol: Action = {
         console.log(info)
         if (callback) {
             callback({
-                text: content.responseMessage,
+                text: `Here are the token prices:`,
                 action: 'TOKEN_PRICE_INFO_BY_SYMBOL',
                 result: {
                     type: "token_price",
@@ -118,7 +116,7 @@ export const suiTokenPriceBySymbol: Action = {
                         price: info.tokenPrice,
                         icon_url: info.iconUrl,
                     },
-                    action_hint:getActionHint(content.actionHintText)
+                    action_hint:getActionHint()
                 }
             });
         }

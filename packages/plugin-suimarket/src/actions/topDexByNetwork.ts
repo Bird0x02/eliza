@@ -138,7 +138,7 @@ export const topDexInfo: Action = {
                         type: "top_dex",
                         data:responseData,
                     },
-                    action_hint:getActionHint(content.actionHintText)
+                    action_hint:getActionHint()
                 });
 
 

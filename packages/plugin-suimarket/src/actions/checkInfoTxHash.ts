@@ -13,28 +13,16 @@ import {
 import getTransactionInfo from "../providers/checkTxHash";
 import getActionHint from "../utils/action_hint";
 const checkTxHashTemplate = `Please extract the following swap details for SUI network:
-
 {
     "txHash": string  | null,                // txHash is transaction block on sui network
-    "responseMessage": string,        // Flexible message to the user, translated into the user's language, e.g., "Your transaction status for txhash {txHash} is {status}."
-    "actionHintText": string          // Flexible message to the user, translated into the user's language, e.g., "Do you need any further assistance? Please let me know!"
 }
-
 Recent messages: {{recentMessages}}
-
 Retrieve and return the transaction details using the given txHash. The response should be a JSON object with the specified field. If the txHash is unavailable or invalid, return null.
-
-Example response:
-{
-    "txHash": "3JKomKRrX1cWeHiy4KHDcHMY66b2MyAdrMJqy2E5AV1D"
-}
-\`\`\`
-VALIDATION RULES:
-            All property names must use double quotes
-            All string values must use double quotes
-            null values should not use quotes
-            No trailing commas allowed
-            No single quotes anywhere in the JSON
+All property names must use double quotes
+All string values must use double quotes
+null values should not use quotes
+No trailing commas allowed
+No single quotes anywhere in the JSON
 
 
 `;
@@ -97,14 +85,14 @@ export const checkTxhashOnSui: Action = {
                result: {
                 type: "info_txhash",
                 data: checkInfoTxHash,
-                action_hint:getActionHint(content.actionHintText)
+                action_hint:getActionHint()
 
             }
             })
             return true;
         } catch (error) {
             callback({
-                text: content.responseMessage,
+                text: `Your transaction status for txhash ${content.txHash} is fail`,
                 action:"CHECK_TXHASH_SUI_NETWORK",
                 action_hint:{
                     text: content.actionHintText,
