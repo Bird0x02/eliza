@@ -33,7 +33,7 @@ const suimarketPlugin: Plugin = {
     topNftInfos
 ],
   evaluators: [],
-  providers: [cronTopDexProvider]
+  providers: []
 };
 
 export default suimarketPlugin;

@@ -185,7 +185,7 @@ export class DirectClient {
             "/:agentId/message",
             upload.single("file"),
             async (req: express.Request, res: express.Response) => {
-                elizaLogger.log("Validate ...");
+                elizaLogger.info("Validate ...");
                 const agentId = req.params.agentId;
                 const roomId = stringToUuid(
                     req.body.roomId ?? "default-room-" + agentId
@@ -261,31 +261,32 @@ export class DirectClient {
                     content,
                     createdAt: Date.now(),
                 };
-                elizaLogger.log("---msg sniffer start ----");
-                elizaLogger.log(JSON.stringify(memory));
-                elizaLogger.log("---msg sniffer end ----");
+                elizaLogger.info("---msg sniffer start ----");
+                elizaLogger.info(JSON.stringify(memory));
+                elizaLogger.info("---msg sniffer end ----");
 
-                elizaLogger.log("Validate ... done!");
+                elizaLogger.info("Validate ... done!");
 
-                elizaLogger.log("addEmbeddingToMemory...");
+                elizaLogger.info("addEmbeddingToMemory...");
                 await runtime.messageManager.addEmbeddingToMemory(memory);
-                elizaLogger.log("addEmbeddingToMemory ...done!");
+                elizaLogger.info("addEmbeddingToMemory ...done!");
 
-                elizaLogger.log("createMemory ...");
+                elizaLogger.info("createMemory ...");
                 await runtime.messageManager.createMemory(memory);
-                elizaLogger.log("createMemory ...done!");
+                elizaLogger.info("createMemory ...done!");
 
-                elizaLogger.log("ai compose state ...");
+                elizaLogger.info("ai compose state ...");
                 let state = await runtime.composeState(userMessage, {
                     agentName: runtime.character.name,
                 });
-                elizaLogger.log("ai compose state ...done!");
+                elizaLogger.info(state);
+                elizaLogger.info("ai compose state ...done!");
 
                 let msgHash = hashUserMsg(userMessage, "direct_client:");
                 let response: Content = await runtime.cacheManager.get(msgHash);
 
                 if(!response){
-                    elizaLogger.log("ai compose response ...");
+                    elizaLogger.info("ai compose response ...");
                     const context = composeContext({
                         state,
                         template: messageHandlerTemplate,
@@ -296,7 +297,7 @@ export class DirectClient {
                         context,
                         modelClass: ModelClass.SMALL,
                     });
-                    elizaLogger.log("ai compose response ...done!");
+                    elizaLogger.info("ai compose response ...done!");
 
                     if (!response) {
                         res.status(500).send(
@@ -305,11 +306,11 @@ export class DirectClient {
                         return;
                     }
 
-                    elizaLogger.log("set cache >>>>", msgHash, response);
+                    elizaLogger.info("set cache >>>>", msgHash, response);
                     await runtime.cacheManager.set(msgHash, response, {expires: Date.now() + 300000});
                 }
                 else{
-                    elizaLogger.log("[direct-client] use cache: ", msgHash, response);
+                    elizaLogger.info("[direct-client] use cache: ", msgHash, response);
                 }
 
                 const responseMessage: Memory = {
@@ -324,7 +325,7 @@ export class DirectClient {
 
                 state = await runtime.updateRecentMessageState(state);
 
-                elizaLogger.log("process actions...");
+                elizaLogger.info("process actions...");
                 let message = null as Content | null;
                 await runtime.processActions(
                     memory,
@@ -335,11 +336,11 @@ export class DirectClient {
                         return [memory];
                     }
                 );
-                elizaLogger.log("process actions...done!");
+                elizaLogger.info("process actions...done!");
 
-                elizaLogger.log("evaluate...");
+                elizaLogger.info("evaluate...");
                 await runtime.evaluate(memory, state);
-                elizaLogger.log("evaluate...done!");
+                elizaLogger.info("evaluate...done!");
 
                 // Check if we should suppress the initial message
                 const action = runtime.actions.find(

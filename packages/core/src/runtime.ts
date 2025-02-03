@@ -1250,9 +1250,8 @@ export class AgentRuntime implements IAgentRuntime {
         additionalKeys: { [key: string]: unknown } = {},
     ) {
         const { userId, roomId } = message;
-
+        elizaLogger.info("initStated->start")
         // const conversationLength = this.getConversationLength();
-
         const [actorsData, recentMessagesData, goalsData]: [
             Actor[],
             Memory[],
@@ -1272,6 +1271,7 @@ export class AgentRuntime implements IAgentRuntime {
                 roomId,
             }),
         ]);
+
         const goals = formatGoalsAsString({ goals: goalsData });
 
         const actors = formatActors({ actors: actorsData ?? [] });
@@ -1294,11 +1294,13 @@ export class AgentRuntime implements IAgentRuntime {
         )?.name;
 
         // TODO: We may wish to consolidate and just accept character.name here instead of the actor name
+
         const agentName =
             actorsData?.find((actor: Actor) => actor.id === this.agentId)
                 ?.name || this.character.name;
 
         let allAttachments = message.content.attachments || [];
+
 
         if (recentMessagesData && Array.isArray(recentMessagesData)) {
             const lastMessageWithAttachment = recentMessagesData.find(
@@ -1343,6 +1345,8 @@ Text: ${attachment.text}
         // randomly get 3 bits of lore and join them into a paragraph, divided by \n
         let lore = "";
         // Assuming this.lore is an array of lore bits
+
+        elizaLogger.info("shuffledLore->start");
         if (this.character.lore && this.character.lore.length > 0) {
             const shuffledLore = [...this.character.lore].sort(
                 () => Math.random() - 0.5,
@@ -1384,6 +1388,8 @@ Text: ${attachment.text}
             })
             .join("\n\n");
 
+
+
         const getRecentInteractions = async (
             userA: UUID,
             userB: UUID,
@@ -1401,12 +1407,10 @@ Text: ${attachment.text}
                 limit: 20,
             });
         };
-
         const recentInteractions =
             userId !== this.agentId
                 ? await getRecentInteractions(userId, this.agentId)
                 : [];
-
         const getRecentMessageInteractions = async (
             recentInteractionsData: Memory[],
         ): Promise<string> => {
@@ -1433,6 +1437,7 @@ Text: ${attachment.text}
 
         const formattedMessageInteractions =
             await getRecentMessageInteractions(recentInteractions);
+
 
         const getRecentPostInteractions = async (
             recentInteractionsData: Memory[],
@@ -1632,11 +1637,11 @@ Text: ${attachment.text}
         const actionPromises = this.actions.map(async (action: Action) => {
             const result = await action.validate(this, message, initialState);
             if (result) {
+
                 return action;
             }
             return null;
         });
-
         const evaluatorPromises = this.evaluators.map(async (evaluator) => {
             const result = await evaluator.validate(
                 this,
@@ -1644,11 +1649,11 @@ Text: ${attachment.text}
                 initialState,
             );
             if (result) {
+
                 return evaluator;
             }
             return null;
         });
-
         const [resolvedEvaluators, resolvedActions, providers] =
             await Promise.all([
                 Promise.all(evaluatorPromises),
@@ -1696,7 +1701,6 @@ Text: ${attachment.text}
                 providers,
             ),
         };
-
         return { ...initialState, ...actionState } as State;
     }
 
