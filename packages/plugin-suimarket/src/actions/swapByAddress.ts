@@ -12,6 +12,7 @@ import {
 } from "@elizaos/core";
 import getInfoTokenOnSui from "../providers/coinMetaDataSui";
 import { getTokenOnSuiScan } from "../providers/getInfoCoinOnSuiScan";
+import getActionHint from "../utils/action_hint";
 // import { RedisClient } from "@elizaos/adapter-redis";
 const swapTemplate = `Please extract the following swap details for SUI network:
 {
@@ -112,27 +113,7 @@ export const executeSwapByAddress: Action = {
                result: {
                 type: "swap",
                 data:responseData,
-                action_hint:{
-                    text: content.actionHintText,
-                    actions:[
-                        {
-                            type:"button_buy",
-                            text:"Buy ROCK",
-                            data:{
-                                type:"0xb4bc93ad1a07fe47943fc4d776fed31ce31923acb5bc9f92d2cab14d01fc06a4::ROCK::ROCK",
-                                icon_url:"https://rockee.ai/images/logo.png"
-                            }
-                        },
-                        {
-                            type:"button_buy",
-                            text:"Buy SUI",
-                            data:{
-                                type:"0xb4bc93ad1a07fe47943fc4d776fed31ce31923acb5bc9f92d2cab14d01fc06a4::ROCK::ROCK",
-                                icon_url:"https://strapi-dev.scand.app/uploads/sui_c07df05f00.png"
-                            }
-                        },
-                    ]
-                }
+                action_hint:getActionHint(content.actionHintText)
 
             }
             })

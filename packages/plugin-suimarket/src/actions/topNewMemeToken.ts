@@ -10,6 +10,7 @@ import {
 } from "@elizaos/core";
 import { generateObjectDeprecated } from "@elizaos/core";
 import { CoingeckoProvider } from "../providers/coingeckoProvider";
+import getActionHint from "../utils/action_hint";
 const trendingPromptTemplate = `Respond with a JSON markdown block containing only the extracted values. Use null for any values that cannot be determined.
 Example response:
 \`\`\`json
@@ -84,27 +85,7 @@ export const topNewMemeToken: Action = {
                     type: "sui_new_meme_coin",
                     data:info.slice(0,content.size)
                 },
-                action_hint:{
-                    text: content.actionHintText,
-                    actions:[
-                        {
-                            type:"button_buy",
-                            text:"Buy ROCK",
-                            data:{
-                                type:"0xb4bc93ad1a07fe47943fc4d776fed31ce31923acb5bc9f92d2cab14d01fc06a4::ROCK::ROCK",
-                                icon_url:"https://rockee.ai/images/logo.png"
-                            }
-                        },
-                        {
-                            type:"button_buy",
-                            text:"Buy Sui",
-                            data:{
-                                type:"0xb4bc93ad1a07fe47943fc4d776fed31ce31923acb5bc9f92d2cab14d01fc06a4::ROCK::ROCK",
-                                icon_url:"https://strapi-dev.scand.app/uploads/sui_c07df05f00.png"
-                            }
-                        },
-                    ]
-                }
+                action_hint:getActionHint(content.actionHintText)
             });
         }
 
