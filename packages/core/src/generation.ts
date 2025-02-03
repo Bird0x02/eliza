@@ -1591,7 +1591,7 @@ export async function generateMessageResponse({
     let retryLength = 1000; // exponential backoff
     while (true) {
         try {
-            elizaLogger.log("Generating message response...");
+            elizaLogger.info("Generating message response...");
 
             const response = await generateText({
                 runtime,
@@ -1599,12 +1599,12 @@ export async function generateMessageResponse({
                 modelClass,
             });
 
-            elizaLogger.log("Generating message response...done!");
+            elizaLogger.info("Generating message response...done!");
 
             // try parsing the response as JSON, if null then try again
             const parsedContent = parseJSONObjectFromText(response) as Content;
             if (!parsedContent) {
-                elizaLogger.debug("parsedContent is null, retrying");
+                elizaLogger.warn("parsedContent is null, retrying");
                 continue;
             }
 

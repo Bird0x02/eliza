@@ -66,7 +66,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-export const messageHandlerTemplate =
+export const messageHandlerTemplate0 =
     // {{goals}}
     `# Action Examples
 {{actionExamples}}
@@ -88,6 +88,26 @@ About {{agentName}}:
 Note that {{agentName}} is capable of reading/seeing/hearing various forms of media, including images, videos, audio, plaintext and PDFs. Recent attachments have been included above under the "Attachments" section.
 
 {{messageDirections}}
+
+{{recentMessages}}
+
+{{actions}}
+
+# Instructions: Write the next message for {{agentName}}.
+
+` + messageCompletionFooter;
+
+
+export const messageHandlerTemplate =
+    // {{goals}}
+    `# Knowledge
+{{knowledge}}
+
+# Task: Generate dialog and actions for the character {{agentName}}.
+About {{agentName}}:
+
+# Capabilities
+Note that {{agentName}} is capable of reading/seeing/hearing plaintext only.
 
 {{recentMessages}}
 
@@ -291,7 +311,11 @@ export class DirectClient {
                         state,
                         template: messageHandlerTemplate,
                     });
-                    // console.log("context: ",context)
+                    elizaLogger.info("ai compose response ...done!");
+
+                    console.info(">>> context: ",context)
+
+                    elizaLogger.info("ai compose response ...");
                     response = await generateMessageResponse({
                         runtime: runtime,
                         context,
