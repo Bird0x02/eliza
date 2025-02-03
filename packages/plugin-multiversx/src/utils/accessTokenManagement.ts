@@ -5,8 +5,8 @@ export function isUserAuthorized(
     runtime: IAgentRuntime
 ): boolean {
     const authorizedUserId = runtime.getSetting("ACCESS_TOKEN_MANAGEMENT_TO");
-    elizaLogger.log("UserID from message:", userId);
-    elizaLogger.log("Authorized UserID:", authorizedUserId);
+    elizaLogger.info("UserID from message:", userId);
+    elizaLogger.info("Authorized UserID:", authorizedUserId);
     if (authorizedUserId === "everyone") {
         return true;
     }

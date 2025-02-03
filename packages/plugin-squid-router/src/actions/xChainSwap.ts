@@ -44,7 +44,7 @@ export const xChainSwapAction = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting X_CHAIN_SWAP handler...");
+        elizaLogger.info("Starting X_CHAIN_SWAP handler...");
 
         let currentState = state; // Create new variable
         if (!currentState) {
@@ -70,7 +70,7 @@ export const xChainSwapAction = {
             content.toAddress = runtime.getSetting("SQUID_EVM_ADDRESS");
         }
 
-        elizaLogger.log("swap content: ",JSON.stringify(content));
+        elizaLogger.info("swap content: ",JSON.stringify(content));
 
         // Validate transfer content
         if (!isXChainSwapContent(content)) {
@@ -165,7 +165,7 @@ export const xChainSwapAction = {
 
             // Show the transaction receipt with Axelarscan link
             const axelarScanLink = `https://axelarscan.io/gmp/${txReceipt.hash}`; // Fix: Use template literal
-            elizaLogger.log(`Finished! Check Axelarscan for details: ${axelarScanLink}`);
+            elizaLogger.info(`Finished! Check Axelarscan for details: ${axelarScanLink}`);
 
             if (callback) {
                 callback({

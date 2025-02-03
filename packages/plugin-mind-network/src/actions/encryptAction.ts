@@ -44,7 +44,7 @@ export const encryptAction: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Mind Network MIND_FHE_ENCRYPT handler...");
+        elizaLogger.info("Starting Mind Network MIND_FHE_ENCRYPT handler...");
         const resolvedState = state
             ? await runtime.updateRecentMessageState(state)
             : (await runtime.composeState(message)) as State;
@@ -53,8 +53,8 @@ export const encryptAction: Action = {
             state: resolvedState,
             template: dataExtractionTemplate,
         });
-        elizaLogger.log("Data context:", dataContext);
-        
+        elizaLogger.info("Data context:", dataContext);
+
         const content = (
             await generateObject({
                 runtime,

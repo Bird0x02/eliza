@@ -85,16 +85,16 @@ export const executeSwap = async (
             "confirmed"
         );
         if (confirmation.value.err) {
-            elizaLogger.log("Confirmation error", confirmation.value.err);
+            elizaLogger.info("Confirmation error", confirmation.value.err);
 
             throw new Error("Confirmation error");
         } else {
             if (type === "buy") {
-                elizaLogger.log(
+                elizaLogger.info(
                     "Buy successful: https://solscan.io/tx/${signature}"
                 );
             } else {
-                elizaLogger.log(
+                elizaLogger.info(
                     "Sell successful: https://solscan.io/tx/${signature}"
                 );
             }
@@ -102,7 +102,7 @@ export const executeSwap = async (
 
         return signature;
     } catch (error) {
-        elizaLogger.log(error);
+        elizaLogger.info(error);
     }
 };
 
@@ -120,7 +120,7 @@ export const Sell = async (baseMint: PublicKey, wallet: Keypair) => {
             );
 
         if (!tokenBalInfo) {
-            elizaLogger.log("Balance incorrect");
+            elizaLogger.info("Balance incorrect");
             return null;
         }
 
@@ -139,7 +139,7 @@ export const Sell = async (baseMint: PublicKey, wallet: Keypair) => {
         );
         // simulate the transaction
         if (!sellTransaction) {
-            elizaLogger.log("Failed to get sell transaction");
+            elizaLogger.info("Failed to get sell transaction");
             return null;
         }
 
@@ -149,14 +149,14 @@ export const Sell = async (baseMint: PublicKey, wallet: Keypair) => {
                 sellTransaction
             );
         if (simulateResult.value.err) {
-            elizaLogger.log("Sell Simulation failed", simulateResult.value.err);
+            elizaLogger.info("Sell Simulation failed", simulateResult.value.err);
             return null;
         }
 
         // execute the transaction
         return executeSwap(sellTransaction, "sell");
     } catch (error) {
-        elizaLogger.log(error);
+        elizaLogger.info(error);
     }
 };
 
@@ -174,7 +174,7 @@ export const Buy = async (baseMint: PublicKey, wallet: Keypair) => {
             );
 
         if (!tokenBalInfo) {
-            elizaLogger.log("Balance incorrect");
+            elizaLogger.info("Balance incorrect");
             return null;
         }
 
@@ -193,7 +193,7 @@ export const Buy = async (baseMint: PublicKey, wallet: Keypair) => {
         );
         // simulate the transaction
         if (!buyTransaction) {
-            elizaLogger.log("Failed to get buy transaction");
+            elizaLogger.info("Failed to get buy transaction");
             return null;
         }
 
@@ -203,14 +203,14 @@ export const Buy = async (baseMint: PublicKey, wallet: Keypair) => {
                 buyTransaction
             );
         if (simulateResult.value.err) {
-            elizaLogger.log("Buy Simulation failed", simulateResult.value.err);
+            elizaLogger.info("Buy Simulation failed", simulateResult.value.err);
             return null;
         }
 
         // execute the transaction
         return executeSwap(buyTransaction, "buy");
     } catch (error) {
-        elizaLogger.log(error);
+        elizaLogger.info(error);
     }
 };
 
@@ -230,7 +230,7 @@ export const getSwapTxWithWithJupiter = async (
                 return fetchSellTransaction(wallet, baseMint, amount);
         }
     } catch (error) {
-        elizaLogger.log(error);
+        elizaLogger.info(error);
     }
 };
 
@@ -261,7 +261,7 @@ export const fetchBuyTransaction = async (
             })
         ).json();
         if (!swapTransaction) {
-            elizaLogger.log("Failed to get buy transaction");
+            elizaLogger.info("Failed to get buy transaction");
             return null;
         }
 
@@ -274,7 +274,7 @@ export const fetchBuyTransaction = async (
         transaction.sign([wallet]);
         return transaction;
     } catch (error) {
-        elizaLogger.log("Failed to get buy transaction", error);
+        elizaLogger.info("Failed to get buy transaction", error);
         return null;
     }
 };
@@ -308,7 +308,7 @@ export const fetchSellTransaction = async (
             })
         ).json();
         if (!swapTransaction) {
-            elizaLogger.log("Failed to get sell transaction");
+            elizaLogger.info("Failed to get sell transaction");
             return null;
         }
 
@@ -321,7 +321,7 @@ export const fetchSellTransaction = async (
         transaction.sign([wallet]);
         return transaction;
     } catch (error) {
-        elizaLogger.log("Failed to get sell transaction", error);
+        elizaLogger.info("Failed to get sell transaction", error);
         return null;
     }
 };

@@ -112,7 +112,7 @@ export class WalletProvider {
         const cacheKey = `walletBalance_${this.currentChain}`;
         const cachedData = await this.getCachedData<string>(cacheKey);
         if (cachedData) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Returning cached wallet balance for chain: ${this.currentChain}`
             );
             return cachedData;
@@ -125,7 +125,7 @@ export class WalletProvider {
             });
             const balanceFormatted = formatUnits(balance, 18);
             this.setCachedData<string>(cacheKey, balanceFormatted);
-            elizaLogger.log(
+            elizaLogger.info(
                 "Wallet balance cached for chain: ",
                 this.currentChain
             );

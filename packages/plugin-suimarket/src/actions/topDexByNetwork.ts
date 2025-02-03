@@ -62,7 +62,7 @@ export const topDexInfo: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[tokenInfo]");
+        elizaLogger.info("[tokenInfo]");
         const redis = new RedisClient(process.env.REDIS_URL)
         if (!state) {
             state = (await runtime.composeState(message)) as State;

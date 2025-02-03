@@ -33,7 +33,7 @@ function isTransferContent(
     runtime: IAgentRuntime,
     content: any
 ): content is TransferContent {
-    elizaLogger.log("Content for transfer", content);
+    elizaLogger.info("Content for transfer", content);
     return (
         typeof content.tokenAddress === "string" &&
         typeof content.recipient === "string" &&
@@ -68,7 +68,7 @@ export default {
     similes: ["TRANSFER_TOKEN", "TRANSFER_TOKENS", "SEND_TOKENS", "PAY_TOKEN", "PAY_TOKENS", "PAY"],
     validate: async (runtime: IAgentRuntime, message: Memory) => {
         // Always return true for token transfers, letting the handler deal with specifics
-        elizaLogger.log("Validating token transfer from user:", message.userId);
+        elizaLogger.info("Validating token transfer from user:", message.userId);
         return true;
     },
     description: "Transfer SPL tokens from agent's wallet to another address",
@@ -79,7 +79,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;

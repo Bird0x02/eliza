@@ -101,9 +101,9 @@ export class SqlJsDatabaseAdapter
 
         const stmt = this.db.prepare(sql);
 
-        elizaLogger.log({ queryParams });
+        elizaLogger.info({ queryParams });
         stmt.bind(queryParams);
-        elizaLogger.log({ queryParams });
+        elizaLogger.info({ queryParams });
 
         const memories: Memory[] = [];
         while (stmt.step()) {

@@ -56,7 +56,7 @@ export default {
     similes: ["TRANSFER_SOL", "PAY_SOL", "TRANSACT_SOL"],
     validate: async (runtime: IAgentRuntime, message: Memory) => {
         // Always return true for SOL transfers, letting the handler deal with specifics
-        elizaLogger.log("Validating SOL transfer from user:", message.userId);
+        elizaLogger.info("Validating SOL transfer from user:", message.userId);
         return true;
     },
     description: "Transfer native SOL from agent's wallet to specified address",
@@ -67,7 +67,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_SOL handler...");
+        elizaLogger.info("Starting SEND_SOL handler...");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;

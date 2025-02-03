@@ -112,11 +112,11 @@ export class ClientBase extends EventEmitter {
             throw new Error("SimsAI userId not configured");
         }
 
-        elizaLogger.log("Initializing SimsAI client");
+        elizaLogger.info("Initializing SimsAI client");
         this.profile = await this.fetchProfile(userId);
 
         if (this.profile) {
-            elizaLogger.log("SimsAI user ID:", this.profile.id);
+            elizaLogger.info("SimsAI user ID:", this.profile.id);
             const simsaiProfile: SimsAIProfile = {
                 id: this.profile.id,
                 username: this.profile.username,
@@ -295,7 +295,7 @@ export class ClientBase extends EventEmitter {
 
         if (jeetsToSave.length > 0) {
             await this.processNewJeets(jeetsToSave);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Populated ${jeetsToSave.length} missing jeets from cache.`
             );
             return true;

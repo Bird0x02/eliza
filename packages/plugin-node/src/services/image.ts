@@ -123,7 +123,7 @@ class LocalImageProvider implements ImageProvider {
         const prompts = this.processor.construct_prompts("<DETAILED_CAPTION>");
         const textInputs = this.tokenizer(prompts);
 
-        elizaLogger.log("Generating image description");
+        elizaLogger.info("Generating image description");
         const generatedIds = (await this.model.generate({
             ...textInputs,
             ...visionInputs,
@@ -342,7 +342,7 @@ export class ImageDescriptionService
     }
 
     async initialize(runtime: IAgentRuntime): Promise<void> {
-        elizaLogger.log("Initializing ImageDescriptionService");
+        elizaLogger.info("Initializing ImageDescriptionService");
         this.runtime = runtime;
     }
 

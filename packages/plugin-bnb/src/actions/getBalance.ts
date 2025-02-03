@@ -142,7 +142,7 @@ export const getBalanceAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting getBalance action...");
+        elizaLogger.info("Starting getBalance action...");
 
         // Initialize or update state
         let currentState = state;

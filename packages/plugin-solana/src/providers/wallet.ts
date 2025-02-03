@@ -120,10 +120,10 @@ export class WalletProvider {
             const cachedValue = this.cache.get<WalletPortfolio>(cacheKey);
 
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetchPortfolioValue");
+                elizaLogger.info("Cache hit for fetchPortfolioValue");
                 return cachedValue;
             }
-            elizaLogger.log("Cache miss for fetchPortfolioValue");
+            elizaLogger.info("Cache miss for fetchPortfolioValue");
 
             // Check if Birdeye API key is available
             const birdeyeApiKey = runtime.getSetting("BIRDEYE_API_KEY");
@@ -207,10 +207,10 @@ export class WalletProvider {
             const cachedValue = await this.cache.get<WalletPortfolio>(cacheKey);
 
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetchPortfolioValue");
+                elizaLogger.info("Cache hit for fetchPortfolioValue");
                 return cachedValue;
             }
-            elizaLogger.log("Cache miss for fetchPortfolioValue");
+            elizaLogger.info("Cache miss for fetchPortfolioValue");
 
             const query = `
               query Balances($walletId: String!, $cursor: String) {
@@ -304,10 +304,10 @@ export class WalletProvider {
             const cachedValue = this.cache.get<Prices>(cacheKey);
 
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetchPrices");
+                elizaLogger.info("Cache hit for fetchPrices");
                 return cachedValue;
             }
-            elizaLogger.log("Cache miss for fetchPrices");
+            elizaLogger.info("Cache miss for fetchPrices");
 
             const { SOL, BTC, ETH } = PROVIDER_CONFIG.TOKEN_ADDRESSES;
             const tokens = [SOL, BTC, ETH];

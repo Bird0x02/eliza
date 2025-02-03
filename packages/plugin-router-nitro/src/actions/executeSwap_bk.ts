@@ -45,7 +45,7 @@ export const executeSwapAction = {
         callback?: HandlerCallback
     ): Promise<boolean> => {
         console.log("Starting ROUTER_NITRO_SWAP handler...");
-        elizaLogger.log("Starting ROUTER_NITRO_SWAP handler...");
+        elizaLogger.info("Starting ROUTER_NITRO_SWAP handler...");
 
         // Initialize or update state
         let updatedState = state;
@@ -66,7 +66,7 @@ export const executeSwapAction = {
             modelClass: ModelClass.LARGE,
         });
         console.log("content: ", content);
-        elizaLogger.log("swap content: ", JSON.stringify(content));
+        elizaLogger.info("swap content: ", JSON.stringify(content));
 
         if (content.toAddress === null || !(typeof content.toAddress === "string" && content.toAddress.startsWith("0x") && content.toAddress.length === 42)) {
             content.toAddress = runtime.getSetting("ROUTER_NITRO_EVM_ADDRESS");
@@ -78,7 +78,7 @@ export const executeSwapAction = {
             const apiResponse = await fetchChains();
             const chainUtils = new ChainUtils(apiResponse);
             const swapDetails = chainUtils.processChainSwap(fromChain, toChain);
-            elizaLogger.log(`Chain Data Details: ${JSON.stringify(swapDetails)}`);
+            elizaLogger.info(`Chain Data Details: ${JSON.stringify(swapDetails)}`);
 
             const privateKey = runtime.getSetting("ROUTER_NITRO_EVM_PRIVATE_KEY");
             if (!privateKey) {
@@ -90,13 +90,13 @@ export const executeSwapAction = {
             const address = await wallet.getAddress();
 
             if (!swapDetails.fromChainId || !swapDetails.toChainId) {
-                elizaLogger.log("Invalid chain data details");
+                elizaLogger.info("Invalid chain data details");
                 return false;
             }
             else {
                 const fromTokenConfig = await fetchTokenConfig(Number(swapDetails.fromChainId), fromToken);
                 const toTokenConfig = await fetchTokenConfig(Number(swapDetails.toChainId), toToken);
-                
+
                 let amountIn = BigInt(Math.floor(Number(amount) * 10 ** fromTokenConfig.decimals));
 
                 console.log(`Amount to swap: ${amountIn}`);
@@ -104,7 +104,7 @@ export const executeSwapAction = {
                 if (fromTokenConfig.address.toLowerCase() === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") {
                     const userBalance = await checkNativeTokenBalance(wallet, fromTokenConfig.decimals);
            if (BigInt(userBalance) < amountIn) {
-                        elizaLogger.log("Insufficient balance to perform the swap");
+                        elizaLogger.info("Insufficient balance to perform the swap");
                         callback?.({ text: "Insufficient balance to perform the swap" });
                         return false;
                     }
@@ -112,7 +112,7 @@ export const executeSwapAction = {
                 else {
                     const userBalance = await checkUserBalance(wallet, fromTokenConfig.address, fromTokenConfig.decimals);
            if (BigInt(userBalance) < amountIn) {
-                        elizaLogger.log("Insufficient balance to perform the swap");
+                        elizaLogger.info("Insufficient balance to perform the swap");
                         callback?.({ text: "Insufficient balance to perform the swap" });
                         return false;
                     }
@@ -121,7 +121,7 @@ export const executeSwapAction = {
                 const pathfinderParams = {
                     fromTokenAddress: fromTokenConfig.address,
                     toTokenAddress: toTokenConfig.address,
-                    amount: (amountIn).toString(), 
+                    amount: (amountIn).toString(),
                     fromTokenChainId: Number(swapDetails.fromChainId),
                     toTokenChainId: Number(swapDetails.toChainId),
                     partnerId: 127,
@@ -134,7 +134,7 @@ export const executeSwapAction = {
                     const decimals = 10 ** destinationData.asset.decimals;
                     // const decimals = Math.pow(10, destinationData.asset.decimals);
                     const normalizedAmountOut = Number(amountOut) / decimals;
-                    elizaLogger.log(`Quote: ${normalizedAmountOut}`);
+                    elizaLogger.info(`Quote: ${normalizedAmountOut}`);
 
                      await checkAndSetAllowance(
                          wallet,
@@ -150,7 +150,7 @@ export const executeSwapAction = {
                         const blockExplorerUrl = getBlockExplorerFromChainId(swapDetails.fromChainId).url;
                         if (blockExplorerUrl) {
                             const txExplorerUrl = `${blockExplorerUrl}/tx/${tx.hash}`;
-                            elizaLogger.log(`Transaction Explorer URL: ${txExplorerUrl}`);
+                            elizaLogger.info(`Transaction Explorer URL: ${txExplorerUrl}`);
                             callback?.({
                                 text: `Swap completed successfully! Txn: ${txExplorerUrl}`,
                             });
@@ -168,7 +168,7 @@ export const executeSwapAction = {
                 }
             }
         } catch (error) {
-            elizaLogger.log(`Error during executing swap: ${error.message}`);
+            elizaLogger.info(`Error during executing swap: ${error.message}`);
             callback?.({ text: `Error during swap: ${error.message}` });
             return false;
         }

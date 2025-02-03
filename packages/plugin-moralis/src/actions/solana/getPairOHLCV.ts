@@ -37,7 +37,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Moralis GET_SOLANA_PAIR_OHLCV handler...");
+        elizaLogger.info("Starting Moralis GET_SOLANA_PAIR_OHLCV handler...");
 
         // Initialize or update state
         let currentState: State;
@@ -48,13 +48,13 @@ export default {
         }
 
         try {
-            elizaLogger.log("Composing OHLCV request context...");
+            elizaLogger.info("Composing OHLCV request context...");
             const ohlcvContext = composeContext({
                 state: currentState,
                 template: getPairOHLCVTemplate,
             });
 
-            elizaLogger.log("Extracting OHLCV parameters...");
+            elizaLogger.info("Extracting OHLCV parameters...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: ohlcvContext,
@@ -89,11 +89,11 @@ export default {
                 limit: content.limit || 168, // Default to 1 week of hourly data
             };
 
-            elizaLogger.log("Request params:", params);
+            elizaLogger.info("Request params:", params);
 
             const config = await validateMoralisConfig(runtime);
             const url = `${SOLANA_API_BASE_URL}${API_ENDPOINTS.SOLANA.PAIR_OHLCV(content.pairAddress)}`;
-            elizaLogger.log(`Making request to: ${url}`);
+            elizaLogger.info(`Making request to: ${url}`);
 
             const response = await axios.get<OHLCVResponse>(url, {
                 params,
@@ -103,7 +103,7 @@ export default {
                 },
             });
 
-            elizaLogger.log("API Response:", response.data);
+            elizaLogger.info("API Response:", response.data);
 
             if (!response.data.result || !Array.isArray(response.data.result)) {
                 throw new Error("Invalid response format from API");

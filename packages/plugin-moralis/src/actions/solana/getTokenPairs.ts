@@ -36,7 +36,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Moralis GET_SOLANA_TOKEN_PAIRS handler...");
+        elizaLogger.info("Starting Moralis GET_SOLANA_TOKEN_PAIRS handler...");
 
         // Initialize or update state
         let currentState: State;
@@ -47,13 +47,13 @@ export default {
         }
 
         try {
-            elizaLogger.log("Composing token pairs context...");
+            elizaLogger.info("Composing token pairs context...");
             const pairsContext = composeContext({
                 state: currentState,
                 template: getTokenPairsTemplate,
             });
 
-            elizaLogger.log("Extracting token address...");
+            elizaLogger.info("Extracting token address...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: pairsContext,
@@ -69,7 +69,7 @@ export default {
             }
 
             const config = await validateMoralisConfig(runtime);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Fetching Solana pairs for token ${content.tokenAddress}...`
             );
 

@@ -140,7 +140,7 @@ const buildCancelUnbondingContent = async (
     // } else {
     //     state = await runtime.updateRecentMessageState(state);
     // }
-    
+
     let currentState: State = state;
     if (!currentState) {
         currentState = (await runtime.composeState(message)) as State;
@@ -175,7 +175,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting CANCEL_UNBONDING handler...");
+        elizaLogger.info("Starting CANCEL_UNBONDING handler...");
 
         const cancelUnbondingContent = await buildCancelUnbondingContent(
             runtime,

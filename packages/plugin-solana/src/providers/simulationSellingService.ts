@@ -60,7 +60,7 @@ export class SimulationSellingService {
         try {
             this.amqpConnection = await amqp.connect(amqpUrl);
             this.amqpChannel = await this.amqpConnection.createChannel();
-            elizaLogger.log("Connected to RabbitMQ");
+            elizaLogger.info("Connected to RabbitMQ");
             // Start consuming messages
             this.consumeMessages();
         } catch (error) {
@@ -85,7 +85,7 @@ export class SimulationSellingService {
             },
             { noAck: false }
         );
-        elizaLogger.log(`Listening for messages on queue: ${queue}`);
+        elizaLogger.info(`Listening for messages on queue: ${queue}`);
     }
 
     /**
@@ -96,7 +96,7 @@ export class SimulationSellingService {
         try {
             const { tokenAddress, amount, sell_recommender_id } =
                 JSON.parse(message);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Received message for token ${tokenAddress} to sell ${amount}`
             );
 
@@ -127,7 +127,7 @@ export class SimulationSellingService {
         const tokenAddress = tokenPerformance.tokenAddress;
 
         try {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Executing sell for token ${tokenPerformance.symbol}: ${amountToSell}`
             );
 
@@ -153,7 +153,7 @@ export class SimulationSellingService {
                 tokenProvider
             );
 
-            elizaLogger.log(
+            elizaLogger.info(
                 "Sell order executed successfully",
                 sellDetailsData
             );
@@ -186,13 +186,13 @@ export class SimulationSellingService {
 
     public async startService() {
         // starting the service
-        elizaLogger.log("Starting SellingService...");
+        elizaLogger.info("Starting SellingService...");
         await this.startListeners();
     }
 
     public async startListeners() {
         // scanning recommendations and selling
-        elizaLogger.log("Scanning for token performances...");
+        elizaLogger.info("Scanning for token performances...");
         const tokenPerformances =
             await this.trustScoreDb.getAllTokenPerformancesWithBalance();
 
@@ -201,7 +201,7 @@ export class SimulationSellingService {
 
     private processTokenPerformances(tokenPerformances: TokenPerformance[]) {
         //  To Do: logic when to sell and how much
-        elizaLogger.log("Deciding when to sell and how much...");
+        elizaLogger.info("Deciding when to sell and how much...");
         const runningProcesses = this.runningProcesses;
         // remove running processes from tokenPerformances
         tokenPerformances = tokenPerformances.filter(
@@ -249,7 +249,7 @@ export class SimulationSellingService {
             const runningProcesses = this.runningProcesses;
             // check if token is already being processed
             if (runningProcesses.has(tokenAddress)) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Token ${tokenAddress} is already being processed`
                 );
                 return;
@@ -318,8 +318,8 @@ export class SimulationSellingService {
             }
 
             const result = await response.json();
-            elizaLogger.log("Received response:", result);
-            elizaLogger.log(`Sent message to process token ${tokenAddress}`);
+            elizaLogger.info("Received response:", result);
+            elizaLogger.info(`Sent message to process token ${tokenAddress}`);
 
             return result;
         } catch (error) {
@@ -442,7 +442,7 @@ export class SimulationSellingService {
     ): Promise<boolean> {
         const processedData: ProcessedTokenData =
             await tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -490,7 +490,7 @@ export class SimulationSellingService {
                     error
                 );
                 if (attempt < retries) {
-                    elizaLogger.log(`Retrying in ${delayMs} ms...`);
+                    elizaLogger.info(`Retrying in ${delayMs} ms...`);
                     await this.delay(delayMs); // Wait for the specified delay before retrying
                 } else {
                     elizaLogger.error("All attempts failed.");

@@ -24,7 +24,7 @@ function isStakeContent(
     runtime: IAgentRuntime,
     content: any
 ): content is StakeContent {
-    elizaLogger.log("Content for stake", content);
+    elizaLogger.info("Content for stake", content);
     return (
         typeof content.amount === "number"
     );
@@ -50,7 +50,7 @@ export default {
     name: STAKE_ACTION.name,
     similes: STAKE_ACTION.similes,
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating stake from user:", message.userId);
+        elizaLogger.info("Validating stake from user:", message.userId);
         return false;
     },
     description: STAKE_ACTION.description,
@@ -61,7 +61,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting STAKE handler...");
+        elizaLogger.info("Starting STAKE handler...");
         const sak = await getSAK(runtime);
 
         // Initialize or update state

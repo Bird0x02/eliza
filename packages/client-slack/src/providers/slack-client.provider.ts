@@ -35,7 +35,7 @@ export class SlackClientProvider {
 
             if (result.ok) {
                 this.config.botId = result.user_id || this.config.botId;
-                elizaLogger.log("Bot ID:", this.config.botId);
+                elizaLogger.info("Bot ID:", this.config.botId);
                 return true;
             }
             return false;

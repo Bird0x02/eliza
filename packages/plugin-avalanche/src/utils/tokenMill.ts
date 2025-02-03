@@ -147,7 +147,7 @@ export const createMarketAndToken = async (
 
     const walletClient = getWalletClient(runtime);
     const tx = await walletClient.writeContract(request);
-    elizaLogger.log("Transaction:", tx);
+    elizaLogger.info("Transaction:", tx);
 
     return {
         tx: tx,

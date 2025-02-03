@@ -58,7 +58,7 @@ export const chainInfo: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[tokenInfo]");
+        elizaLogger.info("[tokenInfo]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;

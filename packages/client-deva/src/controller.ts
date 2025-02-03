@@ -40,7 +40,7 @@ export class DevaController {
             throw new Error("❌ Deva Client failed to fetch Persona");
         }
 
-        elizaLogger.log(
+        elizaLogger.info(
             `✨ Deva Client successfully fetched Persona: ${this.persona.username} ID: ${this.persona.id}`
         );
     }
@@ -72,7 +72,7 @@ export class DevaController {
         );
 
         for (const post of notExistingPostsInMemory) {
-            elizaLogger.log("Saving Post", post.id);
+            elizaLogger.info("Saving Post", post.id);
 
             const roomId = stringToUuid(
                 post.in_reply_to_id + "-" + this.runtime.agentId
@@ -109,7 +109,7 @@ export class DevaController {
                 source: "deva",
             } as Content;
 
-            elizaLogger.log("Creating memory for post", post.id);
+            elizaLogger.info("Creating memory for post", post.id);
 
             // check if it already exists
             const memory = await this.runtime.messageManager.getMemoryById(
@@ -117,7 +117,7 @@ export class DevaController {
             );
 
             if (memory) {
-                elizaLogger.log(
+                elizaLogger.info(
                     "Memory already exists, skipping timeline population"
                 );
                 continue;
@@ -133,10 +133,10 @@ export class DevaController {
                 createdAt: new Date(post.created_at).getTime(),
             });
 
-            elizaLogger.log("Created memory for post", post.id);
+            elizaLogger.info("Created memory for post", post.id);
         }
 
-        elizaLogger.log(
+        elizaLogger.info(
             `✨ Deva Client successfully fetched Persona Posts: ${this.posts.length}`
         );
     }
@@ -181,11 +181,11 @@ export class DevaController {
             this.setupPostAwaiter();
         }, delay);
 
-        elizaLogger.log(`Next post scheduled in ${randomMinutes} minutes`);
+        elizaLogger.info(`Next post scheduled in ${randomMinutes} minutes`);
     }
 
     private async generateNewPost() {
-        elizaLogger.log("Generating new Deva Post");
+        elizaLogger.info("Generating new Deva Post");
 
         const roomId = stringToUuid(
             "deva_generate_room-" + this.persona.username
@@ -239,6 +239,6 @@ export class DevaController {
 
         console.log(newPostContent);
 
-        elizaLogger.log(`New Post published:\n ${newPostContent}`);
+        elizaLogger.info(`New Post published:\n ${newPostContent}`);
     }
 }

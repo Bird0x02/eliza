@@ -20,7 +20,7 @@ const generate3D = async (prompt: string, runtime: IAgentRuntime) => {
         FAL_CONSTANTS.API_KEY_SETTING || runtime.getSetting("FAL_API_KEY");
 
     try {
-        elizaLogger.log("Starting 3D generation with prompt:", prompt);
+        elizaLogger.info("Starting 3D generation with prompt:", prompt);
 
         const response = await fal.subscribe(FAL_CONSTANTS.API_3D_ENDPOINT, {
             input: {
@@ -37,12 +37,12 @@ const generate3D = async (prompt: string, runtime: IAgentRuntime) => {
                 if (update.status === "IN_PROGRESS") {
                     update.logs
                         .map((log) => log.message)
-                        .forEach(elizaLogger.log);
+                        .forEach(elizaLogger.info);
                 }
             },
         });
 
-        elizaLogger.log(
+        elizaLogger.info(
             "Generation request successful, received response:",
             response
         );
@@ -75,9 +75,9 @@ const ThreeDGeneration: Action = {
     ],
     description: "Generate a 3D object based on a text prompt",
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("Validating 3D generation action");
+        elizaLogger.info("Validating 3D generation action");
         const FalApiKey = runtime.getSetting("FAL_API_KEY");
-        elizaLogger.log("FAL_API_KEY present:", !!FalApiKey);
+        elizaLogger.info("FAL_API_KEY present:", !!FalApiKey);
         return !!FalApiKey;
     },
     handler: async (
@@ -87,7 +87,7 @@ const ThreeDGeneration: Action = {
         _options: any,
         callback: HandlerCallback
     ) => {
-        elizaLogger.log("3D generation request:", message);
+        elizaLogger.info("3D generation request:", message);
 
         // Clean up the prompt by removing mentions and commands
         const ThreeDPrompt = message.content.text
@@ -102,7 +102,7 @@ const ThreeDGeneration: Action = {
             return;
         }
 
-        elizaLogger.log("3D prompt:", ThreeDPrompt);
+        elizaLogger.info("3D prompt:", ThreeDPrompt);
 
         callback({
             text: `I'll generate a 3D object based on your prompt: "${ThreeDPrompt}". This might take a few minutes...`,

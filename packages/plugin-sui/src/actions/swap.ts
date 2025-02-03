@@ -68,7 +68,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SWAP_TOKEN handler...");
+        elizaLogger.info("Starting SWAP_TOKEN handler...");
 
         const service = runtime.getService<SuiService>(
             ServiceType.TRANSCRIPTION
@@ -123,13 +123,13 @@ export default {
                 swapContent.destination_token
             );
 
-            elizaLogger.log("Destination token:", destinationToken);
+            elizaLogger.info("Destination token:", destinationToken);
 
             const fromToken = await service.getTokenMetadata(
                 swapContent.from_token
             );
 
-            elizaLogger.log("From token:", fromToken);
+            elizaLogger.info("From token:", fromToken);
 
             // one action only can call one callback to save new message.
             // runtime.processActions

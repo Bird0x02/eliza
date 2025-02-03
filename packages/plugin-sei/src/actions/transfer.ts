@@ -64,7 +64,7 @@ export class TransferAction {
 
     async transfer(params: TransferParams): Promise<Transaction> {
         const chain = this.walletProvider.getCurrentChain()
-        elizaLogger.log(
+        elizaLogger.info(
             `Transferring: ${params.amount} tokens to (${params.toAddress} on ${chain.name})`
         );
         // let recipientAddress
@@ -83,7 +83,7 @@ export class TransferAction {
                 throw new Error(`ERROR: Recipient does not have valid EVM address. Got: ${evmAddress}`);
             }
 
-            elizaLogger.log(`Translated address ${params.toAddress} to EVM address ${evmAddress}`);
+            elizaLogger.info(`Translated address ${params.toAddress} to EVM address ${evmAddress}`);
             recipientAddress = evmAddress as `0x${string}`; // Ensure it's a valid Ethereum address
         } else {
             if (!params.toAddress.startsWith("0x")) {
@@ -175,10 +175,10 @@ export const transferAction: Action = {
         _options: Record<string, unknown>, // Replace `any` with a safer type
         callback?: HandlerCallback
     ) => {
-        
+
         // Create a new variable to avoid reassigning the parameter
         let updatedState = state;
-        
+
         if (!updatedState) {
             updatedState = (await runtime.composeState(message)) as State;
         } else {
@@ -195,7 +195,7 @@ export const transferAction: Action = {
             runtime,
             walletProvider
         );
-        
+
         // // Compose transfer context
         // const paramOptions = await buildTransferDetails(
         //     state,

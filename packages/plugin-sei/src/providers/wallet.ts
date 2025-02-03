@@ -101,7 +101,7 @@ export class WalletProvider {
         const cacheKey = `seiWalletBalance_${this.currentChain.name}`; // Fix: Use template literal
         const cachedData = await this.getCachedData<string>(cacheKey);
         if (cachedData) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Returning cached wallet balance for sei chain: ${this.currentChain.name}` // Fix: Use template literal
             );
             return cachedData;
@@ -114,7 +114,7 @@ export class WalletProvider {
             });
             const balanceFormatted = formatUnits(balance, 18);
             this.setCachedData<string>(cacheKey, balanceFormatted);
-            elizaLogger.log(
+            elizaLogger.info(
                 "Wallet balance cached for chain: ",
                 this.currentChain.name
             );
@@ -131,7 +131,7 @@ export class WalletProvider {
         );
         return cached ?? null; // Fix: Return null if cached is undefined
     }
-    
+
     // private async readFromCache<T>(key: string): Promise<T | null> {
     //     const cached = await this.cacheManager.get<T>(
     //         path.join(this.cacheKey, key)

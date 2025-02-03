@@ -125,7 +125,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CoinGecko GET_MARKETS handler...");
+        elizaLogger.info("Starting CoinGecko GET_MARKETS handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -164,7 +164,7 @@ export default {
             }
 
             const content = result.object;
-            elizaLogger.log("Content from template:", content);
+            elizaLogger.info("Content from template:", content);
 
             // If template returns null, this is not a markets request
             if (!content) {
@@ -176,7 +176,7 @@ export default {
                 throw new Error(`Invalid category: ${content.category}. Please choose from the available categories.`);
             }
 
-            elizaLogger.log("Making API request with params:", {
+            elizaLogger.info("Making API request with params:", {
                 url: `${baseUrl}/coins/markets`,
                 category: formattedCategory,
                 vs_currency: content.vs_currency,

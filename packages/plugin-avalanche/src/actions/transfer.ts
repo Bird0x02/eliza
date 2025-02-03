@@ -103,7 +103,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         // Validate transfer
         if (message.content.source === "direct") {

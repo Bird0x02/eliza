@@ -21,7 +21,7 @@ export interface CreateTokenContent extends Content {
 }
 
 function isCreateTokenContent(content: any): content is CreateTokenContent {
-    elizaLogger.log("Content for createToken", content);
+    elizaLogger.info("Content for createToken", content);
     return (
         typeof content.name === "string" &&
         typeof content.uri === "string" &&
@@ -67,7 +67,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CREATE_TOKEN handler...");
+        elizaLogger.info("Starting CREATE_TOKEN handler...");
         // Initialize or update state
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -100,7 +100,7 @@ export default {
             return false;
         }
 
-        elizaLogger.log("Init solana agent kit...");
+        elizaLogger.info("Init solana agent kit...");
         const solanaAgentKit = await getSAK(runtime);
         try {
             const deployedAddress = await solanaAgentKit.deployToken(
@@ -110,8 +110,8 @@ export default {
                 content.decimals
                 // content.initialSupply comment out this cause the sdk has some issue with this parameter
             );
-            elizaLogger.log("Create successful: ", deployedAddress);
-            elizaLogger.log(deployedAddress);
+            elizaLogger.info("Create successful: ", deployedAddress);
+            elizaLogger.info(deployedAddress);
             if (callback) {
                 callback({
                     text: `Successfully create token ${content.name}`,

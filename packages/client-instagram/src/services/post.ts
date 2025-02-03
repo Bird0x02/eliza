@@ -85,7 +85,7 @@ export class InstagramPostService {
                 setTimeout(generatePostLoop, delay);
             }
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Next Instagram post scheduled in ${randomMinutes} minutes`
             );
         };
@@ -100,7 +100,7 @@ export class InstagramPostService {
 
     private async generateNewPost() {
         try {
-            elizaLogger.log("Generating new Instagram post");
+            elizaLogger.info("Generating new Instagram post");
 
             const roomId = stringToUuid(
                 "instagram_generate_room-" + this.state.profile?.username
@@ -215,7 +215,7 @@ export class InstagramPostService {
     // Placeholder - implement actual image generation/selection
     private async getOrGenerateImage(content: string): Promise<string> {
         try {
-            elizaLogger.log("Generating image for Instagram post");
+            elizaLogger.info("Generating image for Instagram post");
 
             let imageSettings = this.runtime.character.settings.imageSettings || {};
 
@@ -315,7 +315,7 @@ seed: imageSettings?.seed || null,
         const ig = getIgClient();
 
         try {
-            elizaLogger.log("Creating Instagram post", {
+            elizaLogger.info("Creating Instagram post", {
                 mediaCount: options.media.length,
                 hasCaption: !!options.caption,
             });
@@ -363,7 +363,7 @@ seed: imageSettings?.seed || null,
                 timestamp: this.lastPostTime,
             });
 
-            elizaLogger.log("Instagram post created successfully");
+            elizaLogger.info("Instagram post created successfully");
         } catch (error) {
             elizaLogger.error("Error creating Instagram post:", {
                 error: error instanceof Error ? error.message : String(error),
@@ -381,7 +381,7 @@ seed: imageSettings?.seed || null,
         url: string;
     }): Promise<Buffer> {
         try {
-            elizaLogger.log("Processing media", {
+            elizaLogger.info("Processing media", {
                 type: media.type,
                 url: media.url,
             });

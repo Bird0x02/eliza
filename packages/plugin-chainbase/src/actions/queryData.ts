@@ -20,7 +20,7 @@ export const queryBlockChainData: Action = {
         "Query blockchain data using natural language starting with 'query onchain data:'",
 
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("Validating runtime for QUERY_BLOCKCHAIN_DATA...");
+        elizaLogger.info("Validating runtime for QUERY_BLOCKCHAIN_DATA...");
         return !!(
             runtime.character.settings.secrets?.CHAINBASE_API_KEY ||
             process.env.CHAINBASE_API_KEY

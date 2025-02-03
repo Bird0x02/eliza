@@ -42,7 +42,7 @@ function isTransferContent(
     _runtime: IAgentRuntime,
     content: unknown
 ): content is TransferContent {
-    elizaLogger.log("Content for transfer", content);
+    elizaLogger.info("Content for transfer", content);
     return (
         content !== null &&
         typeof content === "object" &&
@@ -79,7 +79,7 @@ export class TransferAction {
         message: Memory,
         state: State
     ): Promise<TransferContent> {
-   
+
         // Initialize or update state
         let currentState = state;
         if (!currentState) {
@@ -127,7 +127,7 @@ export class TransferAction {
         content: TransferContent,
         callback?: HandlerCallback
     ): Promise<TransactionResponse> {
-        elizaLogger.log("Starting Flow Plugin's SEND_COIN handler...");
+        elizaLogger.info("Starting Flow Plugin's SEND_COIN handler...");
 
         const resp: TransactionResponse = {
             signer: {
@@ -175,7 +175,7 @@ export class TransferAction {
 
             // For different token types, we need to handle the token differently
             if (!content.token) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `${logPrefix} Sending ${amount} FLOW to ${recipient}...`
                 );
                 // Transfer FLOW token
@@ -191,7 +191,7 @@ export class TransferAction {
                 // Transfer Fungible Token on Cadence side
                 const [_, tokenAddr, tokenContractName] =
                     content.token.split(".");
-                elizaLogger.log(
+                elizaLogger.info(
                     `${logPrefix} Sending ${amount} A.${tokenAddr}.${tokenContractName} to ${recipient}...`
                 );
                 resp.txid = await this.walletProvider.sendTransaction(
@@ -213,7 +213,7 @@ export class TransferAction {
                 );
                 const adjustedAmount = BigInt(amount * (10 ** decimals));
 
-                elizaLogger.log(
+                elizaLogger.info(
                     `${logPrefix} Sending ${adjustedAmount} ${content.token}(EVM) to ${recipient}...`
                 );
 
@@ -229,7 +229,7 @@ export class TransferAction {
                 );
             }
 
-            elizaLogger.log(`${logPrefix} Sent transaction: ${resp.txid}`);
+            elizaLogger.info(`${logPrefix} Sent transaction: ${resp.txid}`);
 
             // call the callback with the transaction response
             if (callback) {
@@ -263,14 +263,14 @@ export class TransferAction {
             if (e instanceof Exception) {
                 throw e;
             }
-            
+
             throw new Exception(
                 50100,
                 `Error in sending transaction: ${e instanceof Error ? e.message : String(e)}`
             );
         }
 
-        elizaLogger.log("Completed Flow Plugin's SEND_COIN handler.");
+        elizaLogger.info("Completed Flow Plugin's SEND_COIN handler.");
 
         return resp;
     }
@@ -330,7 +330,7 @@ export const transferAction = {
 
         try {
             const res = await action.transfer(content, callback);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Transfer action response: ${res.signer.address}[${res.signer.keyIndex}] - ${res.txid}`
             );
         } catch {

@@ -15,7 +15,7 @@ export const AlexaClientInterface: Client = {
     stop: async (runtime: IAgentRuntime) => {
         try {
             // stop it
-            elizaLogger.log("Stopping alexa client", runtime.agentId);
+            elizaLogger.info("Stopping alexa client", runtime.agentId);
             await runtime.clients.alexa.stop();
         } catch (e) {
             elizaLogger.error("client-alexa interface stop error", e);

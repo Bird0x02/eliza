@@ -61,7 +61,7 @@ export async function sendTransaction(rpc: Rpc<SolanaRpcApi>, instructions: IIns
     const statuses = await rpc.getSignatureStatuses([signature]).send();
     if (statuses.value[0]) {
       if (!statuses.value[0].err) {
-        elizaLogger.log(`Transaction confirmed: ${signature}`);
+        elizaLogger.info(`Transaction confirmed: ${signature}`);
         return signature
       } else {
         throw new Error(`Transaction failed: ${statuses.value[0].err.toString()}`);

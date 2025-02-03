@@ -95,10 +95,10 @@ export const postTweetAction: Action = {
                 return false;
             }
             // post the tweet
-            elizaLogger.log("Attempting to send tweet:", contentYouWantToPost);
+            elizaLogger.info("Attempting to send tweet:", contentYouWantToPost);
             const result = await scraperWithPrimus.sendTweet(contentYouWantToPost);
 
-            elizaLogger.log("Tweet response:", result);
+            elizaLogger.info("Tweet response:", result);
 
             // Check for Twitter API errors
             if (!result) {
@@ -123,7 +123,7 @@ export const postTweetAction: Action = {
     ) => {
         const hasCredentials =
             !!process.env.TWITTER_USERNAME && !!process.env.TWITTER_PASSWORD;
-        elizaLogger.log(`Has credentials: ${hasCredentials}`);
+        elizaLogger.info(`Has credentials: ${hasCredentials}`);
 
         return hasCredentials;
     },

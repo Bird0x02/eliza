@@ -76,7 +76,7 @@ export const payInvoiceAction = {
             content?: { success: boolean };
         }) => void
     ) => {
-        elizaLogger.log("payInvoice action handler called");
+        elizaLogger.info("payInvoice action handler called");
         const lightningProvider = await initLightningProvider(runtime);
         const action = new PayInvoiceAction(lightningProvider);
 
@@ -101,7 +101,7 @@ export const payInvoiceAction = {
 
         try {
             const payInvoiceResp = await action.payInvoice(payInvoiceOptions);
-            elizaLogger.log("🚀 ~ payInvoiceResp:", payInvoiceResp);
+            elizaLogger.info("🚀 ~ payInvoiceResp:", payInvoiceResp);
 
             if (callback) {
                 if (payInvoiceResp.is_confirmed) {

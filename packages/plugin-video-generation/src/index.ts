@@ -7,14 +7,14 @@ import type {
     Plugin,
     State,
 } from "@elizaos/core";
-import fs from "node:fs"; 
+import fs from "node:fs";
 import { LUMA_CONSTANTS } from "./constants";
 
 const generateVideo = async (prompt: string, runtime: IAgentRuntime) => {
     const API_KEY = runtime.getSetting(LUMA_CONSTANTS.API_KEY_SETTING);
 
     try {
-        elizaLogger.log("Starting video generation with prompt:", prompt);
+        elizaLogger.info("Starting video generation with prompt:", prompt);
 
         const response = await fetch(LUMA_CONSTANTS.API_URL, {
             method: "POST",
@@ -39,7 +39,7 @@ const generateVideo = async (prompt: string, runtime: IAgentRuntime) => {
         }
 
         const data = await response.json();
-        elizaLogger.log(
+        elizaLogger.info(
             "Generation request successful, received response:",
             data
         );
@@ -76,7 +76,7 @@ const generateVideo = async (prompt: string, runtime: IAgentRuntime) => {
             }
 
             const statusData = await statusResponse.json();
-            elizaLogger.log("Status check response:", statusData);
+            elizaLogger.info("Status check response:", statusData);
 
             status = statusData.state;
             if (status === "completed") {
@@ -120,9 +120,9 @@ const videoGeneration: Action = {
     ],
     description: "Generate a video based on a text prompt",
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("Validating video generation action");
+        elizaLogger.info("Validating video generation action");
         const lumaApiKey = runtime.getSetting("LUMA_API_KEY");
-        elizaLogger.log("LUMA_API_KEY present:", !!lumaApiKey);
+        elizaLogger.info("LUMA_API_KEY present:", !!lumaApiKey);
         return !!lumaApiKey;
     },
     handler: async (
@@ -132,7 +132,7 @@ const videoGeneration: Action = {
         _options: Record<string, unknown>,
         callback: HandlerCallback
     ) => {
-        elizaLogger.log("Video generation request:", message);
+        elizaLogger.info("Video generation request:", message);
 
         // Clean up the prompt by removing mentions and commands
         const videoPrompt = message.content.text
@@ -150,7 +150,7 @@ const videoGeneration: Action = {
             return;
         }
 
-        elizaLogger.log("Video prompt:", videoPrompt);
+        elizaLogger.info("Video prompt:", videoPrompt);
 
         callback({
             text: `I'll generate a video based on your prompt: "${videoPrompt}". This might take a few minutes...`,

@@ -81,7 +81,7 @@ export default function createAgentRouter(
 
         // start it up (and register it)
         agent = await directClient.startAgent(character);
-        elizaLogger.log(`${character.name} started`);
+        elizaLogger.info(`${character.name} started`);
 
         res.json({
             id: character.id,
@@ -132,7 +132,7 @@ export default function createAgentRouter(
 
         // start it up (and register it)
         await directClient.startAgent(character);
-        elizaLogger.log(`${character.name} started`);
+        elizaLogger.info(`${character.name} started`);
 
         res.json({
             id: character.id,

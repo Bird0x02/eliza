@@ -193,7 +193,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting TOKENS_REDELEGATE handler...");
+        elizaLogger.info("Starting TOKENS_REDELEGATE handler...");
 
         const redelegateDetails = await buildRedelegateDetails(
             runtime,

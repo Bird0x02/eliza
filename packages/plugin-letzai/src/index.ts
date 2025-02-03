@@ -129,7 +129,7 @@ export const letzAiImageGeneration = {
     ) => {
         try {
             // 1) Get the LLM's response
-            elizaLogger.log("Composing state for message:", message.content.text);
+            elizaLogger.info("Composing state for message:", message.content.text);
 
             // Removed logging of non-existent property recentMessagesData
             callback({
@@ -170,7 +170,7 @@ export const letzAiImageGeneration = {
             imagePrompt = `${letzAiModels}, ${imagePrompt}`;
             const prompt = imagePrompt;
 
-            elizaLogger.log("Image prompt received:", imagePrompt);
+            elizaLogger.info("Image prompt received:", imagePrompt);
 
             const createResp = await fetch("https://api.letz.ai/images", {
                 method: "POST",

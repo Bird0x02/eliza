@@ -58,13 +58,13 @@ export const XmtpClientInterface: Client = {
             elizaLogger.success("✅ XMTP client started");
             elizaLogger.info(`XMTP address: ${xmtp.address}`);
             elizaLogger.info(`Talk to me on:`);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Converse: https://converse.xyz/dm/${xmtp.address}`
             );
-            elizaLogger.log(
+            elizaLogger.info(
                 `Coinbase Wallet: https://go.cb-w.com/messaging?address=${xmtp.address}`
             );
-            elizaLogger.log(
+            elizaLogger.info(
                 `Web or Farcaster Frame: https://client.message-kit.org/?address=${xmtp.address}`
             );
 

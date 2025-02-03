@@ -2,7 +2,7 @@ import { elizaLogger } from "@elizaos/core";
 
 export const debugLog = {
     request: (method: string, url: string, data?: any) => {
-        elizaLogger.log("🌐 API Request:", {
+        elizaLogger.info("🌐 API Request:", {
             method,
             url,
             data: data || "No data"
@@ -10,7 +10,7 @@ export const debugLog = {
     },
 
     response: (response: any) => {
-        elizaLogger.log("✅ API Response:", {
+        elizaLogger.info("✅ API Response:", {
             status: response?.status,
             data: response?.data || "No data"
         });
@@ -32,6 +32,6 @@ export const debugLog = {
     },
 
     validation: (config: any) => {
-        elizaLogger.log("🔍 Config Validation:", config);
+        elizaLogger.info("🔍 Config Validation:", config);
     }
 };

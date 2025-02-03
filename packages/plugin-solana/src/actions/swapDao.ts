@@ -54,7 +54,7 @@ export const executeSwapForDAO: Action = {
     name: "EXECUTE_SWAP_DAO",
     similes: ["SWAP_TOKENS_DAO", "TOKEN_SWAP_DAO"],
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Message:", message);
+        elizaLogger.info("Message:", message);
         return true;
     },
     description: "Perform a DAO token swap using execute_invoke.",
@@ -89,11 +89,11 @@ export const executeSwapForDAO: Action = {
                 outputToken as string,
                 amount as number
             );
-            elizaLogger.log("Swap Quote:", quoteData);
+            elizaLogger.info("Swap Quote:", quoteData);
 
             const confirmSwap = await promptConfirmation();
             if (!confirmSwap) {
-                elizaLogger.log("Swap canceled by user");
+                elizaLogger.info("Swap canceled by user");
                 return false;
             }
 
@@ -114,8 +114,8 @@ export const executeSwapForDAO: Action = {
                 instructionData
             );
 
-            elizaLogger.log("DAO Swap completed successfully!");
-            elizaLogger.log(`Transaction ID: ${txid}`);
+            elizaLogger.info("DAO Swap completed successfully!");
+            elizaLogger.info(`Transaction ID: ${txid}`);
 
             return true;
         } catch (error) {

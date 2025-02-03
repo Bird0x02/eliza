@@ -50,7 +50,7 @@ export const executeSwap: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("compose history...");
+        elizaLogger.info("compose history...");
         if (!state) {
             state = (await runtime.composeState(message)) as State;
         } else {
@@ -58,7 +58,7 @@ export const executeSwap: Action = {
         }
         const msgHash = hashUserMsg(message, "swap_symbol");
         let content:any = await runtime.cacheManager.get(msgHash);
-        elizaLogger.log("---- cache info: ", msgHash, "--->", content);
+        elizaLogger.info("---- cache info: ", msgHash, "--->", content);
         if(!content){
             const swapContext = composeContext({
                 state,

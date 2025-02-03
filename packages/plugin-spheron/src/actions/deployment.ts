@@ -193,7 +193,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting DEPLOYMENT_OPERATION handler...");
+        elizaLogger.info("Starting DEPLOYMENT_OPERATION handler...");
 
         // Create local variable for state manipulation
         let currentState = state;
@@ -257,7 +257,7 @@ export default {
                         computeConfig
                     );
 
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "Deployment created with lease ID:",
                         result.leaseId.toString()
                     );
@@ -326,7 +326,7 @@ export default {
                         content.leaseId.toString(),
                         computeConfig
                     );
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "Deployment updated with lease ID:",
                         result.leaseId.toString()
                     );
@@ -354,7 +354,7 @@ export default {
                         runtime,
                         content.leaseId.toString()
                     );
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "Deployment closed with lease ID:",
                         content.leaseId.toString()
                     );

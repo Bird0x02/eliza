@@ -33,7 +33,7 @@ export const retrieveTokenBalance: Action = {
         "Retrieve all token balances for all ERC20 tokens for a specified address.",
 
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("Validating runtime for RETRIEVE_TOKEN_BALANCE...");
+        elizaLogger.info("Validating runtime for RETRIEVE_TOKEN_BALANCE...");
         return !!(
             runtime.character.settings.secrets?.CHAINBASE_API_KEY ||
             process.env.CHAINBASE_API_KEY
@@ -48,7 +48,7 @@ export const retrieveTokenBalance: Action = {
         callback?: HandlerCallback,
     ) => {
         try {
-            elizaLogger.log("Composing state for message:", message);
+            elizaLogger.info("Composing state for message:", message);
             let currentState = state;
             if (!currentState) {
                 currentState = (await runtime.composeState(message)) as State;
@@ -80,7 +80,7 @@ export const retrieveTokenBalance: Action = {
 
             const { contract_address, address, chain_id } = queryParams.object;
 
-            elizaLogger.log("Querying token balances:", {
+            elizaLogger.info("Querying token balances:", {
                 chain_id,
                 address,
                 contract_address,

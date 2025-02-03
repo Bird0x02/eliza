@@ -67,7 +67,7 @@ export const FarcasterClientInterface: Client = {
     async start(runtime: IAgentRuntime) {
         const farcasterConfig = await validateFarcasterConfig(runtime);
 
-        elizaLogger.log("Farcaster client started");
+        elizaLogger.info("Farcaster client started");
 
         const manager = new FarcasterManager(runtime, farcasterConfig);
 
@@ -80,7 +80,7 @@ export const FarcasterClientInterface: Client = {
     async stop(runtime: IAgentRuntime) {
         try {
             // stop it
-            elizaLogger.log("Stopping farcaster client", runtime.agentId);
+            elizaLogger.info("Stopping farcaster client", runtime.agentId);
             if (runtime.clients.farcaster) {
                 await runtime.clients.farcaster.stop();
             }

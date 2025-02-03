@@ -80,7 +80,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting GET_BALANCE handler...");
+        elizaLogger.info("Starting GET_BALANCE handler...");
 
         try {
             const action = new GetBalanceAction();

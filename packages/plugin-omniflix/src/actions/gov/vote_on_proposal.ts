@@ -182,7 +182,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting VOTE_ON_PROPOSAL handler...");
+        elizaLogger.info("Starting VOTE_ON_PROPOSAL handler...");
 
         const voteOnProposalContent = await buildVoteOnProposalContent(
             runtime,

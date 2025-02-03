@@ -39,7 +39,7 @@ export async function generateSQL(prompt: string): Promise<string> {
         );
 
         const data = await response.json();
-        elizaLogger.log("Generated SQL:", data.sql);
+        elizaLogger.info("Generated SQL:", data.sql);
         return data.sql;
     } catch (error) {
         elizaLogger.error("Error generating SQL:", error);
@@ -76,7 +76,7 @@ export async function executeQuery(sql: string): Promise<{
             .trim();
 
         // 1. Execute query
-        elizaLogger.log("Executing Chainbase query:", processedSql);
+        elizaLogger.info("Executing Chainbase query:", processedSql);
         const executeResponse = await fetch(
             `${CHAINBASE_API_URL_ENDPOINT}/api/v1/query/execute`,
             {
@@ -90,7 +90,7 @@ export async function executeQuery(sql: string): Promise<{
         );
 
         const executeData = await executeResponse.json();
-        elizaLogger.log("Execute response:", executeData);
+        elizaLogger.info("Execute response:", executeData);
         const executionId = executeData.data[0].executionId;
 
         if (!executionId) {
@@ -100,7 +100,7 @@ export async function executeQuery(sql: string): Promise<{
         // 2. Poll for results
         let retries = 0;
         while (retries < MAX_RETRIES) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Polling results (attempt ${retries + 1}/${MAX_RETRIES})...`
             );
             const resultResponse = await fetch(
@@ -115,7 +115,7 @@ export async function executeQuery(sql: string): Promise<{
             );
 
             const response = await resultResponse.json();
-            elizaLogger.log("Poll response:", response);
+            elizaLogger.info("Poll response:", response);
 
             // If query fails, return error immediately
             if (response.data.status === "FAILED") {
@@ -126,7 +126,7 @@ export async function executeQuery(sql: string): Promise<{
 
             // If query completes, return results
             if (response.data.status === "FINISHED") {
-                elizaLogger.log("Query succeeded:", response.data);
+                elizaLogger.info("Query succeeded:", response.data);
                 return {
                     columns: response.data.columns,
                     data: response.data.data,
@@ -152,7 +152,7 @@ export async function getTokenBalances(
     try {
         const apiKey = getChainbaseApiKey();
 
-        elizaLogger.log("Fetching token balances:", params);
+        elizaLogger.info("Fetching token balances:", params);
 
         const response = await fetch(
             `${CHAINBASE_API_URL_ENDPOINT}/v1/account/tokens?chain_id=${params.chain_id}&address=${params.address}&limit=100`,
@@ -172,7 +172,7 @@ export async function getTokenBalances(
             throw new Error("No data returned from Chainbase API");
         }
 
-        elizaLogger.log("Token balances retrieved:", data);
+        elizaLogger.info("Token balances retrieved:", data);
 
         // Filter out tokens without name and symbol
         return data.filter(

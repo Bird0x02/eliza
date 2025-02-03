@@ -93,7 +93,7 @@ export function loadEnvConfig(): Settings {
     const result = config(envPath ? { path: envPath } : {});
 
     if (!result.error) {
-        elizaLogger.log(`Loaded .env file from: ${envPath}`);
+        elizaLogger.info(`Loaded .env file from: ${envPath}`);
     }
 
     // Parse namespaced settings

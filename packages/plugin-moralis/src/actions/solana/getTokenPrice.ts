@@ -35,7 +35,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Moralis GET_SOLANA_TOKEN_PRICE handler...");
+        elizaLogger.info("Starting Moralis GET_SOLANA_TOKEN_PRICE handler...");
 
         // Initialize or update state
         let currentState: State;
@@ -46,13 +46,13 @@ export default {
         }
 
         try {
-            elizaLogger.log("Composing token price context...");
+            elizaLogger.info("Composing token price context...");
             const priceContext = composeContext({
                 state: currentState,
                 template: getTokenPriceTemplate,
             });
 
-            elizaLogger.log("Extracting token address...");
+            elizaLogger.info("Extracting token address...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: priceContext,
@@ -68,7 +68,7 @@ export default {
             }
 
             const config = await validateMoralisConfig(runtime);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Fetching price for Solana token ${content.tokenAddress}...`
             );
 

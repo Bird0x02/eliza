@@ -23,7 +23,7 @@ export async function getResource(
     _options?: QueryOptions
 ) {
     try {
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetching resource ${API_URL}/${resourceName}/${resourceId}`
         );
         const res = await fetch(`${API_URL}/${resourceName}/${resourceId}`, {
@@ -35,11 +35,11 @@ export async function getResource(
             },
         });
         if (res.ok) {
-            elizaLogger.log("Response is ok");
+            elizaLogger.info("Response is ok");
             return res.json();
         }
-        elizaLogger.log("Response is not ok");
-        elizaLogger.log(JSON.stringify(res));
+        elizaLogger.info("Response is not ok");
+        elizaLogger.info(JSON.stringify(res));
         throw new Error(`HTTP error! status: ${res.status}`);
     } catch (error) {
         console.error(error);
@@ -61,11 +61,11 @@ export async function listResource(
             orderDirection: QUERY_ORDER_DIRECTION.DESC,
             ...options,
         };
-        elizaLogger.log(`Calling Story API ${resourceName}`);
-        elizaLogger.log(`STORY_API_KEY: ${API_KEY}`);
-        elizaLogger.log(`API_URL: ${API_URL}`);
-        elizaLogger.log(`API_VERSION: ${API_VERSION}`);
-        elizaLogger.log(`_options: ${JSON.stringify(_options)}`);
+        elizaLogger.info(`Calling Story API ${resourceName}`);
+        elizaLogger.info(`STORY_API_KEY: ${API_KEY}`);
+        elizaLogger.info(`API_URL: ${API_URL}`);
+        elizaLogger.info(`API_VERSION: ${API_VERSION}`);
+        elizaLogger.info(`_options: ${JSON.stringify(_options)}`);
         const res = await fetch(`${API_URL}/${resourceName}`, {
             method: "POST",
             headers: {
@@ -77,15 +77,15 @@ export async function listResource(
             ...(_options && { body: JSON.stringify({ options: _options }) }),
         });
         if (res.ok) {
-            elizaLogger.log("Response is ok");
-            elizaLogger.log(res.ok);
+            elizaLogger.info("Response is ok");
+            elizaLogger.info(res.ok);
             return res.json();
         }
-        elizaLogger.log("Response is not ok");
-        elizaLogger.log(res);
+        elizaLogger.info("Response is not ok");
+        elizaLogger.info(res);
         return res;
     } catch (error) {
-        elizaLogger.log("List resource Error");
+        elizaLogger.info("List resource Error");
         console.error(error);
     }
 }

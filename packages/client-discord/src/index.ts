@@ -188,7 +188,7 @@ export class DiscordClient extends EventEmitter {
 
     async handleReactionAdd(reaction: MessageReaction, user: User) {
         try {
-            elizaLogger.log("Reaction added");
+            elizaLogger.info("Reaction added");
 
             // Early returns
             if (!reaction || !user) {
@@ -297,7 +297,7 @@ export class DiscordClient extends EventEmitter {
     }
 
     async handleReactionRemove(reaction: MessageReaction, user: User) {
-        elizaLogger.log("Reaction removed");
+        elizaLogger.info("Reaction removed");
         // if (user.bot) return;
 
         let emoji = reaction.emoji.name;
@@ -405,7 +405,7 @@ export const DiscordClientInterface: ElizaClient = {
     stop: async (runtime: IAgentRuntime) => {
         try {
             // stop it
-            elizaLogger.log("Stopping discord client", runtime.agentId);
+            elizaLogger.info("Stopping discord client", runtime.agentId);
             await runtime.clients.discord.stop();
         } catch (e) {
             elizaLogger.error("client-discord interface stop error", e);

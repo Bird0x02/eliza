@@ -72,7 +72,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting CREATE_TOKEN handler...");
+        elizaLogger.info("Starting CREATE_TOKEN handler...");
 
         // Initialize or update state
         let currentState = state;

@@ -29,7 +29,7 @@ function isGibWorkContent(
     runtime: IAgentRuntime,
     content: any
 ): content is GibWorkContent {
-    elizaLogger.log("Content for gibwork", content);
+    elizaLogger.info("Content for gibwork", content);
     return (
         typeof content.title === "string" &&
         typeof content.content === "string" &&
@@ -70,7 +70,7 @@ export default {
     name: GIBWORK_ACTION.name,
     similes: GIBWORK_ACTION.similes,
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating gibwork task from user:", message.userId);
+        elizaLogger.info("Validating gibwork task from user:", message.userId);
         return false;
     },
     description: GIBWORK_ACTION.description,
@@ -81,7 +81,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CREATE_GIBWORK_TASK handler...");
+        elizaLogger.info("Starting CREATE_GIBWORK_TASK handler...");
         const sak = await getSAK(runtime);
 
         // Initialize or update state

@@ -49,7 +49,7 @@ export async function createNFTMetadata({
     tokenId: number;
 }) {
     const userId = runtime.agentId;
-    elizaLogger.log("User ID:", userId);
+    elizaLogger.info("User ID:", userId);
     const awsS3Service: AwsS3Service = runtime.getService(ServiceType.AWS_S3);
     const agentName = runtime.character.name;
     const roomId = stringToUuid("nft_generate_room-" + agentName);
@@ -91,12 +91,12 @@ export async function createNFTMetadata({
         },
         runtime
     );
-    elizaLogger.log("NFT Prompt:", nftPrompt);
+    elizaLogger.info("NFT Prompt:", nftPrompt);
     if (images.success && images.data && images.data.length > 0) {
         const image = images.data[0];
         const filename = `${tokenId}`;
         if (image.startsWith("http")) {
-            elizaLogger.log("Generating image url:", image);
+            elizaLogger.info("Generating image url:", image);
         }
         // Choose save function based on image data format
         const filepath = image.startsWith("http")
@@ -170,7 +170,7 @@ export async function createNFT({
             adminPublicKey: collectionAdminPublicKey,
             fee: collectionFee,
         });
-        elizaLogger.log("NFT ID:", nftAddressRes.address);
+        elizaLogger.info("NFT ID:", nftAddressRes.address);
         return {
             network: "solana",
             address: nftAddressRes.address,

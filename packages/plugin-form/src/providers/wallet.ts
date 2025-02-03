@@ -178,7 +178,7 @@ export class FormWalletClient {
         const cacheKey = `${this.chain.id}_wallet_balance_${this.getAddress()}`;
         const cachedData = await this.getCachedData<string>(cacheKey);
         if (cachedData) {
-            elizaLogger.log(
+            elizaLogger.info(
                 "[plugin-form] returning cached wallet balance for chain: " +
                     this.chain.name
             );
@@ -191,7 +191,7 @@ export class FormWalletClient {
             });
             const balanceFormatted = formatUnits(balance, 18);
             this.setCachedData<string>(cacheKey, balanceFormatted);
-            elizaLogger.log(
+            elizaLogger.info(
                 "[plugin-form] wallet balance cached for chain: ",
                 this.chain
             );
@@ -435,7 +435,7 @@ export class FormWalletClient {
             const cacheKey = `${this.chain.id}_curves_erc20_${curves}_${subject}`;
             const cachedToken = await this.getCachedData<string>(cacheKey);
             if (cachedToken) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `[plugin-form] returning cached curves ERC20 token details [chain: ${this.chain.name} | curves: ${curves} | address: ${subject}]`
                 );
                 return JSON.parse(cachedToken);
@@ -456,7 +456,7 @@ export class FormWalletClient {
                 address: result[2],
             };
             this.setCachedData(cacheKey, JSON.stringify(erc20));
-            elizaLogger.log(
+            elizaLogger.info(
                 `[plugin-form] curves ERC20 token details cached for [chain: ${this.chain.name} | curves: ${curves} | address: ${subject}]`
             );
 

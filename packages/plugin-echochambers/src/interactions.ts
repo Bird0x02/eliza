@@ -257,7 +257,7 @@ export class InteractionClient {
     }
 
     private async handleInteractions() {
-        elizaLogger.log("Checking EchoChambers interactions");
+        elizaLogger.info("Checking EchoChambers interactions");
 
         try {
             // Get all watched rooms from the client
@@ -307,7 +307,7 @@ export class InteractionClient {
                 }
             }
 
-            elizaLogger.log("Finished checking EchoChambers interactions");
+            elizaLogger.info("Finished checking EchoChambers interactions");
         } catch (error) {
             elizaLogger.error(
                 "Error handling EchoChambers interactions:",
@@ -370,7 +370,7 @@ export class InteractionClient {
                 memory.id
             );
             if (existing) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Already processed message ${message.id}, skipping`
                 );
                 return;
@@ -398,7 +398,7 @@ export class InteractionClient {
             });
 
             if (shouldRespond !== "RESPOND") {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Not responding to message ${message.id}: ${shouldRespond}`
                 );
                 return;
@@ -419,7 +419,7 @@ export class InteractionClient {
             });
 
             if (!response || !response.text) {
-                elizaLogger.log("No response generated");
+                elizaLogger.info("No response generated");
                 return;
             }
 

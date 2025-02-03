@@ -158,7 +158,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting LENS SEND_TOKEN handler...");
+        elizaLogger.info("Starting LENS SEND_TOKEN handler...");
 
         // Initialize or update state
         let currentState: State;

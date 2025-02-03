@@ -118,14 +118,14 @@ export const continueAction: Action = {
                 .filter((m: Memory) => m.content?.action === "CONTINUE").length;
 
             if (continueCount >= maxContinuesInARow) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `[CONTINUE] Max continues (${maxContinuesInARow}) reached for this message chain`
                 );
                 return;
             }
 
             if (lastAgentMessage.content?.action !== "CONTINUE") {
-                elizaLogger.log(
+                elizaLogger.info(
                     `[CONTINUE] Last message wasn't a CONTINUE, preventing double response`
                 );
                 return;
@@ -141,7 +141,7 @@ export const continueAction: Action = {
             message.content.text.endsWith("?") ||
             message.content.text.endsWith("!")
         ) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `[CONTINUE] Last message had question/exclamation. Not proceeding.`
             );
             return;
@@ -177,7 +177,7 @@ export const continueAction: Action = {
         // Use AI to determine if we should continue
         const shouldContinue = await _shouldContinue(state);
         if (!shouldContinue) {
-            elizaLogger.log("[CONTINUE] Not elaborating, returning");
+            elizaLogger.info("[CONTINUE] Not elaborating, returning");
             return;
         }
 

@@ -24,19 +24,19 @@ class DeriveKeyProvider {
         switch (teeMode) {
             case TEEMode.LOCAL:
                 endpoint = "http://localhost:8090";
-                elizaLogger.log(
+                elizaLogger.info(
                     "TEE: Connecting to local simulator at localhost:8090"
                 );
                 break;
             case TEEMode.DOCKER:
                 endpoint = "http://host.docker.internal:8090";
-                elizaLogger.log(
+                elizaLogger.info(
                     "TEE: Connecting to simulator via Docker at host.docker.internal:8090"
                 );
                 break;
             case TEEMode.PRODUCTION:
                 endpoint = undefined;
-                elizaLogger.log(
+                elizaLogger.info(
                     "TEE: Running in production mode without simulator"
                 );
                 break;
@@ -61,11 +61,11 @@ class DeriveKeyProvider {
             subject,
         };
         const reportdata = JSON.stringify(deriveKeyData);
-        elizaLogger.log(
+        elizaLogger.info(
             "Generating Remote Attestation Quote for Derive Key..."
         );
         const quote = await this.raProvider.generateAttestation(reportdata);
-        elizaLogger.log("Remote Attestation Quote generated successfully!");
+        elizaLogger.info("Remote Attestation Quote generated successfully!");
         return quote;
     }
 
@@ -86,10 +86,10 @@ class DeriveKeyProvider {
                 );
             }
 
-            elizaLogger.log("Deriving Raw Key in TEE...");
+            elizaLogger.info("Deriving Raw Key in TEE...");
             const derivedKey = await this.client.deriveKey(path, subject);
 
-            elizaLogger.log("Raw Key Derived Successfully!");
+            elizaLogger.info("Raw Key Derived Successfully!");
             return derivedKey;
         } catch (error) {
             elizaLogger.error("Error deriving raw key:", error);
@@ -116,7 +116,7 @@ class DeriveKeyProvider {
                 );
             }
 
-            elizaLogger.log("Deriving Key in TEE...");
+            elizaLogger.info("Deriving Key in TEE...");
             const derivedKey = await this.client.deriveKey(path, subject);
             const uint8ArrayDerivedKey = derivedKey.asUint8Array();
 
@@ -131,7 +131,7 @@ class DeriveKeyProvider {
                 agentId,
                 keypair.publicKey.toBase58()
             );
-            elizaLogger.log("Key Derived Successfully!");
+            elizaLogger.info("Key Derived Successfully!");
 
             return { keypair, attestation };
         } catch (error) {
@@ -162,7 +162,7 @@ class DeriveKeyProvider {
                 );
             }
 
-            elizaLogger.log("Deriving ECDSA Key in TEE...");
+            elizaLogger.info("Deriving ECDSA Key in TEE...");
             const deriveKeyResponse: DeriveKeyResponse =
                 await this.client.deriveKey(path, subject);
             const hex = keccak256(deriveKeyResponse.asUint8Array());
@@ -173,7 +173,7 @@ class DeriveKeyProvider {
                 agentId,
                 keypair.address
             );
-            elizaLogger.log("ECDSA Key Derived Successfully!");
+            elizaLogger.info("ECDSA Key Derived Successfully!");
 
             return { keypair, attestation };
         } catch (error) {

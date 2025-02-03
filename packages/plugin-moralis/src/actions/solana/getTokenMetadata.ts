@@ -37,7 +37,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log(
+        elizaLogger.info(
             "Starting Moralis GET_SOLANA_TOKEN_METADATA handler..."
         );
 
@@ -50,13 +50,13 @@ export default {
         }
 
         try {
-            elizaLogger.log("Composing token metadata context...");
+            elizaLogger.info("Composing token metadata context...");
             const metadataContext = composeContext({
                 state: currentState,
                 template: getTokenMetadataTemplate,
             });
 
-            elizaLogger.log("Extracting token address...");
+            elizaLogger.info("Extracting token address...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: metadataContext,
@@ -72,7 +72,7 @@ export default {
             }
 
             const config = await validateMoralisConfig(runtime);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Fetching metadata for Solana token ${content.tokenAddress}...`
             );
 

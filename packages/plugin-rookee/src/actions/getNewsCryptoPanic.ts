@@ -89,8 +89,8 @@ export  const getNewsCryptoPanic: Action = {
                 context: newsCryptoPannicContext,
                 modelClass: ModelClass.LARGE,
             });
-            elizaLogger.log("content: ",content);
-            // elizaLogger.log("content: ",typeof content);
+            elizaLogger.info("content: ",content);
+            // elizaLogger.info("content: ",typeof content);
             const urlCryptoPanic = `${process.env.CRYPTO_PANIC_URL}` || "https://cryptopanic.com/api/free/v1/posts";
             if(!content){
                 return true;
@@ -145,7 +145,7 @@ export  const getNewsCryptoPanic: Action = {
                     data: dataResponse.slice(0,size)
                 }
               })
-            // elizaLogger.log("[coingecko] Handle with message ...DONE!");
+            // elizaLogger.info("[coingecko] Handle with message ...DONE!");
             return true;
         }
         catch(error){
@@ -154,8 +154,8 @@ export  const getNewsCryptoPanic: Action = {
         }
     },
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
-    //   elizaLogger.log("[news] Validating ...");
-    //   elizaLogger.log("[news] Validating ...DONE");
+    //   elizaLogger.info("[news] Validating ...");
+    //   elizaLogger.info("[news] Validating ...DONE");
       return true;
     },
     similes: [

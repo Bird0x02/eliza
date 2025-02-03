@@ -93,7 +93,7 @@ export class EchoChamberClient {
     }
 
     public async start(): Promise<void> {
-        elizaLogger.log("🚀 Starting EchoChamber client...");
+        elizaLogger.info("🚀 Starting EchoChamber client...");
         try {
             await this.retryOperation(() => this.listRooms());
 
@@ -115,7 +115,7 @@ export class EchoChamberClient {
 
     public async stop(): Promise<void> {
         this.watchedRooms.clear();
-        elizaLogger.log("Stopping EchoChamber client...");
+        elizaLogger.info("Stopping EchoChamber client...");
     }
 
     public async listRooms(tags?: string[]): Promise<ChatRoom[]> {

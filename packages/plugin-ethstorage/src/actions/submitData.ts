@@ -43,7 +43,7 @@ export async function sendData(
 
     const blobs = encodeOpBlobs(data);
     const txRes = await blobUploader.sendTx(tx, blobs);
-    elizaLogger.log(`tx hash ${txRes.hash}`);
+    elizaLogger.info(`tx hash ${txRes.hash}`);
     const receipt = await txRes.wait();
     return receipt?.status === 1 ? txRes.hash : undefined;
 }
@@ -98,7 +98,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SUBMIT_DATA handler...");
+        elizaLogger.info("Starting SUBMIT_DATA handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -130,7 +130,7 @@ export default {
                 }
                 const address = runtime.getSetting("ETHSTORAGE_ADDRESS");
 
-                elizaLogger.log(`Transaction Data is ${content.data}`);
+                elizaLogger.info(`Transaction Data is ${content.data}`);
                 const data = Buffer.from(content.data);
 
                 //submit data
@@ -159,7 +159,7 @@ export default {
                 return false;
             }
         } else {
-            elizaLogger.log("No data mentioned to be submitted");
+            elizaLogger.info("No data mentioned to be submitted");
         }
     },
 

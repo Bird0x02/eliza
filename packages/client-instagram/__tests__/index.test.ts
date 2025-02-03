@@ -81,10 +81,10 @@ describe('InstagramClientInterface', () => {
     expect(InstagramInteractionService).toHaveBeenCalled();
     expect(result.post.start).toHaveBeenCalled();
     expect(result.interaction.start).toHaveBeenCalled();
-    expect(elizaLogger.log).toHaveBeenCalledWith('Instagram client configuration validated');
-    expect(elizaLogger.log).toHaveBeenCalledWith('Instagram client initialized');
-    expect(elizaLogger.log).toHaveBeenCalledWith('Instagram post service started');
-    expect(elizaLogger.log).toHaveBeenCalledWith('Instagram interaction service started');
+    expect(elizaLogger.info).toHaveBeenCalledWith('Instagram client configuration validated');
+    expect(elizaLogger.info).toHaveBeenCalledWith('Instagram client initialized');
+    expect(elizaLogger.info).toHaveBeenCalledWith('Instagram post service started');
+    expect(elizaLogger.info).toHaveBeenCalledWith('Instagram interaction service started');
   });
 
   it('starts in dry-run mode', async () => {
@@ -98,7 +98,7 @@ describe('InstagramClientInterface', () => {
     const result = await InstagramClientInterface.start(mockRuntime);
 
     expect(result).toBeDefined();
-    expect(elizaLogger.log).toHaveBeenCalledWith('Instagram client running in dry-run mode');
+    expect(elizaLogger.info).toHaveBeenCalledWith('Instagram client running in dry-run mode');
     expect(mockPostService.start).not.toHaveBeenCalled();
     expect(mockInteractionService.start).not.toHaveBeenCalled();
   });
@@ -115,6 +115,6 @@ describe('InstagramClientInterface', () => {
 
   it('stops gracefully', async () => {
     await InstagramClientInterface.stop(mockRuntime);
-    expect(elizaLogger.log).toHaveBeenCalledWith('Stopping Instagram client services...');
+    expect(elizaLogger.info).toHaveBeenCalledWith('Stopping Instagram client services...');
   });
 });

@@ -176,7 +176,7 @@ export class BrowserService extends Service implements IBrowserService {
 
         try {
             if (!this.context) {
-                elizaLogger.log(
+                elizaLogger.info(
                     "Browser context not initialized. Call initializeBrowser() first."
                 );
             }

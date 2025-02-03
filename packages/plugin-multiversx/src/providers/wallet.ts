@@ -148,8 +148,8 @@ export class WalletProvider {
             // Broadcast the transaction to the network
             const txHash = await this.sendTransaction(transaction);
 
-            elizaLogger.log(`TxHash: ${txHash}`); // Log transaction hash
-            elizaLogger.log(
+            elizaLogger.info(`TxHash: ${txHash}`); // Log transaction hash
+            elizaLogger.info(
                 `Transaction URL: ${this.explorerURL}/transactions/${txHash}`,
             ); // View Transaction
             return txHash;
@@ -238,8 +238,8 @@ export class WalletProvider {
             const txHash = await this.sendTransaction(transaction);
 
             const transactionURL = this.getTransactionURL(txHash);
-            elizaLogger.log(`TxHash: ${txHash}`); // Log transaction hash
-            elizaLogger.log(`Transaction URL: ${transactionURL}`); // View Transaction
+            elizaLogger.info(`TxHash: ${txHash}`); // Log transaction hash
+            elizaLogger.info(`Transaction URL: ${transactionURL}`); // View Transaction
             return txHash;
         } catch (error) {
             console.error("Error sending ESDT transaction:", error);
@@ -313,8 +313,8 @@ export class WalletProvider {
             const txHash = await this.sendTransaction(transaction);
 
             const transactionURL = this.getTransactionURL(txHash);
-            elizaLogger.log(`TxHash: ${txHash}`); // Log the transaction hash
-            elizaLogger.log(`Transaction URL: ${transactionURL}`); // View Transaction
+            elizaLogger.info(`TxHash: ${txHash}`); // Log the transaction hash
+            elizaLogger.info(`Transaction URL: ${transactionURL}`); // View Transaction
 
             return txHash; // Return the transaction hash
         } catch (error) {

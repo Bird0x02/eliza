@@ -8,7 +8,7 @@ import { elizaLogger } from "@elizaos/core";
 // Load environment variables
 config({ path: path.resolve(__dirname, "../../../.env") });
 
-elizaLogger.log("\n=== Starting Slack Attachment Example ===\n");
+elizaLogger.info("\n=== Starting Slack Attachment Example ===\n");
 
 // Load environment variables
 const slackConfig: SlackConfig = {
@@ -21,10 +21,10 @@ const slackConfig: SlackConfig = {
     botId: process.env.SLACK_BOT_ID || "",
 };
 
-elizaLogger.log("Environment variables loaded:");
+elizaLogger.info("Environment variables loaded:");
 Object.entries(slackConfig).forEach(([key, value]) => {
     if (value) {
-        elizaLogger.log(`${key}: ${value.slice(0, 4)}...${value.slice(-4)}`);
+        elizaLogger.info(`${key}: ${value.slice(0, 4)}...${value.slice(-4)}`);
     } else {
         console.error(`Missing ${key}`);
     }
@@ -32,16 +32,16 @@ Object.entries(slackConfig).forEach(([key, value]) => {
 
 async function runExample() {
     try {
-        elizaLogger.log("\nInitializing Slack client...");
+        elizaLogger.info("\nInitializing Slack client...");
         const provider = new SlackClientProvider(slackConfig);
         const client = provider.getContext().client;
 
-        elizaLogger.log("\nValidating Slack connection...");
+        elizaLogger.info("\nValidating Slack connection...");
         const isValid = await provider.validateConnection();
         if (!isValid) {
             throw new Error("Failed to validate Slack connection");
         }
-        elizaLogger.log("✓ Successfully connected to Slack");
+        elizaLogger.info("✓ Successfully connected to Slack");
 
         // Test file upload
         const channelId = process.env.SLACK_CHANNEL_ID;
@@ -49,7 +49,7 @@ async function runExample() {
             throw new Error("SLACK_CHANNEL_ID is required");
         }
 
-        elizaLogger.log("\nSending test message with attachment...");
+        elizaLogger.info("\nSending test message with attachment...");
         const testMessage = "Here is a test message with an attachment";
 
         // Create a test file
@@ -72,7 +72,7 @@ async function runExample() {
             initial_comment: testMessage,
         });
 
-        elizaLogger.log("✓ File uploaded successfully");
+        elizaLogger.info("✓ File uploaded successfully");
 
         // Initialize AttachmentManager
         const runtime = {
@@ -84,7 +84,7 @@ async function runExample() {
 
         // Process the uploaded file
         if (fileUpload.file) {
-            elizaLogger.log("\nProcessing attachment...");
+            elizaLogger.info("\nProcessing attachment...");
             const processedAttachment =
                 await attachmentManager.processAttachment({
                     id: fileUpload.file.id,
@@ -95,12 +95,12 @@ async function runExample() {
                     title: fileUpload.file.title || "",
                 });
 
-            elizaLogger.log("✓ Attachment processed:", processedAttachment);
+            elizaLogger.info("✓ Attachment processed:", processedAttachment);
         }
 
         // Cleanup
         fs.unlinkSync(testFilePath);
-        elizaLogger.log("\n✓ Test completed successfully");
+        elizaLogger.info("\n✓ Test completed successfully");
     } catch (error) {
         console.error("Error:", error);
         process.exit(1);
@@ -108,6 +108,6 @@ async function runExample() {
 }
 
 runExample().then(() => {
-    elizaLogger.log("\n=== Example completed ===\n");
+    elizaLogger.info("\n=== Example completed ===\n");
     process.exit(0);
 });

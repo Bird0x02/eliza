@@ -54,7 +54,7 @@ export async function initializeWallet(
                 walletData.seed
             );
             if (walletIDSave && seedSave) {
-                elizaLogger.log("Successfully updated character secrets.");
+                elizaLogger.info("Successfully updated character secrets.");
             } else {
                 const seedFilePath = `characters/${runtime.character.name.toLowerCase()}-seed.txt`;
                 elizaLogger.error(
@@ -63,7 +63,7 @@ export async function initializeWallet(
                 // save it to gitignored file
                 wallet.saveSeed(seedFilePath);
             }
-            elizaLogger.log(
+            elizaLogger.info(
                 "Wallet created and stored new wallet:",
                 walletAddress
             );
@@ -73,7 +73,7 @@ export async function initializeWallet(
         }
 
         // Logging wallet creation
-        elizaLogger.log("Created and stored new wallet:", walletAddress);
+        elizaLogger.info("Created and stored new wallet:", walletAddress);
     } else {
         // Importing existing wallet using stored seed and wallet ID
         // Always defaults to base-mainnet we can't select the network here
@@ -82,10 +82,10 @@ export async function initializeWallet(
             walletId: storedWalletId,
         });
         const networkId = wallet.getNetworkId();
-        elizaLogger.log("Imported existing wallet for network:", networkId);
+        elizaLogger.info("Imported existing wallet for network:", networkId);
 
         // Logging wallet import
-        elizaLogger.log(
+        elizaLogger.info(
             "Imported existing wallet:",
             await wallet.getDefaultAddress()
         );
@@ -111,7 +111,7 @@ export async function executeTradeAndCharityTransfer(
 ) {
     const wallet = await initializeWallet(runtime, network);
 
-    elizaLogger.log("Wallet initialized:", {
+    elizaLogger.info("Wallet initialized:", {
         network,
         address: await wallet.getDefaultAddress(),
     });
@@ -134,7 +134,7 @@ export async function executeTradeAndCharityTransfer(
             assetIdLowercase,
             charityAddress
         );
-        elizaLogger.log("Charity Transfer successful:", {
+        elizaLogger.info("Charity Transfer successful:", {
             address: charityAddress,
             transactionUrl: transfer.getTransactionLink(),
         });
@@ -150,9 +150,9 @@ export async function executeTradeAndCharityTransfer(
     }
 
     const trade: Trade = await wallet.createTrade(tradeParams);
-    elizaLogger.log("Trade initiated:", trade.toString());
+    elizaLogger.info("Trade initiated:", trade.toString());
     await trade.wait();
-    elizaLogger.log("Trade completed successfully:", trade.toString());
+    elizaLogger.info("Trade completed successfully:", trade.toString());
     await appendTradeToCsv(trade);
     return {
         trade,
@@ -186,9 +186,9 @@ export async function appendTradeToCsv(trade: Trade) {
             trade.getTransaction().getTransactionLink() || "",
         ];
 
-        elizaLogger.log("Writing trade to CSV:", formattedTrade);
+        elizaLogger.info("Writing trade to CSV:", formattedTrade);
         await csvWriter.writeRecords([formattedTrade]);
-        elizaLogger.log("Trade written to CSV successfully.");
+        elizaLogger.info("Trade written to CSV successfully.");
     } catch (error) {
         elizaLogger.error("Error writing trade to CSV:", error);
     }
@@ -216,9 +216,9 @@ export async function appendTransactionsToCsv(transactions: Transaction[]) {
             transaction.transactionUrl || "",
         ]);
 
-        elizaLogger.log("Writing transactions to CSV:", formattedTransactions);
+        elizaLogger.info("Writing transactions to CSV:", formattedTransactions);
         await csvWriter.writeRecords(formattedTransactions);
-        elizaLogger.log("All transactions written to CSV successfully.");
+        elizaLogger.info("All transactions written to CSV successfully.");
     } catch (error) {
         elizaLogger.error("Error writing transactions to CSV:", error);
     }
@@ -241,7 +241,7 @@ export async function appendWebhooksToCsv(webhooks: Webhook[]) {
                 ],
             });
             await csvWriter.writeRecords([]); // Create an empty file with headers
-            elizaLogger.log("New CSV file created with headers.");
+            elizaLogger.info("New CSV file created with headers.");
         }
         const csvWriter = createArrayCsvWriter({
             path: webhookCsvFilePath,
@@ -265,9 +265,9 @@ export async function appendWebhooksToCsv(webhooks: Webhook[]) {
             webhook.getNotificationURI(),
         ]);
 
-        elizaLogger.log("Writing webhooks to CSV:", formattedWebhooks);
+        elizaLogger.info("Writing webhooks to CSV:", formattedWebhooks);
         await csvWriter.writeRecords(formattedWebhooks);
-        elizaLogger.log("All webhooks written to CSV successfully.");
+        elizaLogger.info("All webhooks written to CSV successfully.");
     } catch (error) {
         elizaLogger.error("Error writing webhooks to CSV:", error);
     }
@@ -430,7 +430,7 @@ export async function executeTransferAndCharityTransfer(
             assetIdLowercase,
             charityAddress
         );
-        elizaLogger.log(
+        elizaLogger.info(
             "Charity Transfer successful:",
             charityTransfer.toString()
         );
@@ -442,9 +442,9 @@ export async function executeTransferAndCharityTransfer(
         destination: targetAddress,
         gasless: assetIdLowercase === "usdc" ? true : false,
     };
-    elizaLogger.log("Initiating transfer:", transferDetails);
+    elizaLogger.info("Initiating transfer:", transferDetails);
     const transfer = await wallet.createTransfer(transferDetails);
-    elizaLogger.log("Transfer initiated:", transfer.toString());
+    elizaLogger.info("Transfer initiated:", transfer.toString());
     await transfer.wait();
 
     let responseText = `Transfer executed successfully:
@@ -461,7 +461,7 @@ export async function executeTransferAndCharityTransfer(
         responseText += "\n(Note: Charity transfer was not completed)";
     }
 
-    elizaLogger.log(responseText);
+    elizaLogger.info(responseText);
 
     return {
         transfer,
@@ -490,11 +490,11 @@ export async function executeTransfer(
         destination: targetAddress,
         gasless: assetIdLowercase === "usdc" ? true : false,
     };
-    elizaLogger.log("Initiating transfer:", transferDetails);
+    elizaLogger.info("Initiating transfer:", transferDetails);
     let transfer: Transfer | undefined;
     try {
         transfer = await wallet.createTransfer(transferDetails);
-        elizaLogger.log("Transfer initiated:", transfer.toString());
+        elizaLogger.info("Transfer initiated:", transfer.toString());
         await transfer.wait({
             intervalSeconds: 1,
             timeoutSeconds: 20,

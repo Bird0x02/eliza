@@ -61,7 +61,7 @@ export default {
     similes: TRADE_ACTION.similes,
     validate: async (runtime: IAgentRuntime, message: Memory) => {
         // Check if the necessary parameters are provided in the message
-        elizaLogger.log("Message:", message);
+        elizaLogger.info("Message:", message);
         return true;
     },
     description: TRADE_ACTION.description,
@@ -91,7 +91,7 @@ export default {
             modelClass: ModelClass.LARGE,
         });
 
-        elizaLogger.log("Response:", response);
+        elizaLogger.info("Response:", response);
         // const type = response.inputTokenSymbol?.toUpperCase() === "SOL" ? "buy" : "sell";
 
         // Add SOL handling logic
@@ -103,7 +103,7 @@ export default {
         }
 
         if (!response.amount) {
-            elizaLogger.log("No amount provided, skipping swap");
+            elizaLogger.info("No amount provided, skipping swap");
             const responseMsg = {
                 text: "I need the amount to perform the swap",
             };
@@ -113,7 +113,7 @@ export default {
 
         // TODO: if response amount is half, all, etc, semantically retrieve amount and return as number
         if (!response.amount) {
-            elizaLogger.log("Amount is not a number, skipping swap");
+            elizaLogger.info("Amount is not a number, skipping swap");
             const responseMsg = {
                 text: "The amount must be a number",
             };
@@ -161,8 +161,8 @@ export default {
                 );
             }
 
-            elizaLogger.log("Swap completed successfully!");
-            elizaLogger.log(`Transaction ID: ${txid}`);
+            elizaLogger.info("Swap completed successfully!");
+            elizaLogger.info(`Transaction ID: ${txid}`);
 
             const responseMsg = {
                 text: `Swap completed successfully! Transaction ID: ${txid}`,

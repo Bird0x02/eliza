@@ -147,7 +147,7 @@ export const postTweetAction: Action = {
   ) => {
     const hasCredentials =
             !!process.env.TWITTER_USERNAME && !!process.env.TWITTER_PASSWORD;
-    elizaLogger.log(`Has credentials: ${hasCredentials}`);
+    elizaLogger.info(`Has credentials: ${hasCredentials}`);
 
     return hasCredentials;
   },

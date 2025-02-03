@@ -40,7 +40,7 @@ async function ensureAllowance(
     memeAddress: `0x${string}`,
     amount: bigint
 ) {
-    elizaLogger.log(
+    elizaLogger.info(
         `Checking allowance: token: ${tokenAddress} meme: ${memeAddress} amount: ${amount}`
     );
 
@@ -56,10 +56,10 @@ async function ensureAllowance(
         args: [account.address, memeAddress],
     });
 
-    elizaLogger.log("allowance:", allowance);
+    elizaLogger.info("allowance:", allowance);
 
     if (allowance < amount) {
-        elizaLogger.log(
+        elizaLogger.info(
             `allowance(${allowance}) is less than amount(${amount}), approving...`
         );
 
@@ -75,11 +75,11 @@ async function ensureAllowance(
             kzg: null,
         });
 
-        elizaLogger.log(`Approving hash: ${hash}`);
+        elizaLogger.info(`Approving hash: ${hash}`);
         await publicClient.waitForTransactionReceipt({ hash });
-        elizaLogger.log(`Approving success: ${hash}`);
+        elizaLogger.info(`Approving success: ${hash}`);
     } else {
-        elizaLogger.log("No need to approve");
+        elizaLogger.info("No need to approve");
     }
 }
 
@@ -222,7 +222,7 @@ export const confiPump: Action = {
                         );
                         throw new Error("Invalid PumpCreateContent");
                     }
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "creating: ",
                         contentObject.params.name,
                         contentObject.params.symbol,
@@ -252,7 +252,7 @@ export const confiPump: Action = {
                         contentObject.params.value.toString(),
                         18
                     );
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "buying: ",
                         contentObject.params.tokenAddress,
                         value
@@ -280,7 +280,7 @@ export const confiPump: Action = {
                     const tokenAddress = getAddress(
                         contentObject.params.tokenAddress as `0x${string}`
                     );
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "selling: ",
                         tokenAddress,
                         account.address,
@@ -328,7 +328,7 @@ export const confiPump: Action = {
                 value,
                 account,
             });
-            elizaLogger.log("simulate: ", simulate);
+            elizaLogger.info("simulate: ", simulate);
 
             const hash = await walletClient.sendTransaction({
                 account,

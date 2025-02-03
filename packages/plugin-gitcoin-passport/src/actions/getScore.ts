@@ -48,7 +48,7 @@ export const getPassportScoreAction: Action = {
     name: "GET_PASSPORT_SCORE",
     description: "Get score from Passport API for an address",
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("Validating runtime for GET_PASSPORT_SCORE...");
+        elizaLogger.info("Validating runtime for GET_PASSPORT_SCORE...");
         const apiKey = runtime.getSetting("PASSPORT_API_KEY");
         const scorerId = runtime.getSetting("PASSPORT_SCORER");
         if (!apiKey || !scorerId) {
@@ -66,7 +66,7 @@ export const getPassportScoreAction: Action = {
         _options: Record<string, unknown>,
         callback: HandlerCallback
     ) => {
-        elizaLogger.log("Starting GET_PASSPORT_SCORE handler...");
+        elizaLogger.info("Starting GET_PASSPORT_SCORE handler...");
         const apiKey = runtime.getSetting("PASSPORT_API_KEY");
         const scorerId = runtime.getSetting("PASSPORT_SCORER");
 

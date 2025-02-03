@@ -62,7 +62,7 @@ export async function buildConversationThread(
     // Try to fetch the full conversation first if we have a conversation ID
     if (jeet.conversationId || jeet.id) {
         try {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Attempting to fetch conversation for jeet ${jeet.id}`
             );
             const conversationId = jeet.conversationId || jeet.id;

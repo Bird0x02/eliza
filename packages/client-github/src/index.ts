@@ -78,7 +78,7 @@ export class GitHubClient {
         while (retries < maxRetries) {
             try {
                 await this.git.clone(repositoryUrl, this.repoPath);
-                elizaLogger.log(
+                elizaLogger.info(
                     `Successfully cloned repository from ${repositoryUrl}`
                 );
                 return;
@@ -206,7 +206,7 @@ export class GitHubClient {
 export const GitHubClientInterface: Client = {
     start: async (runtime: IAgentRuntime) => {
         await validateGithubConfig(runtime);
-        elizaLogger.log("GitHubClientInterface start");
+        elizaLogger.info("GitHubClientInterface start");
 
         const client = new GitHubClient(runtime as AgentRuntime);
         await client.initialize();
@@ -215,7 +215,7 @@ export const GitHubClientInterface: Client = {
         return client;
     },
     stop: async (_runtime: IAgentRuntime) => {
-        elizaLogger.log("GitHubClientInterface stop");
+        elizaLogger.info("GitHubClientInterface stop");
     },
 };
 

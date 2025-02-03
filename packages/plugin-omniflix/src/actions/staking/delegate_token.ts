@@ -173,7 +173,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting TOKENS_DELEGATE handler...");
+        elizaLogger.info("Starting TOKENS_DELEGATE handler...");
 
         const delegateContent = await buildDelegateTokensContent(
             runtime,

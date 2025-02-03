@@ -36,7 +36,7 @@ export class WithdrawAction {
             );
             return txHash;
         } catch(error) {
-            elizaLogger.log(`Withdraw failed: ${error.message}`);
+            elizaLogger.info(`Withdraw failed: ${error.message}`);
             throw new Error(`Withdraw failed: ${error.message}`);
         }
     }

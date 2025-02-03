@@ -55,7 +55,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CoinGecko GET_NEW_COINS handler...");
+        elizaLogger.info("Starting CoinGecko GET_NEW_COINS handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -67,7 +67,7 @@ export default {
 
 
         try {
-            elizaLogger.log("Composing new coins context...");
+            elizaLogger.info("Composing new coins context...");
             const newCoinsContext = composeContext({
                 state: currentState,
                 template: getNewCoinsTemplate,
@@ -89,7 +89,7 @@ export default {
             const config = await validateCoingeckoConfig(runtime);
             const { baseUrl, apiKey, headerKey } = getApiConfig(config);
 
-            elizaLogger.log("Fetching new coins data...");
+            elizaLogger.info("Fetching new coins data...");
 
             const response = await axios.get<NewCoinsResponse>(
                 `${baseUrl}/coins/list/new`,

@@ -37,7 +37,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Moralis GET_SOLANA_PAIR_STATS handler...");
+        elizaLogger.info("Starting Moralis GET_SOLANA_PAIR_STATS handler...");
         // Initialize or update state
         let currentState: State;
         if (!state) {
@@ -47,13 +47,13 @@ export default {
         }
 
         try {
-            elizaLogger.log("Composing pair stats context...");
+            elizaLogger.info("Composing pair stats context...");
             const statsContext = composeContext({
                 state: currentState,
                 template: getPairStatsTemplate,
             });
 
-            elizaLogger.log("Extracting pair address...");
+            elizaLogger.info("Extracting pair address...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: statsContext,
@@ -69,7 +69,7 @@ export default {
             }
 
             const config = await validateMoralisConfig(runtime);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Fetching stats for Solana pair ${content.pairAddress}...`
             );
 

@@ -105,7 +105,7 @@ export class TwitterService {
       const tweetContent = this.formatBuyAlert(alert);
 
       if (this.config.dryRun) {
-        elizaLogger.log(
+        elizaLogger.info(
           "Dry run mode - would have posted tweet:",
           tweetContent,
         );
@@ -119,7 +119,7 @@ export class TwitterService {
 
       // Use the correct client structure
       await this.client.post.client.twitterClient.sendTweet(tweetContent);
-      elizaLogger.log("Successfully posted trade alert to Twitter:", {
+      elizaLogger.info("Successfully posted trade alert to Twitter:", {
         content: tweetContent,
       });
 

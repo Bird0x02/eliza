@@ -90,11 +90,11 @@ export class JeeterInteractionClient {
         }
 
         this.isRunning = true;
-        elizaLogger.log("Starting Jeeter Interaction Client");
+        elizaLogger.info("Starting Jeeter Interaction Client");
 
         const handleJeeterInteractionsLoop = async () => {
             if (!this.isRunning) {
-                elizaLogger.log("JeeterInteractionClient has been stopped");
+                elizaLogger.info("JeeterInteractionClient has been stopped");
                 return;
             }
 
@@ -108,7 +108,7 @@ export class JeeterInteractionClient {
                         Math.random() * (MAX_INTERVAL - MIN_INTERVAL + 1)
                     ) + MIN_INTERVAL;
 
-                elizaLogger.log(
+                elizaLogger.info(
                     `Next check scheduled in ${nextInterval / 1000} seconds`
                 );
 
@@ -134,7 +134,7 @@ export class JeeterInteractionClient {
     }
 
     public async stop() {
-        elizaLogger.log("Stopping JeeterInteractionClient...");
+        elizaLogger.info("Stopping JeeterInteractionClient...");
         this.isRunning = false;
 
         // Clear any pending timeout
@@ -152,15 +152,15 @@ export class JeeterInteractionClient {
         // Wait for any ongoing operations to complete
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        elizaLogger.log("JeeterInteractionClient stopped successfully");
+        elizaLogger.info("JeeterInteractionClient stopped successfully");
     }
 
     async handleJeeterInteractions() {
-        elizaLogger.log("Checking Jeeter interactions");
+        elizaLogger.info("Checking Jeeter interactions");
 
         try {
             const { username: jeeterUsername } = this.client.profile;
-            elizaLogger.log(
+            elizaLogger.info(
                 `Fetching mentions and comments for @${jeeterUsername}`
             );
 
@@ -188,19 +188,19 @@ export class JeeterInteractionClient {
                 .sort((a, b) => a.id.localeCompare(b.id))
                 .filter((jeet) => jeet.agentId !== this.client.profile.id);
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Found ${uniqueJeets.length} unique interactions to process`
             );
 
             const interactionPromises = uniqueJeets.map(async (jeet) => {
                 if (!this.isRunning) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "Stopping jeet processing due to client stop"
                     );
                     return;
                 }
 
-                elizaLogger.log(
+                elizaLogger.info(
                     "Processing interaction:",
                     JSON.stringify(jeet)
                 );
@@ -214,7 +214,7 @@ export class JeeterInteractionClient {
                     this.client.lastCheckedJeetId &&
                     parseInt(jeet.id) <= parseInt(this.client.lastCheckedJeetId)
                 ) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Skipping already processed interaction ${jeet.id}`
                     );
                     return;
@@ -226,7 +226,7 @@ export class JeeterInteractionClient {
                     );
                     const userIdUUID = stringToUuid(jeet.agentId);
 
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Ensuring connection for user ${jeet.agent?.username}`
                     );
                     await this.runtime.ensureConnection(
@@ -237,7 +237,7 @@ export class JeeterInteractionClient {
                         "jeeter"
                     );
 
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Building conversation thread for interaction ${jeet.id}`
                     );
                     const thread = await buildConversationThread(
@@ -252,7 +252,7 @@ export class JeeterInteractionClient {
                         roomId,
                     };
 
-                    elizaLogger.log(`Handling interaction ${jeet.id}`);
+                    elizaLogger.info(`Handling interaction ${jeet.id}`);
                     await this.handleJeet({
                         jeet,
                         message,
@@ -261,7 +261,7 @@ export class JeeterInteractionClient {
 
                     this.client.lastCheckedJeetId = jeet.id;
 
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Successfully processed interaction ${jeet.id}`
                     );
                 } catch (error) {
@@ -281,7 +281,7 @@ export class JeeterInteractionClient {
             await Promise.all(interactionPromises);
 
             await this.client.cacheLatestCheckedJeetId();
-            elizaLogger.log("Finished checking Jeeter interactions");
+            elizaLogger.info("Finished checking Jeeter interactions");
         } catch (error) {
             elizaLogger.error("Error in handleJeeterInteractions:", error);
             if (error instanceof Error) {
@@ -302,7 +302,7 @@ export class JeeterInteractionClient {
                     continue;
                 }
 
-                elizaLogger.log(`Fetching conversation for post ${post.id}`);
+                elizaLogger.info(`Fetching conversation for post ${post.id}`);
                 const conversation =
                     await this.client.simsAIClient.getJeetConversation(post.id);
 
@@ -345,7 +345,7 @@ export class JeeterInteractionClient {
         message: Memory;
         thread: Jeet[];
     }): Promise<EnhancedResponseContent> {
-        elizaLogger.log(`Starting handleJeet for ${jeet.id}`);
+        elizaLogger.info(`Starting handleJeet for ${jeet.id}`);
 
         // If dry run is enabled, skip processing
         if (this.runtime.getSetting("SIMSAI_DRY_RUN") === "true") {
@@ -360,7 +360,7 @@ export class JeeterInteractionClient {
 
         try {
             if (!message.content.text) {
-                elizaLogger.log(`Skipping jeet ${jeet.id} - no text content`);
+                elizaLogger.info(`Skipping jeet ${jeet.id} - no text content`);
                 return {
                     text: "",
                     shouldLike: false,
@@ -391,7 +391,7 @@ export class JeeterInteractionClient {
                 )
                 .join("\n\n");
 
-            elizaLogger.log("Composing state");
+            elizaLogger.info("Composing state");
             let state = await this.runtime.composeState(message, {
                 jeeterClient: this.client.simsAIClient,
                 jeeterUserName: this.client.profile.username,
@@ -400,7 +400,7 @@ export class JeeterInteractionClient {
                 timeline: `# ${this.runtime.character.name}'s Home Timeline\n\n${formattedHomeTimeline}`,
             });
 
-            elizaLogger.log("Checking if should respond");
+            elizaLogger.info("Checking if should respond");
             const shouldRespondContext = composeContext({
                 state,
                 template:
@@ -416,7 +416,7 @@ export class JeeterInteractionClient {
             });
 
             if (shouldRespond !== "RESPOND") {
-                elizaLogger.log(`Not responding to jeet ${jeet.id}`);
+                elizaLogger.info(`Not responding to jeet ${jeet.id}`);
                 return {
                     text: "Response Decision:",
                     shouldLike: false,
@@ -427,13 +427,13 @@ export class JeeterInteractionClient {
 
             // Only create memory and process interaction if we're going to respond
             const jeetId = stringToUuid(jeet.id + "-" + this.runtime.agentId);
-            elizaLogger.log(`Checking if memory exists for jeetId: ${jeetId}`);
+            elizaLogger.info(`Checking if memory exists for jeetId: ${jeetId}`);
             const jeetExists =
                 await this.runtime.messageManager.getMemoryById(jeetId);
-            elizaLogger.log(`Memory exists: ${jeetExists}`);
+            elizaLogger.info(`Memory exists: ${jeetExists}`);
 
             if (!jeetExists) {
-                elizaLogger.log(`Creating new memory for jeetId: ${jeetId}`);
+                elizaLogger.info(`Creating new memory for jeetId: ${jeetId}`);
                 const memoryMessage = {
                     id: jeetId,
                     agentId: this.runtime.agentId,
@@ -455,7 +455,7 @@ export class JeeterInteractionClient {
                 };
                 await this.client.saveRequestMessage(memoryMessage, state);
             } else {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Already have memory interacting with this jeet: ${jeetId}`
                 );
             }
@@ -488,7 +488,7 @@ export class JeeterInteractionClient {
                                 jeet.inReplyToStatusId
                             )
                         ) {
-                            elizaLogger.log(
+                            elizaLogger.info(
                                 `Skipping ${interaction.type} for jeet ${jeet.id} - already performed`
                             );
                             continue;
@@ -517,7 +517,7 @@ export class JeeterInteractionClient {
                                             jeet.id
                                         );
                                     if (rejeetResult?.id) {
-                                        elizaLogger.log(
+                                        elizaLogger.info(
                                             `Rejeeted jeet ${jeet.id}`
                                         );
                                         this.recordInteraction(
@@ -543,7 +543,7 @@ export class JeeterInteractionClient {
                                         jeet.id,
                                         interaction.text
                                     );
-                                    elizaLogger.log(
+                                    elizaLogger.info(
                                         `Quote rejeeted jeet ${jeet.id}`
                                     );
                                     this.recordInteraction(jeet.id, "quote");
@@ -595,7 +595,7 @@ export class JeeterInteractionClient {
                                 break;
 
                             case "none":
-                                elizaLogger.log(
+                                elizaLogger.info(
                                     `Chose not to interact with jeet ${jeet.id}`
                                 );
                                 break;
@@ -645,7 +645,7 @@ export class JeeterInteractionClient {
     private async getHomeTimeline(): Promise<Jeet[]> {
         let homeTimeline = await this.client.getCachedTimeline();
         if (!homeTimeline) {
-            elizaLogger.log("Fetching home timeline");
+            elizaLogger.info("Fetching home timeline");
             homeTimeline = await this.client.fetchHomeTimeline(50);
             await this.client.cacheTimeline(homeTimeline);
         }

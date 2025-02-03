@@ -55,10 +55,10 @@ export async function getWalletKey(
             const secretKey = bs58.decode(privateKeyString);
             return { keypair: Keypair.fromSecretKey(secretKey) };
         } catch (e) {
-            elizaLogger.log("Error decoding base58 private key:", e);
+            elizaLogger.info("Error decoding base58 private key:", e);
             try {
                 // Then try base64
-                elizaLogger.log("Try decoding base64 instead");
+                elizaLogger.info("Try decoding base64 instead");
                 const secretKey = Uint8Array.from(
                     Buffer.from(privateKeyString, "base64")
                 );

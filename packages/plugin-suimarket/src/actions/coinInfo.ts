@@ -92,7 +92,7 @@ export const coinInfo: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[tokenInfo]");
+        elizaLogger.info("[tokenInfo]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -131,7 +131,7 @@ export const coinInfo: Action = {
             return false;
         }
 
-        elizaLogger.log("[coinInfo] parsed content: ", parsedContent);
+        elizaLogger.info("[coinInfo] parsed content: ", parsedContent);
 
 
         let coinObject= await searchCoinInFileJsonProvider2(parsedContent.coin_symbol, parsedContent.coin_name)

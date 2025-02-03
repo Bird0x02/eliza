@@ -542,7 +542,7 @@ export class ObsidianProvider {
 
         try {
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Processing search query with format ${queryFormat}:`,
                 body
             );
@@ -606,7 +606,7 @@ export class ObsidianProvider {
         // Split on OR to get main chunks
         const orQueries = query.split(/\s+OR\s+/).map((q) => q.trim());
 
-        elizaLogger.log(
+        elizaLogger.info(
             'Processing search query with OR operator:',
             orQueries
         );

@@ -84,7 +84,7 @@ export class CronosWalletProvider {
         const cacheKey = `balance_${address}_${this.currentChain}`;
         const cachedData = await this.getCachedData<string>(cacheKey);
         if (cachedData) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Returning cached balance for address ${address} on chain: ${this.currentChain}`
             );
             return cachedData;
@@ -97,7 +97,7 @@ export class CronosWalletProvider {
             });
             const balanceFormatted = formatUnits(balance, 18);
             this.setCachedData<string>(cacheKey, balanceFormatted);
-            elizaLogger.log(
+            elizaLogger.info(
                 `Balance cached for address ${address} on chain: ${this.currentChain}`
             );
             return balanceFormatted;

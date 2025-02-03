@@ -120,7 +120,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         // Fix: Create new variable instead of reassigning parameter
         let currentState = state;

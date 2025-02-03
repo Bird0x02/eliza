@@ -6,7 +6,7 @@ import { elizaLogger } from "@elizaos/core";
 
 // Load environment variables from root .env
 const envPath = resolve(__dirname, "../../../../.env");
-elizaLogger.log("Loading environment from:", envPath);
+elizaLogger.info("Loading environment from:", envPath);
 config({ path: envPath });
 
 function validateEnvironment() {
@@ -26,12 +26,12 @@ function validateEnvironment() {
         return false;
     }
 
-    elizaLogger.log("Environment variables loaded successfully");
+    elizaLogger.info("Environment variables loaded successfully");
     return true;
 }
 
 async function main() {
-    elizaLogger.log("\n=== Starting Summarize Conversation Example ===\n");
+    elizaLogger.info("\n=== Starting Summarize Conversation Example ===\n");
 
     if (!validateEnvironment()) {
         throw new Error("Environment validation failed");
@@ -55,10 +55,10 @@ async function main() {
     if (!isConnected) {
         throw new Error("Failed to connect to Slack");
     }
-    elizaLogger.log("✓ Successfully connected to Slack");
+    elizaLogger.info("✓ Successfully connected to Slack");
 
     const channel = process.env.SLACK_CHANNEL_ID!;
-    elizaLogger.log(`\nSending messages to channel: ${channel}`);
+    elizaLogger.info(`\nSending messages to channel: ${channel}`);
 
     // First, send some test messages
     await slackProvider.sendMessage(
@@ -94,7 +94,7 @@ async function main() {
 
     // Keep the process running
     await new Promise((resolve) => setTimeout(resolve, 10000));
-    elizaLogger.log("\n✓ Example completed successfully");
+    elizaLogger.info("\n✓ Example completed successfully");
     process.exit(0);
 }
 

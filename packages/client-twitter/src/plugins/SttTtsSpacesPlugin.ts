@@ -96,11 +96,11 @@ export class SttTtsPlugin implements Plugin {
     private ttsAbortController: AbortController | null = null;
 
     onAttach(_space: Space) {
-        elizaLogger.log("[SttTtsPlugin] onAttach => space was attached");
+        elizaLogger.info("[SttTtsPlugin] onAttach => space was attached");
     }
 
     init(params: { space: Space; pluginConfig?: Record<string, any> }): void {
-        elizaLogger.log(
+        elizaLogger.info(
             "[SttTtsPlugin] init => Space fully ready. Subscribing to events.",
         );
 
@@ -160,7 +160,7 @@ export class SttTtsPlugin implements Plugin {
 
         if (!this.isSpeaking) {
             this.userSpeakingTimer = setTimeout(() => {
-                elizaLogger.log(
+                elizaLogger.info(
                     "[SttTtsPlugin] start processing audio for user =>",
                     data.userId,
                 );
@@ -199,7 +199,7 @@ export class SttTtsPlugin implements Plugin {
                 if (this.ttsAbortController) {
                     this.ttsAbortController.abort();
                     this.isSpeaking = false;
-                    elizaLogger.log("[SttTtsPlugin] TTS playback interrupted");
+                    elizaLogger.info("[SttTtsPlugin] TTS playback interrupted");
                 }
             }
         }
@@ -265,7 +265,7 @@ export class SttTtsPlugin implements Plugin {
         }
         this.isProcessingAudio = true;
         try {
-            elizaLogger.log(
+            elizaLogger.info(
                 "[SttTtsPlugin] Starting audio processing for user:",
                 userId,
             );
@@ -279,7 +279,7 @@ export class SttTtsPlugin implements Plugin {
                 );
                 return;
             }
-            elizaLogger.log(
+            elizaLogger.info(
                 `[SttTtsPlugin] Flushing STT buffer for user=${userId}, chunks=${chunks.length}`,
             );
 
@@ -298,7 +298,7 @@ export class SttTtsPlugin implements Plugin {
             const sttText =
                 await this.transcriptionService.transcribe(wavBuffer);
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `[SttTtsPlugin] Transcription result: "${sttText}"`,
             );
 
@@ -309,7 +309,7 @@ export class SttTtsPlugin implements Plugin {
                 );
                 return;
             }
-            elizaLogger.log(
+            elizaLogger.info(
                 `[SttTtsPlugin] STT => user=${userId}, text="${sttText}"`,
             );
 
@@ -322,7 +322,7 @@ export class SttTtsPlugin implements Plugin {
                 );
                 return;
             }
-            elizaLogger.log(
+            elizaLogger.info(
                 `[SttTtsPlugin] user=${userId}, reply="${replyText}"`,
             );
             this.isProcessingAudio = false;
@@ -367,14 +367,14 @@ export class SttTtsPlugin implements Plugin {
                 const ttsAudio = await this.elevenLabsTts(text);
                 const pcm = await this.convertMp3ToPcm(ttsAudio, 48000);
                 if (signal.aborted) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "[SttTtsPlugin] TTS interrupted before streaming",
                     );
                     return;
                 }
                 await this.streamToJanus(pcm, 48000);
                 if (signal.aborted) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "[SttTtsPlugin] TTS interrupted after streaming",
                     );
                     return;
@@ -705,7 +705,7 @@ export class SttTtsPlugin implements Plugin {
             offset += FRAME_SIZE
         ) {
             if (this.ttsAbortController?.signal.aborted) {
-                elizaLogger.log("[SttTtsPlugin] streamToJanus interrupted");
+                elizaLogger.info("[SttTtsPlugin] streamToJanus interrupted");
                 return;
             }
             const frame = new Int16Array(FRAME_SIZE);
@@ -723,7 +723,7 @@ export class SttTtsPlugin implements Plugin {
      */
     public addMessage(role: "system" | "user" | "assistant", content: string) {
         this.chatContext.push({ role, content });
-        elizaLogger.log(
+        elizaLogger.info(
             `[SttTtsPlugin] addMessage => role=${role}, content=${content}`,
         );
     }
@@ -733,11 +733,11 @@ export class SttTtsPlugin implements Plugin {
      */
     public clearChatContext() {
         this.chatContext = [];
-        elizaLogger.log("[SttTtsPlugin] clearChatContext => done");
+        elizaLogger.info("[SttTtsPlugin] clearChatContext => done");
     }
 
     cleanup(): void {
-        elizaLogger.log("[SttTtsPlugin] cleanup => releasing resources");
+        elizaLogger.info("[SttTtsPlugin] cleanup => releasing resources");
         this.pcmBuffers.clear();
         this.userSpeakingTimer = null;
         this.ttsQueue = [];

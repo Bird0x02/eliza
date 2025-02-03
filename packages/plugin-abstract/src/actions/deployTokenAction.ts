@@ -97,7 +97,7 @@ export const deployTokenAction: Action = {
 		_options: { [key: string]: unknown },
 		callback?: HandlerCallback,
 	): Promise<boolean> => {
-		elizaLogger.log("Starting Abstract DEPLOY_TOKEN handler...");
+		elizaLogger.info("Starting Abstract DEPLOY_TOKEN handler...");
 
 		if (!state) {
 			state = (await runtime.composeState(message)) as State;

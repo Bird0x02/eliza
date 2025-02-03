@@ -76,7 +76,7 @@ export const suiTrendingPools: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[suiPools]");
+        elizaLogger.info("[suiPools]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -93,7 +93,7 @@ export const suiTrendingPools: Action = {
             context: suiPoolsContext,
             modelClass: ModelClass.SMALL,
         })
-        elizaLogger.log("content: ",content);
+        elizaLogger.info("content: ",content);
         const coinGecko = new GeckoTerminalProvider();
         let info = await coinGecko.fetchPoolsByNetwork('sui-network');
         info = info.map(item => {

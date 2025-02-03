@@ -64,7 +64,7 @@ async function sendTweet(twitterClient: Scraper, content: string) {
     const result = await twitterClient.sendTweet(content);
 
     const body = await result.json();
-    elizaLogger.log("Tweet response:", body);
+    elizaLogger.info("Tweet response:", body);
 
     // Check for Twitter API errors
     if (body.errors) {
@@ -113,7 +113,7 @@ async function postTweet(
         }
 
         // Send the tweet
-        elizaLogger.log("Attempting to send tweet:", content);
+        elizaLogger.info("Attempting to send tweet:", content);
 
         try {
             if (content.length > DEFAULT_MAX_TWEET_LENGTH) {
@@ -155,7 +155,7 @@ export const postAction: Action = {
         const password = runtime.getSetting("TWITTER_PASSWORD");
         const email = runtime.getSetting("TWITTER_EMAIL");
         const hasCredentials = !!username && !!password && !!email;
-        elizaLogger.log(`Has credentials: ${hasCredentials}`);
+        elizaLogger.info(`Has credentials: ${hasCredentials}`);
 
         return hasCredentials;
     },
@@ -173,7 +173,7 @@ export const postAction: Action = {
                 return false;
             }
 
-            elizaLogger.log(`Generated tweet content: ${tweetContent}`);
+            elizaLogger.info(`Generated tweet content: ${tweetContent}`);
 
             // Check for dry run mode - explicitly check for string "true"
             if (

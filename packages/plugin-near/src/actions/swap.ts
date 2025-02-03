@@ -60,7 +60,7 @@ async function checkStorageBalance(
         });
         return balance !== null && balance.total !== "0";
     } catch (error) {
-        elizaLogger.log(`Error checking storage balance: ${error}`);
+        elizaLogger.info(`Error checking storage balance: ${error}`);
         return false;
     }
 }
@@ -213,7 +213,7 @@ export const executeSwap: Action = {
         "EXCHANGE_TOKENS_NEAR",
     ],
     validate: async (_runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Message:", message);
+        elizaLogger.info("Message:", message);
         return true;
     },
     description: "Perform a token swap using Ref Finance.",
@@ -234,7 +234,7 @@ export const executeSwap: Action = {
         //     state = await runtime.updateRecentMessageState(state);
         // }
         let currentState: State;
-        
+
         if (!state) {
             currentState = (await runtime.composeState(message)) as State;
         } else {
@@ -267,7 +267,7 @@ export const executeSwap: Action = {
         }
 
         if (!isSwapResponse(response)) {
-            elizaLogger.log("Missing required parameters, skipping swap");
+            elizaLogger.info("Missing required parameters, skipping swap");
             const responseMsg = {
                 text: "I need the input token ID, output token ID, and amount to perform the swap",
             };
@@ -329,7 +329,7 @@ export const executeSwap: Action = {
                 }
             }
 
-            elizaLogger.log("Swap completed successfully!");
+            elizaLogger.info("Swap completed successfully!");
             const txHashes = results.map((r) => r.transaction.hash).join(", ");
 
             const responseMsg = {

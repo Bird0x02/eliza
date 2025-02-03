@@ -22,7 +22,7 @@ export async function fetchWithRetry(
 
     for (let i = 0; i < PROVIDER_CONFIG.MAX_RETRIES; i++) {
         try {
-            elizaLogger.log(`Attempt ${i + 1} for ${url} with chain ${chain}`);
+            elizaLogger.info(`Attempt ${i + 1} for ${url} with chain ${chain}`);
 
             // Ensure headers are properly initialized
             const headers = {

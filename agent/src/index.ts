@@ -685,7 +685,7 @@ export function getTokenForProvider(
 
 function initializeDatabase(dataDir: string) {
     if (process.env.MONGODB_CONNECTION_STRING) {
-        elizaLogger.log("Initializing database on MongoDB Atlas");
+        elizaLogger.info("Initializing database on MongoDB Atlas");
         const client = new MongoClient(process.env.MONGODB_CONNECTION_STRING, {
             maxPoolSize: 100,
             minPoolSize: 5,
@@ -802,7 +802,7 @@ export async function initializeClients(
     const clients: Record<string, any> = {};
     const clientTypes: string[] =
         character.clients?.map((str) => str.toLowerCase()) || [];
-    elizaLogger.log("initializeClients", clientTypes, "for", character.name);
+    elizaLogger.info("initializeClients", clientTypes, "for", character.name);
 
     // Start Auto Client if "auto" detected as a configured client
     if (clientTypes.includes(Clients.AUTO)) {
@@ -871,7 +871,7 @@ export async function initializeClients(
         if (simsaiClient) clients.simsai = simsaiClient;
     }
 
-    elizaLogger.log("client keys", Object.keys(clients));
+    elizaLogger.info("client keys", Object.keys(clients));
 
     if (clientTypes.includes("deva")) {
         if (clientTypes.includes("deva")) {
@@ -931,7 +931,7 @@ export async function createAgent(
     cache: ICacheManager,
     token: string
 ): Promise<AgentRuntime> {
-    elizaLogger.log(`Creating runtime for character ${character.name}`);
+    elizaLogger.info(`Creating runtime for character ${character.name}`);
 
     nodePlugin ??= createNodePlugin();
 
@@ -974,7 +974,7 @@ export async function createAgent(
     //         modelProvider: character.modelProvider,
     //         token,
     //     });
-    //     elizaLogger.log("Verifiable inference adapter initialized");
+    //     elizaLogger.info("Verifiable inference adapter initialized");
     // }
     // Initialize Opacity adapter if environment variables are present
     let verifiableInferenceAdapter;
@@ -991,12 +991,12 @@ export async function createAgent(
             modelProvider: character.modelProvider,
             token: token,
         });
-        elizaLogger.log("Verifiable inference adapter initialized");
-        elizaLogger.log("teamId", process.env.OPACITY_TEAM_ID);
-        elizaLogger.log("teamName", process.env.OPACITY_CLOUDFLARE_NAME);
-        elizaLogger.log("opacityProverUrl", process.env.OPACITY_PROVER_URL);
-        elizaLogger.log("modelProvider", character.modelProvider);
-        elizaLogger.log("token", token);
+        elizaLogger.info("Verifiable inference adapter initialized");
+        elizaLogger.info("teamId", process.env.OPACITY_TEAM_ID);
+        elizaLogger.info("teamName", process.env.OPACITY_CLOUDFLARE_NAME);
+        elizaLogger.info("opacityProverUrl", process.env.OPACITY_PROVER_URL);
+        elizaLogger.info("modelProvider", character.modelProvider);
+        elizaLogger.info("token", token);
     }
     if (
         process.env.PRIMUS_APP_ID &&
@@ -1010,7 +1010,7 @@ export async function createAgent(
             modelProvider: character.modelProvider,
             token,
         });
-        elizaLogger.log("Verifiable inference primus adapter initialized");
+        elizaLogger.info("Verifiable inference primus adapter initialized");
     }
 
     return new AgentRuntime({
@@ -1519,10 +1519,10 @@ const startAgents = async () => {
     directClient.start(serverPort);
 
     if (serverPort !== Number.parseInt(settings.SERVER_PORT || "3000")) {
-        elizaLogger.log(`Server started on alternate port ${serverPort}`);
+        elizaLogger.info(`Server started on alternate port ${serverPort}`);
     }
 
-    elizaLogger.log(
+    elizaLogger.info(
         "Run `pnpm start:client` to start the client and visit the outputted URL (http://localhost:5173) to chat with your agents. When running multiple agents, use client with different port `SERVER_PORT=3001 pnpm start:client`"
     );
 };

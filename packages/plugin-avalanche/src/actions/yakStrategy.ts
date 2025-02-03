@@ -102,7 +102,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting DEPOSIT_TO_STRATEGY handler...");
+        elizaLogger.info("Starting DEPOSIT_TO_STRATEGY handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -145,7 +145,7 @@ export default {
             "0x0000000000000000000000000000000000000000"
         ) {
             // todo: deposit from native
-            elizaLogger.log("Swapping from native AVAX");
+            elizaLogger.info("Swapping from native AVAX");
         } else {
             const tx = await approve(
                 runtime,

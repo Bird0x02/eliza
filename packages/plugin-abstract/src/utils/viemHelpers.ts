@@ -52,7 +52,7 @@ export async function resolveAddress(
 		const resolved = await ethereumClient.getEnsAddress({ name });
 		if (resolved) {
 			address = resolved;
-			elizaLogger.log(`Resolved ${name} to ${resolved}`);
+			elizaLogger.info(`Resolved ${name} to ${resolved}`);
 		}
 	} catch (error) {
 		elizaLogger.error("Error resolving ENS name:", error);

@@ -48,9 +48,9 @@ export async function validateEchoChamberConfig(
         throw new Error("Invalid ECHOCHAMBERS_POLL_INTERVAL");
     }
 
-    elizaLogger.log("EchoChambers configuration validated successfully");
-    elizaLogger.log(`API URL: ${apiUrl}`);
-    elizaLogger.log(`Username: ${username}`);
-    elizaLogger.log(`Watching Rooms: ${rooms.join(", ")}`);
-    elizaLogger.log(`Poll Interval: ${pollInterval}s`);
+    elizaLogger.info("EchoChambers configuration validated successfully");
+    elizaLogger.info(`API URL: ${apiUrl}`);
+    elizaLogger.info(`Username: ${username}`);
+    elizaLogger.info(`Watching Rooms: ${rooms.join(", ")}`);
+    elizaLogger.info(`Poll Interval: ${pollInterval}s`);
 }

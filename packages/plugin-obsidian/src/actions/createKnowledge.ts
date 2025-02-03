@@ -42,7 +42,7 @@ export const createKnowledgeAction: Action = {
 
         try {
             elizaLogger.info("Fetching all notes from vault and creating knowledge base");
-            elizaLogger.log("Be patient, this might take a while, depending on the size of your vault...");
+            elizaLogger.info("Be patient, this might take a while, depending on the size of your vault...");
             if (callback) {
                 callback({
                     text: "This might take a while, depending on the size of your vault...",

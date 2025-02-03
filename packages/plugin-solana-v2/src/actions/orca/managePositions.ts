@@ -55,7 +55,7 @@ export const managePositions: Action = {
         params: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Start managing positions");
+        elizaLogger.info("Start managing positions");
         if (!state) {
             state = (await runtime.composeState(message)) as State;
         } else {
@@ -63,8 +63,8 @@ export const managePositions: Action = {
         }
         const { repositionThresholdBps, slippageToleranceBps }: ManagePositionsInput = await extractAndValidateConfiguration(message.content.text, runtime);
         const fetchedPositions = await extractFetchedPositions(state.providers, runtime);
-        elizaLogger.log(`Validated configuration: repositionThresholdBps=${repositionThresholdBps}, slippageTolerance=${slippageToleranceBps}`);
-        elizaLogger.log("Fetched positions:", fetchedPositions);
+        elizaLogger.info(`Validated configuration: repositionThresholdBps=${repositionThresholdBps}, slippageTolerance=${slippageToleranceBps}`);
+        elizaLogger.info("Fetched positions:", fetchedPositions);
 
         const { signer: wallet } = await loadWallet(runtime, true);
         const rpc = createSolanaRpc(settings.SOLANA_RPC_URL!);
@@ -144,7 +144,7 @@ export async function extractAndValidateConfiguration(
     text: string,
     runtime: IAgentRuntime
 ): Promise<ManagePositionsInput | null> {
-    elizaLogger.log("Extracting and validating configuration from text:", text);
+    elizaLogger.info("Extracting and validating configuration from text:", text);
 
     const prompt = `Given this message: "${text}". Extract the reposition threshold value, time interval, and slippage tolerance.
         The threshold value and the slippage tolerance can be given in percentages or bps. You will always respond with the reposition threshold in bps.
@@ -211,7 +211,7 @@ async function handleRepositioning(
                 let newLowerPrice = newPriceBounds.newLowerPrice;
                 let newUpperPrice = newPriceBounds.newUpperPrice;
 
-                elizaLogger.log(`Repositioning position: ${positionMintAddress}`);
+                elizaLogger.info(`Repositioning position: ${positionMintAddress}`);
 
                 let closeSuccess = false;
                 let closeTxId;
@@ -251,7 +251,7 @@ async function handleRepositioning(
                                 openTxId = await sendTransaction(rpc, openInstructions, wallet);
                                 openSuccess = openTxId ? true : false;
 
-                                elizaLogger.log(`Successfully reopened position with mint: ${newPositionMint}`);
+                                elizaLogger.info(`Successfully reopened position with mint: ${newPositionMint}`);
                                 return { positionMintAddress, closeTxId, openTxId };
                             } catch (openError) {
                                 elizaLogger.warn(
@@ -284,7 +284,7 @@ async function handleRepositioning(
                     }
                 }
             } else {
-                elizaLogger.log(`Position ${address(position.positionMint)} is in range, skipping.`);
+                elizaLogger.info(`Position ${address(position.positionMint)} is in range, skipping.`);
                 return null;
             }
         })

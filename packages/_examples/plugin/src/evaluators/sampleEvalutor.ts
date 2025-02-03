@@ -28,17 +28,17 @@ export const sampleEvaluator: Evaluator = {
     ],
     handler: async (runtime: IAgentRuntime, memory: Memory, state: State) => {
         // Evaluation logic for the evaluator
-        elizaLogger.log("Evaluating data in sampleEvaluator...");
+        elizaLogger.info("Evaluating data in sampleEvaluator...");
 
         // Example evaluation logic
         if (memory.content?.includes("important")) {
-            elizaLogger.log("Important content found in memory.");
+            elizaLogger.info("Important content found in memory.");
             return {
                 score: 1,
                 reason: "Memory contains important content.",
             };
         }
-        elizaLogger.log("No important content found in memory.");
+        elizaLogger.info("No important content found in memory.");
         return {
             score: 0,
             reason: "Memory does not contain important content.",

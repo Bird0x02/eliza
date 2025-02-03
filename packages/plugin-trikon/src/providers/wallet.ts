@@ -27,7 +27,7 @@ export interface WalletProvider {
 
 export const walletProvider: Provider = {
     get: async () => {
-        elizaLogger.log("Getting Trikon wallet provider...");
+        elizaLogger.info("Getting Trikon wallet provider...");
         return {
             address: validateAddress(process.env.TRIKON_WALLET_ADDRESS),
             balance: validateBalance(process.env.TRIKON_INITIAL_BALANCE),

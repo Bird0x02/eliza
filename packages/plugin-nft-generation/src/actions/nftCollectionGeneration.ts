@@ -66,7 +66,7 @@ const nftCollectionGeneration: Action = {
         callback: HandlerCallback
     ) => {
         try {
-            elizaLogger.log("Composing state for message:", message);
+            elizaLogger.info("Composing state for message:", message);
 
             const state = await runtime.composeState(message);
 
@@ -116,7 +116,7 @@ const nftCollectionGeneration: Action = {
                 const collectionAddressRes = await wallet.createCollection({
                     ...collectionInfo,
                 });
-                elizaLogger.log("Collection Info:", collectionAddressRes);
+                elizaLogger.info("Collection Info:", collectionAddressRes);
                 if (callback) {
                     callback({
                         text: `Congratulations to you! 🎉🎉🎉 \nCollection Link : ${collectionAddressRes.link}\n Address: ${collectionAddressRes.address}`, //caption.description,
@@ -165,7 +165,7 @@ const nftCollectionGeneration: Action = {
                     contractName,
                     sourceCode
                 );
-                elizaLogger.log("ABI and Bytecode generated.");
+                elizaLogger.info("ABI and Bytecode generated.");
                 const contractAddress = await deployContract({
                     walletClient,
                     publicClient,
@@ -173,7 +173,7 @@ const nftCollectionGeneration: Action = {
                     bytecode,
                     args: params,
                 });
-                elizaLogger.log(
+                elizaLogger.info(
                     `Deployed contract address: ${contractAddress}`
                 );
                 const constructorArgs = encodeConstructorArguments(abi, params);

@@ -8,18 +8,18 @@ export class DevaClient {
     private readonly controller: DevaController;
 
     constructor(runtime: IAgentRuntime, accessToken: string, baseUrl: string) {
-        elizaLogger.log("📱 Constructing new DevaClient...");
+        elizaLogger.info("📱 Constructing new DevaClient...");
         this.runtime = runtime;
         this.clientBase = new ClientBase(runtime, accessToken, baseUrl);
         this.controller = new DevaController(runtime, this.clientBase);
-        elizaLogger.log("✅ DevaClient constructor completed");
+        elizaLogger.info("✅ DevaClient constructor completed");
     }
 
     public async start(): Promise<void> {
-        elizaLogger.log("🚀 Starting DevaClient...");
+        elizaLogger.info("🚀 Starting DevaClient...");
         try {
             await this.controller.init();
-            elizaLogger.log(
+            elizaLogger.info(
                 "✨ DevaClient successfully launched and is running!"
             );
         } catch (error) {

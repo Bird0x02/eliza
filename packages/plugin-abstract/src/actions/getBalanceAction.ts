@@ -88,7 +88,7 @@ export const getBalanceAction: Action = {
 		_options: { [key: string]: unknown },
 		callback?: HandlerCallback,
 	): Promise<boolean> => {
-		elizaLogger.log("Starting Abstract GET_BALANCE handler...");
+		elizaLogger.info("Starting Abstract GET_BALANCE handler...");
 
 		// Initialize or update state
 		if (!state) {

@@ -61,7 +61,7 @@ export class TwitterSearchClient {
     private engageWithSearchTermsLoop() {
         this.engageWithSearchTerms().then();
         const randomMinutes = Math.floor(Math.random() * (120 - 60 + 1)) + 60;
-        elizaLogger.log(
+        elizaLogger.info(
             `Next twitter search scheduled in ${randomMinutes} minutes`
         );
         setTimeout(
@@ -71,13 +71,13 @@ export class TwitterSearchClient {
     }
 
     private async engageWithSearchTerms() {
-        elizaLogger.log("Engaging with search terms");
+        elizaLogger.info("Engaging with search terms");
         try {
             const searchTerm = [...this.runtime.character.topics][
                 Math.floor(Math.random() * this.runtime.character.topics.length)
             ];
 
-            elizaLogger.log("Fetching search tweets");
+            elizaLogger.info("Fetching search tweets");
             // TODO: we wait 5 seconds here to avoid getting rate limited on startup, but we should queue
             await new Promise((resolve) => setTimeout(resolve, 5000));
             const recentTweets = await this.client.fetchSearchTweets(
@@ -85,7 +85,7 @@ export class TwitterSearchClient {
                 20,
                 SearchMode.Top
             );
-            elizaLogger.log("Search tweets fetched");
+            elizaLogger.info("Search tweets fetched");
 
             const homeTimeline = await this.client.fetchHomeTimeline(50);
 
@@ -105,7 +105,7 @@ export class TwitterSearchClient {
                 .slice(0, 20);
 
             if (slicedTweets.length === 0) {
-                elizaLogger.log(
+                elizaLogger.info(
                     "No valid tweets found for the search term",
                     searchTerm
                 );
@@ -156,14 +156,14 @@ export class TwitterSearchClient {
 
             if (!selectedTweet) {
                 elizaLogger.warn("No matching tweet found for the selected ID");
-                elizaLogger.log("Selected tweet ID:", tweetId);
+                elizaLogger.info("Selected tweet ID:", tweetId);
                 return;
             }
 
-            elizaLogger.log("Selected tweet to reply to:", selectedTweet?.text);
+            elizaLogger.info("Selected tweet to reply to:", selectedTweet?.text);
 
             if (selectedTweet.username === this.twitterUsername) {
-                elizaLogger.log("Skipping tweet from bot itself");
+                elizaLogger.info("Skipping tweet from bot itself");
                 return;
             }
 
@@ -274,7 +274,7 @@ export class TwitterSearchClient {
                 return;
             }
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Bot would respond to tweet ${selectedTweet.id} with: ${response.text}`
             );
             try {

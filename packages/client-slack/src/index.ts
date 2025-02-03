@@ -26,7 +26,7 @@ export class SlackClient extends EventEmitter {
 
     constructor(runtime: IAgentRuntime) {
         super();
-        elizaLogger.log("🚀 Initializing SlackClient...");
+        elizaLogger.info("🚀 Initializing SlackClient...");
         this.runtime = runtime;
         this.character = runtime.character;
 
@@ -132,7 +132,7 @@ export class SlackClient extends EventEmitter {
 
     async start() {
         try {
-            elizaLogger.log("Starting Slack client...");
+            elizaLogger.info("Starting Slack client...");
 
             const config = await validateSlackConfig(this.runtime);
 
@@ -319,11 +319,11 @@ export class SlackClient extends EventEmitter {
     }
 
     async stop() {
-        elizaLogger.log("Stopping Slack client...");
+        elizaLogger.info("Stopping Slack client...");
         if (this.server) {
             await new Promise<void>((resolve) => {
                 this.server.listen().close(() => {
-                    elizaLogger.log("Server stopped");
+                    elizaLogger.info("Server stopped");
                     resolve();
                 });
             });

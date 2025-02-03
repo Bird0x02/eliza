@@ -14,7 +14,7 @@ import path from "node:path";
 import { validateImageGenConfig } from "./environment";
 
 export function saveBase64Image(base64Data: string, filename: string): string {
-    elizaLogger.log("saveBase64Image file name: ", filename);
+    elizaLogger.info("saveBase64Image file name: ", filename);
     // Create generatedImages directory if it doesn't exist
     const imageDir = path.join(process.cwd(), "generatedImages");
     if (!fs.existsSync(imageDir)) {
@@ -124,10 +124,10 @@ const imageGeneration: Action = {
         },
         callback: HandlerCallback
     ) => {
-        elizaLogger.log("Composing state for message:", message);
+        elizaLogger.info("Composing state for message:", message);
         state = (await runtime.composeState(message)) as State;
         const userId = runtime.agentId;
-        elizaLogger.log("User ID:", userId);
+        elizaLogger.info("User ID:", userId);
 
         const CONTENT = message.content.text;
         const IMAGE_SYSTEM_PROMPT = `You are an expert in writing prompts for AI art generation. You excel at creating detailed and creative visual descriptions. Incorporating specific elements naturally. Always aim for clear, descriptive language that generates a creative picture. Your output should only contain the description of the image contents, but NOT an instruction like "create an image that..."`;
@@ -184,13 +184,13 @@ Ensure that your prompt is detailed, vivid, and incorporates all the elements me
             customSystemPrompt: IMAGE_SYSTEM_PROMPT,
         });
 
-        elizaLogger.log("Image prompt received:", imagePrompt);
+        elizaLogger.info("Image prompt received:", imagePrompt);
         const imageSettings = runtime.character?.settings?.imageSettings || {};
-        elizaLogger.log("Image settings:", imageSettings);
+        elizaLogger.info("Image settings:", imageSettings);
 
         const res: { image: string; caption: string }[] = [];
 
-        elizaLogger.log("Generating image with prompt:", imagePrompt);
+        elizaLogger.info("Generating image with prompt:", imagePrompt);
         const images = await generateImage(
             {
                 prompt: imagePrompt,
@@ -253,7 +253,7 @@ Ensure that your prompt is detailed, vivid, and incorporates all the elements me
         );
 
         if (images.success && images.data && images.data.length > 0) {
-            elizaLogger.log(
+            elizaLogger.info(
                 "Image generation successful, number of images:",
                 images.data.length
             );
@@ -268,7 +268,7 @@ Ensure that your prompt is detailed, vivid, and incorporates all the elements me
                     ? await saveHeuristImage(image, filename)
                     : saveBase64Image(image, filename);
 
-                elizaLogger.log(`Processing image ${i + 1}:`, filename, "filter path: ", filepath);
+                elizaLogger.info(`Processing image ${i + 1}:`, filename, "filter path: ", filepath);
 
                 //just dont even add a caption or a description just have it generate & send
                 /*
@@ -293,7 +293,7 @@ Ensure that your prompt is detailed, vivid, and incorporates all the elements me
 
                 res.push({ image: filepath, caption: "..." }); //caption.title });
 
-                elizaLogger.log(
+                elizaLogger.info(
                     `Generated caption for image ${i + 1}:`,
                     "..." //caption.title
                 );

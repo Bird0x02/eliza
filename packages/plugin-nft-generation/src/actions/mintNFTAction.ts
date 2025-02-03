@@ -73,7 +73,7 @@ const mintNFTAction: Action = {
         callback: HandlerCallback
     ) => {
         try {
-            elizaLogger.log("Composing state for message:", message);
+            elizaLogger.info("Composing state for message:", message);
 
             // if (!state) {
             //     state = (await runtime.composeState(message)) as State;
@@ -87,7 +87,7 @@ const mintNFTAction: Action = {
             } else {
                 currentState = await runtime.updateRecentMessageState(state);
             }
-            
+
             const context = composeContext({
                 state: currentState,
                 template: mintNFTTemplate,
@@ -118,7 +118,7 @@ const mintNFTAction: Action = {
                 chainName: (typeof supportedChains)[number];
             };
 
-            elizaLogger.log("Generate Object:", content);
+            elizaLogger.info("Generate Object:", content);
 
             if (!isMintNFTContent(content)) {
                 elizaLogger.error("Invalid content for MINT_NFT action.");
@@ -143,7 +143,7 @@ const mintNFTAction: Action = {
                 const collectionInfo = await wallet.fetchDigitalAsset(
                     content.collectionAddress
                 );
-                elizaLogger.log("Collection Info", collectionInfo);
+                elizaLogger.info("Collection Info", collectionInfo);
                 const metadata = collectionInfo.metadata;
                 if (metadata.collection?.["value"]) {
                     callback({
@@ -162,7 +162,7 @@ const mintNFTAction: Action = {
                         tokenId: 1,
                     });
 
-                    elizaLogger.log("NFT Address:", nftRes);
+                    elizaLogger.info("NFT Address:", nftRes);
 
                     if (nftRes) {
                         callback({
@@ -239,7 +239,7 @@ const mintNFTAction: Action = {
             }
             return [];
         } catch (e: unknown) {
-            elizaLogger.log(e);
+            elizaLogger.info(e);
             throw e;
         }
     },

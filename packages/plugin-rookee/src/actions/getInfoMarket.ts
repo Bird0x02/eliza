@@ -80,7 +80,7 @@ export const transferToken: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         // Initialize or update state
         if (!state) {
@@ -123,7 +123,7 @@ export const transferToken: Action = {
             return false;
         }
 
-        elizaLogger.log("About transfer token: ", transferContent);
+        elizaLogger.info("About transfer token: ", transferContent);
 
         if (callback) {
             callback({

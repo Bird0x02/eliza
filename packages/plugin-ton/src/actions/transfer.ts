@@ -179,7 +179,7 @@ export default {
         _options: ActionOptions,
         callback?: HandlerCallback,
     ) => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         const transferDetails = await buildTransferDetails(
             runtime,

@@ -76,7 +76,7 @@ export const trendingTokens: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[trendingTokens]");
+        elizaLogger.info("[trendingTokens]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -93,7 +93,7 @@ export const trendingTokens: Action = {
             context: newsCryptoPannicContext,
             modelClass: ModelClass.SMALL,
         });
-        elizaLogger.log("content: ",content);
+        elizaLogger.info("content: ",content);
         const coinGecko = new CoingeckoProvider();
         let info = await coinGecko.topSuiTokens();
         info = info.filter(token => !token.symbol.includes("USD"));

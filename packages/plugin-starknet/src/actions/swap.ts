@@ -93,7 +93,7 @@ export const executeSwap: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting EXECUTE_STARKNET_SWAP handler...");
+        elizaLogger.info("Starting EXECUTE_STARKNET_SWAP handler...");
 
         // Fix: Create new variable instead of reassigning parameter
         let currentState = state;
@@ -141,7 +141,7 @@ export const executeSwap: Action = {
                 }
             );
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Swap completed successfully! tx: ${swapResult.transactionHash}`
             );
             callback?.({

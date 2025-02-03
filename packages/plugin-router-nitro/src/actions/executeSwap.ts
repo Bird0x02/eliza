@@ -40,7 +40,7 @@ interface SwapContent {
 }
 
 // Helper functions
-const validateAddress = (address: string): boolean => 
+const validateAddress = (address: string): boolean =>
     typeof address === "string" && address.startsWith("0x") && address.length === 42;
 
 const initializeWallet = async (runtime: IAgentRuntime, rpc: string) => {
@@ -54,14 +54,14 @@ const initializeWallet = async (runtime: IAgentRuntime, rpc: string) => {
 
 const checkBalances = async (wallet: ethers.Wallet, tokenConfig: any, amountIn: bigint) => {
     const isNativeToken = tokenConfig.address.toLowerCase() === "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-    
+
     if (isNativeToken) {
         const nativeBalance = await checkNativeTokenBalance(wallet, tokenConfig.decimals);
         if (BigInt(nativeBalance) < amountIn) {
             throw new Error("Insufficient native token balance");
         }
     }
-    
+
     const tokenBalance = await checkUserBalance(wallet, tokenConfig.address, tokenConfig.decimals);
     if (BigInt(tokenBalance) < amountIn) {
         throw new Error("Insufficient token balance");
@@ -69,21 +69,21 @@ const checkBalances = async (wallet: ethers.Wallet, tokenConfig: any, amountIn: 
 };
 
 const handleTransaction = async (
-    wallet: ethers.Wallet, 
-    txResponse: any, 
+    wallet: ethers.Wallet,
+    txResponse: any,
     blockExplorer: string,
     callback?: HandlerCallback
 ) => {
     const tx = await wallet.sendTransaction(txResponse.txn);
     const receipt = await tx.wait();
-    
+
     if (!receipt?.status) {
         throw new Error("Transaction failed");
     }
-    
+
     const txExplorerUrl = blockExplorer ? `${blockExplorer}/tx/${tx.hash}` : tx.hash;
     const successMessage = `Swap completed successfully! Txn: ${txExplorerUrl}`;
-    
+
     callback?.({ text: successMessage });
     return true;
 };
@@ -98,12 +98,12 @@ export const executeSwapAction = {
         _options: { [key: string]: unknown } = {},
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting ROUTER_NITRO_SWAP handler...");
+        elizaLogger.info("Starting ROUTER_NITRO_SWAP handler...");
 
         try {
             // State initialization
-            const updatedState = state ? 
-                await runtime.updateRecentMessageState(state) : 
+            const updatedState = state ?
+                await runtime.updateRecentMessageState(state) :
                 await runtime.composeState(message);
 
             // Generate swap content
@@ -122,7 +122,7 @@ export const executeSwapAction = {
             // Initialize chain data
             const chainUtils = new ChainUtils(await fetchChains());
             const swapDetails = chainUtils.processChainSwap(content.fromChain, content.toChain);
-            
+
             if (!swapDetails.fromChainId || !swapDetails.toChainId) {
                 throw new Error("Invalid chain data details");
             }
@@ -162,13 +162,13 @@ export const executeSwapAction = {
 
                 const txResponse = await getSwapTransaction(pathfinderResponse, address, content.toAddress);
                 const blockExplorer = getBlockExplorerFromChainId(swapDetails.fromChainId).url;
-                
+
                 return await handleTransaction(wallet, txResponse, blockExplorer, callback);
             }
 
             return false;
         } catch (error) {
-            elizaLogger.log(`Error during executing swap: ${error.message}`);
+            elizaLogger.info(`Error during executing swap: ${error.message}`);
             callback?.({ text: `Error during swap: ${error.message}` });
             return false;
         }

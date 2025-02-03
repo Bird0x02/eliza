@@ -32,31 +32,31 @@ export class FarcasterPostManager {
         this.isDryRun = this.client.farcasterConfig?.FARCASTER_DRY_RUN ?? false;
 
         // Log configuration on initialization
-        elizaLogger.log("Farcaster Client Configuration:");
-        elizaLogger.log(`- FID: ${this.fid}`);
-        elizaLogger.log(
+        elizaLogger.info("Farcaster Client Configuration:");
+        elizaLogger.info(`- FID: ${this.fid}`);
+        elizaLogger.info(
             `- Dry Run Mode: ${this.isDryRun ? "enabled" : "disabled"}`
         );
-        elizaLogger.log(
+        elizaLogger.info(
             `- Enable Post: ${this.client.farcasterConfig.ENABLE_POST ? "enabled" : "disabled"}`
         );
         if (this.client.farcasterConfig.ENABLE_POST) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `- Post Interval: ${this.client.farcasterConfig.POST_INTERVAL_MIN}-${this.client.farcasterConfig.POST_INTERVAL_MAX} minutes`
             );
-            elizaLogger.log(
+            elizaLogger.info(
                 `- Post Immediately: ${this.client.farcasterConfig.POST_IMMEDIATELY ? "enabled" : "disabled"}`
             );
         }
-        elizaLogger.log(
+        elizaLogger.info(
             `- Action Processing: ${this.client.farcasterConfig.ENABLE_ACTION_PROCESSING ? "enabled" : "disabled"}`
         );
-        elizaLogger.log(
+        elizaLogger.info(
             `- Action Interval: ${this.client.farcasterConfig.ACTION_INTERVAL} minutes`
         );
 
         if (this.isDryRun) {
-            elizaLogger.log(
+            elizaLogger.info(
                 "Farcaster client initialized in dry run mode - no actual casts should be posted"
             );
         }
@@ -90,7 +90,7 @@ export class FarcasterPostManager {
                 generateNewCastLoop(); // Set up next iteration
             }, delay);
 
-            elizaLogger.log(`Next cast scheduled in ${randomMinutes} minutes`);
+            elizaLogger.info(`Next cast scheduled in ${randomMinutes} minutes`);
         };
 
         if (this.client.farcasterConfig.ENABLE_POST) {

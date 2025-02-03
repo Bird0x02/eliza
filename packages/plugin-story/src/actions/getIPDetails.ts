@@ -31,7 +31,7 @@ class GetIPDetailsAction {
     async getIPDetails(
         params: GetIPDetailsParams
     ): Promise<GetIPDetailsResponse> {
-        elizaLogger.log("Fetching from", `${API_URL}/${RESOURCE_TYPE.ASSET}`);
+        elizaLogger.info("Fetching from", `${API_URL}/${RESOURCE_TYPE.ASSET}`);
         return (await getResource(
             RESOURCE_TYPE.ASSET,
             params.ipId
@@ -73,7 +73,7 @@ export const getIPDetailsAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting GET_IP_DETAILS handler...");
+        elizaLogger.info("Starting GET_IP_DETAILS handler...");
 
         // Initialize or update state
             let currentState = state;

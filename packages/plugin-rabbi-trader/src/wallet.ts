@@ -46,7 +46,7 @@ export async function getWalletBalance(
         const balance = await connection.getBalance(walletPubKey);
         const solBalance = balance / 1e9;
 
-        elizaLogger.log("Fetched Solana wallet balance:", {
+        elizaLogger.info("Fetched Solana wallet balance:", {
             address: walletPubKey.toBase58(),
             lamports: balance,
             sol: solBalance,
@@ -80,7 +80,7 @@ export async function executeTrade(
 ): Promise<any> {
     // Existing Solana trade logic remains unchanged
     try {
-        elizaLogger.log("Executing Solana trade with params:", params);
+        elizaLogger.info("Executing Solana trade with params:", params);
 
         const SOL_ADDRESS = "So11111111111111111111111111111111111111112";
 
@@ -107,7 +107,7 @@ export async function executeTrade(
         const outputTokenCA = params.isSell ? SOL_ADDRESS : params.tokenAddress;
         const swapAmount = Math.floor(params.amount * 1e9);
 
-        elizaLogger.log("Trade execution details:", {
+        elizaLogger.info("Trade execution details:", {
             isSell: params.isSell,
             inputToken: inputTokenCA,
             outputToken: outputTokenCA,
@@ -143,7 +143,7 @@ export async function executeTrade(
             };
         }
 
-        elizaLogger.log("Quote received:", quoteData);
+        elizaLogger.info("Quote received:", quoteData);
 
         // Get swap transaction
         const swapResponse = await fetch("https://quote-api.jup.ag/v6/swap", {
@@ -163,7 +163,7 @@ export async function executeTrade(
             throw new Error("No swap transaction returned");
         }
 
-        elizaLogger.log("Swap transaction received");
+        elizaLogger.info("Swap transaction received");
 
         // Deserialize transaction
         const transactionBuf = Buffer.from(swapData.swapTransaction, "base64");
@@ -182,7 +182,7 @@ export async function executeTrade(
             preflightCommitment: "processed",
         });
 
-        elizaLogger.log("Transaction sent:", signature);
+        elizaLogger.info("Transaction sent:", signature);
 
         // Wait for confirmation with more lenient settings
         const confirmation = await connection.confirmTransaction(
@@ -206,7 +206,7 @@ export async function executeTrade(
             );
         }
 
-        elizaLogger.log("Solana trade executed successfully:", {
+        elizaLogger.info("Solana trade executed successfully:", {
             signature,
             explorer: `https://solscan.io/tx/${signature}`,
         });

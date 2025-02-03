@@ -103,7 +103,7 @@ export class BridgeAction {
                     this.L1_BRIDGE_ADDRESS
                 );
                 if (allowance < amount) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Increasing ERC20 allowance for L1 bridge. ${amount - allowance} more needed`
                     );
                     const txHash = await this.walletProvider.approveERC20(
@@ -199,7 +199,7 @@ export class BridgeAction {
                     this.L2_BRIDGE_ADDRESS
                 );
                 if (allowance < amount) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Increasing ERC20 allowance for L2 bridge. ${amount - allowance} more needed`
                     );
                     const txHash = await this.walletProvider.approveERC20(
@@ -315,7 +315,7 @@ export const bridgeAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting bridge action...");
+        elizaLogger.info("Starting bridge action...");
 
         // Initialize or update state
         let currentState = state;

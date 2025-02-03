@@ -195,7 +195,7 @@ export const getQuote = async (
             gasPrice,
         ],
     });
-    elizaLogger.log("Quote:", quote);
+    elizaLogger.info("Quote:", quote);
     return quote as YakSwapQuote;
 };
 
@@ -267,7 +267,7 @@ export const sendToken = async (
 
         const walletClient = getWalletClient(runtime);
         const tx = await walletClient.writeContract(request);
-        elizaLogger.log("Transaction:", tx);
+        elizaLogger.info("Transaction:", tx);
         return tx as Hash;
     } catch (error) {
         elizaLogger.error("Error simulating contract:", error);
@@ -325,7 +325,7 @@ export const approve = async (
 
         const walletClient = getWalletClient(runtime);
         const tx = await walletClient.writeContract(request);
-        elizaLogger.log("Transaction:", tx);
+        elizaLogger.info("Transaction:", tx);
         return tx;
     } catch (error) {
         elizaLogger.error("Error approving:", error);
@@ -408,7 +408,7 @@ export const swap = async (
 
         const walletClient = getWalletClient(runtime);
         const tx = await walletClient.writeContract(request);
-        elizaLogger.log("Transaction:", tx);
+        elizaLogger.info("Transaction:", tx);
         return tx;
     } catch (error) {
         elizaLogger.error("Error simulating contract:", error);
@@ -455,7 +455,7 @@ export const deposit = async (
 
         const walletClient = getWalletClient(runtime);
         const tx = await walletClient.writeContract(request);
-        elizaLogger.log("Transaction:", tx);
+        elizaLogger.info("Transaction:", tx);
         return tx;
     } catch (error) {
         elizaLogger.error("Error depositing:", error);

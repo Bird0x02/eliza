@@ -69,7 +69,7 @@ export default {
     name: "GET_COLLECTION_STATS",
     similes: ["CHECK_COLLECTION_STATS", "COLLECTION_INFO"],
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("🔄 Validating Stargaze configuration...");
+        elizaLogger.info("🔄 Validating Stargaze configuration...");
         try {
             const config = await validateStargazeConfig(runtime);
             debugLog.validation(config);
@@ -87,24 +87,24 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("🚀 Starting Stargaze GET_COLLECTION_STATS handler...");
+        elizaLogger.info("🚀 Starting Stargaze GET_COLLECTION_STATS handler...");
 
         if (!state) {
-            elizaLogger.log("Creating new state...");
+            elizaLogger.info("Creating new state...");
             state = (await runtime.composeState(message)) as State;
         } else {
-            elizaLogger.log("Updating existing state...");
+            elizaLogger.info("Updating existing state...");
             state = await runtime.updateRecentMessageState(state);
         }
 
         try {
-            elizaLogger.log("Composing collection stats context...");
+            elizaLogger.info("Composing collection stats context...");
             const statsContext = composeContext({
                 state,
                 template: getCollectionStatsTemplate,
             });
 
-            elizaLogger.log("Generating content from context...");
+            elizaLogger.info("Generating content from context...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: statsContext,
@@ -171,7 +171,7 @@ export default {
 - Market Cap: ${formatValue(stats.marketCap)} USD`,
                     content: stats,
                 };
-                elizaLogger.log("✅ Sending callback with collection stats:", message);
+                elizaLogger.info("✅ Sending callback with collection stats:", message);
                 callback(message);
             }
 

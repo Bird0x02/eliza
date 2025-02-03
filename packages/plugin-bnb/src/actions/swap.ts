@@ -89,7 +89,7 @@ export const swapAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting swap action...");
+        elizaLogger.info("Starting swap action...");
 
         // Initialize or update state
         let currentState = state;

@@ -16,12 +16,12 @@ export const topLoser: Action = {
                   options: { [key: string]: unknown },
                   callback: HandlerCallback) => {
       try{
-          elizaLogger.log("[toploser] Handle with message ...");
+          elizaLogger.info("[toploser] Handle with message ...");
           callback({
             text: "Someone else not you! Give me some bonus ?",
             attachments: []
           })
-          elizaLogger.log("[toploser] Handle with message ...DONE");
+          elizaLogger.info("[toploser] Handle with message ...DONE");
           return [];
       }
       catch(error){
@@ -30,8 +30,8 @@ export const topLoser: Action = {
       }
   },
   validate: async (_runtime: IAgentRuntime, _message: Memory) => {
-    // elizaLogger.log("[toploser] Validating ...");
-    // elizaLogger.log("[toploser] Validating ...DONE");
+    // elizaLogger.info("[toploser] Validating ...");
+    // elizaLogger.info("[toploser] Validating ...DONE");
     return true;
   },
   similes:["top_loser", "max_loser", "most_loser", "top lost crypto symbol", "top lost crypto today"],

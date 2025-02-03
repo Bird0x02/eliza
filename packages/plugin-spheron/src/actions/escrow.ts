@@ -129,7 +129,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting ESCROW_OPERATION handler...");
+        elizaLogger.info("Starting ESCROW_OPERATION handler...");
 
         // Create local variable for state manipulation
         let currentState = state;
@@ -178,7 +178,7 @@ export default {
                 content.token,
                 config.WALLET_ADDRESS
             );
-            elizaLogger.log(`Current ${content.token} balance:`, balance);
+            elizaLogger.info(`Current ${content.token} balance:`, balance);
 
             if (content.operation === "check") {
                 const formattedAvailableBalance =

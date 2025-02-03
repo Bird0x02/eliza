@@ -171,12 +171,12 @@ export class TranscriptionService
             try {
                 fs.accessSync("/usr/local/cuda/bin/nvcc", fs.constants.X_OK);
                 this.isCudaAvailable = true;
-                elizaLogger.log(
+                elizaLogger.info(
                     "CUDA detected. Transcription will use CUDA acceleration."
                 );
                 // eslint-disable-next-line
             } catch (_error) {
-                elizaLogger.log(
+                elizaLogger.info(
                     "CUDA not detected. Transcription will run on CPU."
                 );
             }
@@ -189,16 +189,16 @@ export class TranscriptionService
             );
             if (fs.existsSync(cudaPath)) {
                 this.isCudaAvailable = true;
-                elizaLogger.log(
+                elizaLogger.info(
                     "CUDA detected. Transcription will use CUDA acceleration."
                 );
             } else {
-                elizaLogger.log(
+                elizaLogger.info(
                     "CUDA not detected. Transcription will run on CPU."
                 );
             }
         } else {
-            elizaLogger.log(
+            elizaLogger.info(
                 "CUDA not supported on this platform. Transcription will run on CPU."
             );
         }
@@ -223,7 +223,7 @@ export class TranscriptionService
             const probeResult = JSON.parse(stdout);
             const stream = probeResult.streams[0];
 
-            elizaLogger.log("Input audio info:", stream);
+            elizaLogger.info("Input audio info:", stream);
 
             let ffmpegCommand = `ffmpeg -i "${inputPath}" -ar ${this.TARGET_SAMPLE_RATE} -ac 1`;
 
@@ -233,7 +233,7 @@ export class TranscriptionService
 
             ffmpegCommand += ` "${outputPath}"`;
 
-            elizaLogger.log("FFmpeg command:", ffmpegCommand);
+            elizaLogger.info("FFmpeg command:", ffmpegCommand);
 
             await execAsync(ffmpegCommand);
 
@@ -254,7 +254,7 @@ export class TranscriptionService
         const filePath = path.join(this.DEBUG_AUDIO_DIR, filename);
 
         fs.writeFileSync(filePath, Buffer.from(audioBuffer));
-        elizaLogger.log(`Debug audio saved: ${filePath}`);
+        elizaLogger.info(`Debug audio saved: ${filePath}`);
     }
 
     public async transcribeAttachment(
@@ -350,7 +350,7 @@ export class TranscriptionService
     private async transcribeWithOpenAI(
         audioBuffer: ArrayBuffer
     ): Promise<string | null> {
-        elizaLogger.log("Transcribing audio with OpenAI...");
+        elizaLogger.info("Transcribing audio with OpenAI...");
 
         try {
             await this.saveDebugAudio(audioBuffer, "openai_input_original");
@@ -375,7 +375,7 @@ export class TranscriptionService
             });
 
             const trimmedResult = (result as any).trim();
-            elizaLogger.log(`OpenAI speech to text result: "${trimmedResult}"`);
+            elizaLogger.info(`OpenAI speech to text result: "${trimmedResult}"`);
 
             return trimmedResult;
         } catch (error) {
@@ -404,7 +404,7 @@ export class TranscriptionService
         audioBuffer: ArrayBuffer
     ): Promise<string | null> {
         try {
-            elizaLogger.log("Transcribing audio locally...");
+            elizaLogger.info("Transcribing audio locally...");
 
             await this.saveDebugAudio(audioBuffer, "local_input_original");
 
@@ -456,7 +456,7 @@ export class TranscriptionService
             fs.unlinkSync(tempWavFile);
 
             if (!output || output.length < 5) {
-                elizaLogger.log("Output is null or too short, returning null");
+                elizaLogger.info("Output is null or too short, returning null");
                 return null;
             }
             return output;

@@ -101,7 +101,7 @@ export const projectInfo: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[tokenInfo]");
+        elizaLogger.info("[tokenInfo]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -115,7 +115,7 @@ export const projectInfo: Action = {
         // });
         const msgHash = hashUserMsg(message, "project_overview");
         let content:any = await runtime.cacheManager.get(msgHash)
-        elizaLogger.log("---- cache info: ", msgHash, "--->", content)
+        elizaLogger.info("---- cache info: ", msgHash, "--->", content)
         if(!content){
             const projectInfoContext = composeContext({
                 state,
@@ -135,7 +135,7 @@ export const projectInfo: Action = {
         //     context: projectPromptTemplateContext,
         //     modelClass: ModelClass.SMALL,
         // })
-        elizaLogger.log("content: ",content);
+        elizaLogger.info("content: ",content);
         const projectObj = await searchProjectInFileJson(content.project_name?content.project_name:content.token_symbol);
         console.log("projectObj", projectObj)
         const tokenObject = await findByVerifiedAndName(content.project_name?content.project_name:content.token_symbol);

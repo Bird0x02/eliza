@@ -40,7 +40,7 @@ interface TransferContentInput {
 }
 
 export function isTransferContent(content: TransferContentInput): content is TransferContent {
-    elizaLogger.log("Starting SEND_TOKEN content", content);
+    elizaLogger.info("Starting SEND_TOKEN content", content);
 
     // Validate types
     const validTypes =
@@ -124,7 +124,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         // Initialize or update state
         let currentState: State;

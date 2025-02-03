@@ -29,7 +29,7 @@ export class AttachTermsAction {
     }> {
         const storyClient = this.walletProvider.getStoryClient();
 
-        elizaLogger.log("params", params);
+        elizaLogger.info("params", params);
 
         const licenseTerms: LicenseTerms = {
             transferable: true,
@@ -84,7 +84,7 @@ export const attachTermsAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting ATTACH_TERMS handler...");
+        elizaLogger.info("Starting ATTACH_TERMS handler...");
 
         // Initialize or update state
         let currentState = state;

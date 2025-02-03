@@ -268,7 +268,7 @@ export class ClientBase extends EventEmitter {
             await this.setCookiesFromArray(cachedCookies);
         }
 
-        elizaLogger.log("Waiting for Twitter login");
+        elizaLogger.info("Waiting for Twitter login");
         while (retries > 0) {
             try {
                 if (await this.twitterClient.isLoggedIn()) {
@@ -315,8 +315,8 @@ export class ClientBase extends EventEmitter {
         this.profile = await this.fetchProfile(username);
 
         if (this.profile) {
-            elizaLogger.log("Twitter user ID:", this.profile.id);
-            elizaLogger.log(
+            elizaLogger.info("Twitter user ID:", this.profile.id);
+            elizaLogger.info(
                 "Twitter loaded:",
                 JSON.stringify(this.profile, null, 10)
             );
@@ -475,7 +475,7 @@ export class ClientBase extends EventEmitter {
 
                 // Save the missing tweets as memories
                 for (const tweet of tweetsToSave) {
-                    elizaLogger.log("Saving Tweet", tweet.id);
+                    elizaLogger.info("Saving Tweet", tweet.id);
 
                     const roomId = stringToUuid(
                         tweet.conversationId + "-" + this.runtime.agentId
@@ -517,7 +517,7 @@ export class ClientBase extends EventEmitter {
                             : undefined,
                     } as Content;
 
-                    elizaLogger.log("Creating memory for tweet", tweet.id);
+                    elizaLogger.info("Creating memory for tweet", tweet.id);
 
                     // check if it already exists
                     const memory =
@@ -526,7 +526,7 @@ export class ClientBase extends EventEmitter {
                         );
 
                     if (memory) {
-                        elizaLogger.log(
+                        elizaLogger.info(
                             "Memory already exists, skipping timeline population"
                         );
                         break;
@@ -545,7 +545,7 @@ export class ClientBase extends EventEmitter {
                     await this.cacheTweet(tweet);
                 }
 
-                elizaLogger.log(
+                elizaLogger.info(
                     `Populated ${tweetsToSave.length} missing tweets from the cache.`
                 );
                 return;
@@ -609,7 +609,7 @@ export class ClientBase extends EventEmitter {
 
         // Save the new tweets as memories
         for (const tweet of tweetsToSave) {
-            elizaLogger.log("Saving Tweet", tweet.id);
+            elizaLogger.info("Saving Tweet", tweet.id);
 
             const roomId = stringToUuid(
                 tweet.conversationId + "-" + this.runtime.agentId

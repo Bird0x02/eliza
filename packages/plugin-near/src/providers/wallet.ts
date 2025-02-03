@@ -131,7 +131,7 @@ export class WalletProvider implements Provider {
             const cachedValue = this.cache.get<WalletPortfolio>(cacheKey);
 
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetchPortfolioValue");
+                elizaLogger.info("Cache hit for fetchPortfolioValue");
                 return cachedValue;
             }
 
@@ -183,7 +183,7 @@ export class WalletProvider implements Provider {
             const response = await this.fetchWithRetry(
                 "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd"
             ) as { near: { usd: number } };
-            
+
             const price = response.near.usd;
             this.cache.set(cacheKey, price);
             return price;

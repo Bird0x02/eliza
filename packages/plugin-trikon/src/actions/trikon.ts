@@ -69,7 +69,7 @@ export default {
         "PAY",
     ],
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating trikon transfer from user:", message.userId);
+        elizaLogger.info("Validating trikon transfer from user:", message.userId);
         try {
             // Add actual validation logic here
             return true;
@@ -86,7 +86,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         try {
             if (!state) {
@@ -111,7 +111,7 @@ export default {
             }
 
             // TODO: Implement actual transfer logic here
-            elizaLogger.log(
+            elizaLogger.info(
                 `Would transfer ${content.amount} tokens to ${content.recipient}`
             );
 

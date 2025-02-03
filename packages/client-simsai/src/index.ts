@@ -30,7 +30,7 @@ export const JeeterClientInterface: Client = {
 
         await validateJeeterConfig(runtime);
 
-        elizaLogger.log("SimsAI client started");
+        elizaLogger.info("SimsAI client started");
 
         activeManager = new SimsAIManager(runtime);
 
@@ -45,20 +45,20 @@ export const JeeterClientInterface: Client = {
         return activeManager;
     },
     async stop(_runtime: IAgentRuntime) {
-        elizaLogger.log("Stopping SimsAI client");
+        elizaLogger.info("Stopping SimsAI client");
         if (activeManager) {
             try {
                 await activeManager.interaction.stop();
                 await activeManager.search.stop();
                 await activeManager.post.stop();
                 activeManager = null;
-                elizaLogger.log("SimsAI client stopped successfully");
+                elizaLogger.info("SimsAI client stopped successfully");
             } catch (error) {
                 elizaLogger.error("Error stopping SimsAI client:", error);
                 throw error;
             }
         }
-        elizaLogger.log("SimsAI client stopped");
+        elizaLogger.info("SimsAI client stopped");
     },
 };
 

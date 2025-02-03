@@ -22,7 +22,7 @@ export const registerAction: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Mind Network MIND_REGISTER_VOTER handler...");
+        elizaLogger.info("Starting Mind Network MIND_REGISTER_VOTER handler...");
 
         try {
             await registerVoter();

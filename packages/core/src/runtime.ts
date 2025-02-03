@@ -204,7 +204,7 @@ export class AgentRuntime implements IAgentRuntime {
 
     async registerService(service: Service): Promise<void> {
         const serviceType = service.serviceType;
-        elizaLogger.log(`${this.character.name}(${this.agentId}) - Registering service:`, serviceType);
+        elizaLogger.info(`${this.character.name}(${this.agentId}) - Registering service:`, serviceType);
 
         if (this.services.has(serviceType)) {
             elizaLogger.warn(
@@ -574,7 +574,7 @@ export class AgentRuntime implements IAgentRuntime {
         // client have a start
         for (const cStr in this.clients) {
             const c = this.clients[cStr];
-            elizaLogger.log(
+            elizaLogger.info(
                 "runtime::stop - requesting",
                 cStr,
                 "client stop for",
@@ -1076,7 +1076,7 @@ export class AgentRuntime implements IAgentRuntime {
     ) {
         const evaluatorPromises = this.evaluators.map(
             async (evaluator: Evaluator) => {
-                elizaLogger.log("Evaluating", evaluator.name);
+                elizaLogger.info("Evaluating", evaluator.name);
                 if (!evaluator.handler) {
                     return null;
                 }
@@ -1101,7 +1101,7 @@ export class AgentRuntime implements IAgentRuntime {
             return [];
         }
 
-        elizaLogger.log("mapping evaluators...");
+        elizaLogger.info("mapping evaluators...");
 
         const context = composeContext({
             state: {
@@ -1125,7 +1125,7 @@ export class AgentRuntime implements IAgentRuntime {
             result,
         ) as unknown as string[];
 
-        elizaLogger.log("mapping evaluators...done -->", JSON.stringify(evaluators));
+        elizaLogger.info("mapping evaluators...done -->", JSON.stringify(evaluators));
 
 
         for (const evaluator of this.evaluators) {
@@ -1185,11 +1185,11 @@ export class AgentRuntime implements IAgentRuntime {
         if (!participants.includes(userId)) {
             await this.databaseAdapter.addParticipant(userId, roomId);
             if (userId === this.agentId) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Agent ${this.character.name} linked to room ${roomId} successfully.`,
                 );
             } else {
-                elizaLogger.log(
+                elizaLogger.info(
                     `User ${userId} linked to room ${roomId} successfully.`,
                 );
             }
@@ -1236,7 +1236,7 @@ export class AgentRuntime implements IAgentRuntime {
         const room = await this.databaseAdapter.getRoom(roomId);
         if (!room) {
             await this.databaseAdapter.createRoom(roomId);
-            elizaLogger.log(`Room ${roomId} created successfully.`);
+            elizaLogger.info(`Room ${roomId} created successfully.`);
         }
     }
 

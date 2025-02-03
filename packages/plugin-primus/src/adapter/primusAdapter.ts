@@ -70,7 +70,7 @@ export class PrimusAdapter implements IVerifiableInferenceAdapter {
                     models[provider].model[modelClass].temperature,
             };
             const attestation = await generateProof(endpoint,"POST",headers,JSON.stringify(body),responseParsePath);
-            elizaLogger.log("model attestation:", attestation);
+            elizaLogger.info("model attestation:", attestation);
 
             const responseData = JSON.parse(attestation.data);
             const text = JSON.parse(responseData.content);
@@ -88,7 +88,7 @@ export class PrimusAdapter implements IVerifiableInferenceAdapter {
 
     async verifyProof(result: VerifiableInferenceResult): Promise<boolean> {
         const isValid = verifyProof(result.proof)
-        elizaLogger.log("Proof is valid:", isValid);
+        elizaLogger.info("Proof is valid:", isValid);
         return isValid;
     }
 }

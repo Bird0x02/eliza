@@ -24,7 +24,7 @@ function isLendAssetContent(
     runtime: IAgentRuntime,
     content: any
 ): content is LendAssetContent {
-    elizaLogger.log("Content for lend", content);
+    elizaLogger.info("Content for lend", content);
     return (
         typeof content.amount === "number"
     );
@@ -50,7 +50,7 @@ export default {
     name: LEND_ASSET_ACTION.name,
     similes: LEND_ASSET_ACTION.similes,
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating lend asset from user:", message.userId);
+        elizaLogger.info("Validating lend asset from user:", message.userId);
         return false;
     },
     description: LEND_ASSET_ACTION.description,
@@ -61,7 +61,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting LEND_ASSET handler...");
+        elizaLogger.info("Starting LEND_ASSET handler...");
         const sak = await getSAK(runtime);
 
         // Initialize or update state

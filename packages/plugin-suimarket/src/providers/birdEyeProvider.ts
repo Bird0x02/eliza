@@ -9,7 +9,7 @@ import {
 
 const birdEyeProvider: Provider = {
     get: async function (runtime: IAgentRuntime, message: Memory, state?: State): Promise<string | null> {
-        elizaLogger.log("loaded birdEye provider...");
+        elizaLogger.info("loaded birdEye provider...");
         return "<birdeye info>";
     }
 }

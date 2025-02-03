@@ -64,7 +64,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback,
     ): Promise<boolean> => {
-        elizaLogger.log("Starting FAUCET handler...");
+        elizaLogger.info("Starting FAUCET handler...");
 
         const walletInfo = await walletProvider.get(runtime, message, state);
         state.walletInfo = walletInfo;

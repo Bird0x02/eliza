@@ -55,7 +55,7 @@ export default {
         "PAY",
     ],
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating config for user:", message.userId);
+        elizaLogger.info("Validating config for user:", message.userId);
         await validateMultiversxConfig(runtime);
         return true;
     },
@@ -67,9 +67,9 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback,
     ) => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
-        elizaLogger.log("Handler initialized. Checking user authorization...");
+        elizaLogger.info("Handler initialized. Checking user authorization...");
 
         if (!isUserAuthorized(message.userId, runtime)) {
             elizaLogger.error(

@@ -134,7 +134,7 @@ const buildTransferDetails = async (
     // } else {
     //     state = await runtime.updateRecentMessageState(state);
     // }
-    
+
     let currentState: State = state;
     if (!currentState) {
         currentState = (await runtime.composeState(message)) as State;
@@ -175,7 +175,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting SEND_TOKENS handler...");
+        elizaLogger.info("Starting SEND_TOKENS handler...");
 
         const transferDetails = await buildTransferDetails(
             runtime,

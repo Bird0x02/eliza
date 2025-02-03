@@ -30,16 +30,16 @@ export class TelegramAccountClient {
     private account: Api.User;
 
     constructor(runtime: IAgentRuntime, telegramAccountConfig: TelegramAccountConfig) {
-        elizaLogger.log("📱 Constructing new TelegramAccountClient...");
+        elizaLogger.info("📱 Constructing new TelegramAccountClient...");
 
         this.runtime = runtime;
         this.telegramAccountConfig = telegramAccountConfig;
 
-        elizaLogger.log("✅ TelegramClient constructor completed");
+        elizaLogger.info("✅ TelegramClient constructor completed");
     }
 
     public async start(): Promise<void> {
-        elizaLogger.log("🚀 Starting Telegram account...");
+        elizaLogger.info("🚀 Starting Telegram account...");
 
         try {
             await this.initializeAccount();

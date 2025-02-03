@@ -175,7 +175,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting TOKENS_UNDELEGATE handler...");
+        elizaLogger.info("Starting TOKENS_UNDELEGATE handler...");
 
         const undelegateContent = await buildUndelegateTokensContent(
             runtime,

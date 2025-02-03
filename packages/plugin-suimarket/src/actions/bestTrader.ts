@@ -16,12 +16,12 @@ export const bestTrader: Action = {
                     options: { [key: string]: unknown },
                     callback: HandlerCallback) => {
         try{
-            elizaLogger.log("[portfolio] Handle with message ...");
+            elizaLogger.info("[portfolio] Handle with message ...");
             callback({
               text: "It's must be you!!!",
               attachments: []
             })
-            elizaLogger.log("[portfolio] Handle with message ...DONE");
+            elizaLogger.info("[portfolio] Handle with message ...DONE");
             return [];
         }
         catch(error){
@@ -30,8 +30,8 @@ export const bestTrader: Action = {
         }
     },
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
-    //   elizaLogger.log("[portfolio] Validating ...");
-    //   elizaLogger.log("[portfolio] Validating ...DONE");
+    //   elizaLogger.info("[portfolio] Validating ...");
+    //   elizaLogger.info("[portfolio] Validating ...DONE");
       return true;
     },
     similes:["portfolio_best", "portfolio_infulencer", "top_portfolio"],

@@ -66,7 +66,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting GET_TOKEN_PRICE_BY_ADDRESS handler...");
+        elizaLogger.info("Starting GET_TOKEN_PRICE_BY_ADDRESS handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -78,13 +78,13 @@ export default {
 
 
         try {
-            elizaLogger.log("Composing token price context...");
+            elizaLogger.info("Composing token price context...");
             const context = composeContext({
                 state: currentState,
                 template: getPriceByAddressTemplate,
             });
 
-            elizaLogger.log("Generating content from template...");
+            elizaLogger.info("Generating content from template...");
             const result = await generateObject({
                 runtime,
                 context,
@@ -98,14 +98,14 @@ export default {
             }
 
             const content = result.object;
-            elizaLogger.log("Generated content:", content);
+            elizaLogger.info("Generated content:", content);
 
             // Get API configuration
             const config = await validateCoingeckoConfig(runtime);
             const { baseUrl, apiKey, headerKey } = getApiConfig(config);
 
             // Fetch token data
-            elizaLogger.log("Fetching token data...");
+            elizaLogger.info("Fetching token data...");
             const response = await axios.get<TokenResponse>(
                 `${baseUrl}/coins/${content.chainId}/contract/${content.tokenAddress}`,
                 {

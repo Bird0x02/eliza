@@ -84,7 +84,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting GET_STAKE_BALANCE handler...");
+        elizaLogger.info("Starting GET_STAKE_BALANCE handler...");
 
         try {
             const action = new GetStakeBalanceAction();

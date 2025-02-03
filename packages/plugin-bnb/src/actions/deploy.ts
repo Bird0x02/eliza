@@ -211,7 +211,7 @@ export const deployAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting deploy action...");
+        elizaLogger.info("Starting deploy action...");
 
         // Initialize or update state
         let currentState = state;

@@ -290,7 +290,7 @@ export async function embed(runtime: IAgentRuntime, input: string) {
         input: string
     ) {
         if (!input) {
-            elizaLogger.log("No input to retrieve cached embedding for");
+            elizaLogger.info("No input to retrieve cached embedding for");
             return null;
         }
 

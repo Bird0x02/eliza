@@ -75,7 +75,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CoinGecko GET_TOP_GAINERS_LOSERS handler...");
+        elizaLogger.info("Starting CoinGecko GET_TOP_GAINERS_LOSERS handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -87,13 +87,13 @@ export default {
 
 
         try {
-            elizaLogger.log("Composing gainers/losers context...");
+            elizaLogger.info("Composing gainers/losers context...");
             const context = composeContext({
                 state: currentState,
                 template: getTopGainersLosersTemplate,
             });
 
-            elizaLogger.log("Generating content from template...");
+            elizaLogger.info("Generating content from template...");
             const result = await generateObject({
                 runtime,
                 context,
@@ -107,14 +107,14 @@ export default {
             }
 
             const content = result.object;
-            elizaLogger.log("Generated content:", content);
+            elizaLogger.info("Generated content:", content);
 
             // Fetch data from CoinGecko
             const config = await validateCoingeckoConfig(runtime);
             const { baseUrl, apiKey, headerKey } = getApiConfig(config);
 
-            elizaLogger.log("Fetching top gainers/losers data...");
-            elizaLogger.log("API request params:", {
+            elizaLogger.info("Fetching top gainers/losers data...");
+            elizaLogger.info("API request params:", {
                 vs_currency: content.vs_currency,
                 duration: content.duration,
                 top_coins: content.top_coins

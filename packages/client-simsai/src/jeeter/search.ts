@@ -83,11 +83,11 @@ export class JeeterSearchClient {
         }
 
         this.isRunning = true;
-        elizaLogger.log("Starting JeeterSearchClient");
+        elizaLogger.info("Starting JeeterSearchClient");
 
         const handleJeeterInteractionsLoop = async () => {
             if (!this.isRunning) {
-                elizaLogger.log("JeeterSearchClient has been stopped");
+                elizaLogger.info("JeeterSearchClient has been stopped");
                 return;
             }
 
@@ -112,7 +112,7 @@ export class JeeterSearchClient {
     }
 
     public async stop() {
-        elizaLogger.log("Stopping JeeterSearchClient...");
+        elizaLogger.info("Stopping JeeterSearchClient...");
         this.isRunning = false;
 
         // Clear any pending timeout
@@ -130,21 +130,21 @@ export class JeeterSearchClient {
         // Wait for any ongoing operations to complete
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        elizaLogger.log("JeeterSearchClient stopped successfully");
+        elizaLogger.info("JeeterSearchClient stopped successfully");
     }
 
     private async engageWithSearchTerms() {
         if (!this.isRunning) {
-            elizaLogger.log(
+            elizaLogger.info(
                 "Skipping search terms engagement - client is stopped"
             );
             return;
         }
 
-        elizaLogger.log("Engaging with search terms");
+        elizaLogger.info("Engaging with search terms");
         try {
             if (!this.runtime.character.topics?.length) {
-                elizaLogger.log("No topics available for search");
+                elizaLogger.info("No topics available for search");
                 return;
             }
 
@@ -152,7 +152,7 @@ export class JeeterSearchClient {
                 Math.floor(Math.random() * this.runtime.character.topics.length)
             ];
 
-            elizaLogger.log("Fetching search jeets");
+            elizaLogger.info("Fetching search jeets");
             await wait(5000);
 
             let searchResponse: JeetResponse = { jeets: [] };
@@ -162,7 +162,7 @@ export class JeeterSearchClient {
                     20
                 );
                 if (!searchResponse?.jeets?.length) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `No jeets found for search term: "${searchTerm}"`
                     );
                 }
@@ -175,7 +175,7 @@ export class JeeterSearchClient {
             const discoveryTimeline =
                 await this.client.simsAIClient.getDiscoveryTimeline(50);
             if (!discoveryTimeline) {
-                elizaLogger.log("No discovery timeline available");
+                elizaLogger.info("No discovery timeline available");
                 return;
             }
 
@@ -194,15 +194,15 @@ export class JeeterSearchClient {
             if (!this.isRunning) return;
 
             // Use our new ranking method
-            elizaLogger.log("Ranking jeets for engagement");
+            elizaLogger.info("Ranking jeets for engagement");
             const rankedJeets = await this.filterAndRankJeets(jeetsToProcess);
 
             if (rankedJeets.length === 0) {
-                elizaLogger.log("No valid jeets found for processing");
+                elizaLogger.info("No valid jeets found for processing");
                 return;
             }
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Found ${rankedJeets.length} ranked jeets to consider`
             );
             const prompt = this.generateSelectionPrompt(
@@ -226,13 +226,13 @@ export class JeeterSearchClient {
             );
 
             if (!selectedJeet) {
-                elizaLogger.log("No matching jeet found for ID:", jeetId);
+                elizaLogger.info("No matching jeet found for ID:", jeetId);
                 return;
             }
 
             if (!this.isRunning) return;
 
-            elizaLogger.log(`Selected jeet ${selectedJeet.id} for interaction`);
+            elizaLogger.info(`Selected jeet ${selectedJeet.id} for interaction`);
 
             const previousInteractions = {
                 replied: await this.hasInteracted(selectedJeet.id, "reply"),
@@ -243,7 +243,7 @@ export class JeeterSearchClient {
 
             // Skip if we've already interacted with this jeet
             if (Object.values(previousInteractions).some((v) => v)) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Already interacted with jeet ${selectedJeet.id}, skipping`
                 );
                 return;
@@ -431,7 +431,7 @@ Text: ${jeet.text}
         if (!this.isRunning) return;
 
         const thread = await buildConversationThread(selectedJeet, this.client);
-        elizaLogger.log(
+        elizaLogger.info(
             `Retrieved conversation thread with ${thread.length} messages:`,
             {
                 messages: thread.map((t) => ({
@@ -469,7 +469,7 @@ Text: ${jeet.text}
             .join("\n\n");
 
         // Log conversation context for debugging
-        elizaLogger.log("Conversation context:", {
+        elizaLogger.info("Conversation context:", {
             originalJeet: selectedJeet.id,
             totalMessages: thread.length,
             participants: [...new Set(thread.map((j) => j.agent?.username))],
@@ -540,7 +540,7 @@ Text: ${jeet.text}
         if (!this.isRunning) return;
 
         try {
-            elizaLogger.log(`Composing state for jeet ${selectedJeet.id}`);
+            elizaLogger.info(`Composing state for jeet ${selectedJeet.id}`);
             let state = await this.runtime.composeState(message, {
                 jeeterClient: this.client,
                 jeeterUserName: this.runtime.getSetting("SIMSAI_USERNAME"),
@@ -581,7 +581,7 @@ Text: ${jeet.text}
 
             if (!this.isRunning) return;
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Saving request message for jeet ${selectedJeet.id}`
             );
             await this.client.saveRequestMessage(message, state as State);
@@ -595,7 +595,7 @@ Text: ${jeet.text}
 
             if (!this.isRunning) return;
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Generating message response for jeet ${selectedJeet.id}`
             );
             const rawResponse = (await generateMessageResponse({
@@ -633,13 +633,13 @@ Text: ${jeet.text}
                             (interaction.type === "like" &&
                                 previousInteractions.liked)
                         ) {
-                            elizaLogger.log(
+                            elizaLogger.info(
                                 `Skipping ${interaction.type} for jeet ${selectedJeet.id} - already performed`
                             );
                             continue;
                         }
 
-                        elizaLogger.log(
+                        elizaLogger.info(
                             `Attempting ${interaction.type} interaction for jeet ${selectedJeet.id}`
                         );
 
@@ -652,7 +652,7 @@ Text: ${jeet.text}
                                             selectedJeet.id
                                         );
                                     if (rejeetResult?.id) {
-                                        elizaLogger.log(
+                                        elizaLogger.info(
                                             `Rejeeted jeet ${selectedJeet.id}`
                                         );
                                         this.recordInteraction(
@@ -680,7 +680,7 @@ Text: ${jeet.text}
                                         selectedJeet.id,
                                         interaction.text
                                     );
-                                    elizaLogger.log(
+                                    elizaLogger.info(
                                         `Quote rejeeted jeet ${selectedJeet.id}`
                                     );
                                     this.recordInteraction(
@@ -745,7 +745,7 @@ Text: ${jeet.text}
                                     await this.client.simsAIClient.likeJeet(
                                         selectedJeet.id
                                     );
-                                    elizaLogger.log(
+                                    elizaLogger.info(
                                         `Liked jeet ${selectedJeet.id}`
                                     );
                                     this.recordInteraction(
@@ -761,13 +761,13 @@ Text: ${jeet.text}
                                 break;
 
                             case "none":
-                                elizaLogger.log(
+                                elizaLogger.info(
                                     `Chose not to interact with jeet ${selectedJeet.id}`
                                 );
                                 break;
                         }
 
-                        elizaLogger.log(
+                        elizaLogger.info(
                             `Successfully performed ${interaction.type} interaction for jeet ${selectedJeet.id}`
                         );
                     } catch (error) {
@@ -787,7 +787,7 @@ Text: ${jeet.text}
                 selectedJeet.text
             }\nAgent's Output:\n${JSON.stringify(response)}`;
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Caching response info for jeet ${selectedJeet.id}`
             );
             await this.runtime.cacheManager.set(

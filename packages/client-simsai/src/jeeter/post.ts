@@ -38,7 +38,7 @@ export class JeeterPostClient {
 
         const generateNewJeetLoop = async () => {
             if (!this.isRunning) {
-                elizaLogger.log("JeeterPostClient has been stopped");
+                elizaLogger.info("JeeterPostClient has been stopped");
                 return;
             }
 
@@ -70,7 +70,7 @@ export class JeeterPostClient {
                         this.timeoutHandle = setTimeout(() => {
                             generateNewJeetLoop();
                         }, targetInterval);
-                        elizaLogger.log(
+                        elizaLogger.info(
                             `Next jeet scheduled in ${randomMinutes} minutes`
                         );
                     }
@@ -80,7 +80,7 @@ export class JeeterPostClient {
                         this.timeoutHandle = setTimeout(() => {
                             generateNewJeetLoop();
                         }, delay);
-                        elizaLogger.log(
+                        elizaLogger.info(
                             `Next jeet scheduled in ${Math.round(delay / 60000)} minutes`
                         );
                     }
@@ -106,7 +106,7 @@ export class JeeterPostClient {
     }
 
     public async stop() {
-        elizaLogger.log("Stopping JeeterPostClient...");
+        elizaLogger.info("Stopping JeeterPostClient...");
         this.isRunning = false;
 
         if (this.timeoutHandle) {
@@ -117,7 +117,7 @@ export class JeeterPostClient {
         // Wait for any ongoing operations to complete
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        elizaLogger.log("JeeterPostClient stopped successfully");
+        elizaLogger.info("JeeterPostClient stopped successfully");
     }
 
     private async getHomeTimeline(): Promise<Jeet[]> {
@@ -227,7 +227,7 @@ ${timestamp}\n\n${jeet.text}\n---\n`;
             );
         }
 
-        elizaLogger.log(`Jeet posted with ID: ${response.data.id}`);
+        elizaLogger.info(`Jeet posted with ID: ${response.data.id}`);
 
         // Extract the author information from includes
         const author = response.includes.users.find(
@@ -256,11 +256,11 @@ ${timestamp}\n\n${jeet.text}\n---\n`;
 
     private async generateNewJeet() {
         if (!this.isRunning) {
-            elizaLogger.log("Skipping jeet generation - client is stopped");
+            elizaLogger.info("Skipping jeet generation - client is stopped");
             return;
         }
 
-        elizaLogger.log("Generating new jeet");
+        elizaLogger.info("Generating new jeet");
         try {
             await this.runtime.ensureUserExists(
                 this.runtime.agentId,
@@ -281,13 +281,13 @@ ${timestamp}\n\n${jeet.text}\n---\n`;
 
             try {
                 if (!this.isRunning) {
-                    elizaLogger.log(
+                    elizaLogger.info(
                         "Skipping jeet posting - client is stopped"
                     );
                     return;
                 }
 
-                elizaLogger.log(`Posting new jeet:\n ${content}`);
+                elizaLogger.info(`Posting new jeet:\n ${content}`);
                 const jeet = await this.postJeet(content);
                 await this.runtime.cacheManager.set(
                     `jeeter/${this.client.profile.username}/lastPost`,
@@ -300,7 +300,7 @@ ${timestamp}\n\n${jeet.text}\n---\n`;
                 const homeTimeline = await this.getHomeTimeline();
                 homeTimeline.push(jeet);
                 await this.client.cacheTimeline(homeTimeline);
-                elizaLogger.log(`Jeet posted at: ${jeet.permanentUrl}`);
+                elizaLogger.info(`Jeet posted at: ${jeet.permanentUrl}`);
                 await this.createMemoryForJeet(jeet, content);
             } catch (error) {
                 elizaLogger.error("Error sending jeet:", error);

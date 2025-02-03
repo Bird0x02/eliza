@@ -77,7 +77,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -151,7 +151,7 @@ export default {
                 return false;
             }
         } else {
-            elizaLogger.log("Either amount or recipient not specified");
+            elizaLogger.info("Either amount or recipient not specified");
         }
     },
 

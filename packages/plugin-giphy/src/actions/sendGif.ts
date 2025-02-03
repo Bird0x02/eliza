@@ -49,7 +49,7 @@ export default {
     name: "SEND_GIF",
     similes: ["REPLY_WITH_GIF", "GIF_RESPONSE"],
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("🔄 Validating Giphy configuration...");
+        elizaLogger.info("🔄 Validating Giphy configuration...");
         try {
             const config = await validateGiphyConfig(runtime);
             debugLog.validation(config);
@@ -67,25 +67,25 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("🚀 Starting Giphy SEND_GIF handler...");
+        elizaLogger.info("🚀 Starting Giphy SEND_GIF handler...");
 
         // Initialize or update state
         let currentState = state;
         if (!currentState) {
-            elizaLogger.log("Creating new state...");
+            elizaLogger.info("Creating new state...");
             currentState = (await runtime.composeState(message)) as State;
         } else {
-            elizaLogger.log("Updating existing state...");
+            elizaLogger.info("Updating existing state...");
             currentState = await runtime.updateRecentMessageState(currentState);
         }
         try {
-            elizaLogger.log("Composing gif trigger context...");
+            elizaLogger.info("Composing gif trigger context...");
             const gifContext = composeContext({
                 state: currentState,
                 template: sendGifTemplate,
             });
 
-            elizaLogger.log("Generating content from context...");
+            elizaLogger.info("Generating content from context...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: gifContext,
@@ -99,7 +99,7 @@ export default {
             debugLog.validation(content);
 
             if (!content.trigger || !content.searchTerm) {
-                elizaLogger.log("No gif triggered for this message.");
+                elizaLogger.info("No gif triggered for this message.");
                 return false;
             }
 
@@ -123,7 +123,7 @@ export default {
             );
 
             debugLog.response(response);
-            elizaLogger.log(
+            elizaLogger.info(
                 "Full Giphy API Response:",
                 JSON.stringify(response.data, null, 2)
             );
@@ -148,7 +148,7 @@ export default {
             // Select a random gif from the filtered results
             const selectedGif: Gif =
                 gifGifs[Math.floor(Math.random() * gifGifs.length)];
-            elizaLogger.log(
+            elizaLogger.info(
                 "Selected GIF:",
                 JSON.stringify(selectedGif, null, 2)
             );
@@ -177,7 +177,7 @@ export default {
                     ],
                 };
                 // No need for local file attachments anymore
-                elizaLogger.log("✅ Sending callback with gif url:", message);
+                elizaLogger.info("✅ Sending callback with gif url:", message);
                 callback(message);
             }
 

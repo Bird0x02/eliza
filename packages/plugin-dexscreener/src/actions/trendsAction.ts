@@ -72,7 +72,7 @@ export class LatestTokensAction implements Action {
         _options: { [key: string]: unknown } = {},
         callback?: HandlerCallback
     ): Promise<boolean> {
-        elizaLogger.log("Starting GET_LATEST_TOKENS handler...");
+        elizaLogger.info("Starting GET_LATEST_TOKENS handler...");
 
         try {
             const response = await fetch(
@@ -190,7 +190,7 @@ export class LatestBoostedTokensAction implements Action {
         _options: { [key: string]: unknown } = {},
         callback?: HandlerCallback
     ): Promise<boolean> {
-        elizaLogger.log("Starting GET_LATEST_BOOSTED_TOKENS handler...");
+        elizaLogger.info("Starting GET_LATEST_BOOSTED_TOKENS handler...");
 
         try {
             const response = await fetch(
@@ -308,7 +308,7 @@ export class TopBoostedTokensAction implements Action {
         _options: { [key: string]: unknown } = {},
         callback?: HandlerCallback
     ): Promise<boolean> {
-        elizaLogger.log("Starting GET_TOP_BOOSTED_TOKENS handler...");
+        elizaLogger.info("Starting GET_TOP_BOOSTED_TOKENS handler...");
 
         try {
             const response = await fetch(

@@ -25,7 +25,7 @@ function isGetTokenInfoContent(
     runtime: IAgentRuntime,
     content: any
 ): content is GetTokenInfoContent {
-    elizaLogger.log("Content for transfer", content);
+    elizaLogger.info("Content for transfer", content);
     return (
         typeof content.tokenAddress === "string"
     );
@@ -51,7 +51,7 @@ export default {
     name: GET_TOKEN_INFO_ACTION.name,
     similes: GET_TOKEN_INFO_ACTION.similes,
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating get token info from user:", message.userId);
+        elizaLogger.info("Validating get token info from user:", message.userId);
 
         return false;
     },
@@ -63,7 +63,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting GET_TOKEN_INFO handler...");
+        elizaLogger.info("Starting GET_TOKEN_INFO handler...");
         const sak = await getSAK(runtime);
 
         // Initialize or update state

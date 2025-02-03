@@ -28,11 +28,11 @@ export interface TransferContent extends Content {
 }
 
 function isTransferContent(content: unknown): content is TransferContent {
-    elizaLogger.log("Content for transfer", content);
+    elizaLogger.info("Content for transfer", content);
     if (typeof content !== "object" || content === null) {
         return false;
     }
-    
+
     const c = content as Record<string, unknown>;
     return (
         typeof c.recipient === "string" &&
@@ -69,21 +69,21 @@ export default {
         "PAY",
     ],
     validate: async (_runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating apt transfer from user:", message.userId);
+        elizaLogger.info("Validating apt transfer from user:", message.userId);
         //add custom validate logic here
         /*
             const adminIds = runtime.getSetting("ADMIN_USER_IDS")?.split(",") || [];
-            //elizaLogger.log("Admin IDs from settings:", adminIds);
+            //elizaLogger.info("Admin IDs from settings:", adminIds);
 
             const isAdmin = adminIds.includes(message.userId);
 
             if (isAdmin) {
-                //elizaLogger.log(`Authorized transfer from user: ${message.userId}`);
+                //elizaLogger.info(`Authorized transfer from user: ${message.userId}`);
                 return true;
             }
             else
             {
-                //elizaLogger.log(`Unauthorized transfer attempt from user: ${message.userId}`);
+                //elizaLogger.info(`Unauthorized transfer attempt from user: ${message.userId}`);
                 return false;
             }
             */
@@ -97,7 +97,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         const walletInfo = await walletProvider.get(runtime, message, state);
         state.walletInfo = walletInfo;
@@ -156,7 +156,7 @@ export default {
             const adjustedAmount = BigInt(
                 Number(content.amount) * (10 ** APT_DECIMALS)
             );
-            elizaLogger.log(
+            elizaLogger.info(
                 `Transferring: ${content.amount} tokens (${adjustedAmount} base units)`
             );
 
@@ -177,7 +177,7 @@ export default {
                 transactionHash: committedTransaction.hash,
             });
 
-            elizaLogger.log("Transfer successful:", executedTransaction.hash);
+            elizaLogger.info("Transfer successful:", executedTransaction.hash);
 
             if (callback) {
                 callback({

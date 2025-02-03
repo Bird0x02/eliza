@@ -79,7 +79,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CoinGecko GET_PRICE handler...");
+        elizaLogger.info("Starting CoinGecko GET_PRICE handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -91,13 +91,13 @@ export default {
 
 
         try {
-            elizaLogger.log("Composing price context...");
+            elizaLogger.info("Composing price context...");
             const priceContext = composeContext({
                 state: currentState,
                 template: getPriceTemplate,
             });
 
-            elizaLogger.log("Generating content from template...");
+            elizaLogger.info("Generating content from template...");
             const result = await generateObject({
                 runtime,
                 context: priceContext,
@@ -111,7 +111,7 @@ export default {
             }
 
             const content = result.object;
-            elizaLogger.log("Generated content:", content);
+            elizaLogger.info("Generated content:", content);
 
             // Format currencies for API request
             const currencies = Array.isArray(content.currency) ? content.currency : [content.currency];
@@ -120,15 +120,15 @@ export default {
             // Format coin IDs for API request
             const coinIds = formatCoinIds(content.coinIds);
 
-            elizaLogger.log("Formatted request parameters:", { coinIds, vs_currencies });
+            elizaLogger.info("Formatted request parameters:", { coinIds, vs_currencies });
 
             // Fetch price from CoinGecko
             const config = await validateCoingeckoConfig(runtime);
             const { baseUrl, apiKey, headerKey } = getApiConfig(config);
 
-            elizaLogger.log(`Fetching prices for ${coinIds} in ${vs_currencies}...`);
-            elizaLogger.log("API request URL:", `${baseUrl}/simple/price`);
-            elizaLogger.log("API request params:", {
+            elizaLogger.info(`Fetching prices for ${coinIds} in ${vs_currencies}...`);
+            elizaLogger.info("API request URL:", `${baseUrl}/simple/price`);
+            elizaLogger.info("API request params:", {
                 ids: coinIds,
                 vs_currencies,
                 include_market_cap: content.include_market_cap,

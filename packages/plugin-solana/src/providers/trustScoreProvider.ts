@@ -114,7 +114,7 @@ export class TrustScoreManager {
     }> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -304,7 +304,7 @@ export class TrustScoreManager {
         const unique_wallet_24h = processedData.tradeData.unique_wallet_24h;
         const volume_24h = processedData.tradeData.volume_24h;
         const suspiciousVolume = unique_wallet_24h / volume_24h > 0.5;
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
         return suspiciousVolume;
@@ -313,7 +313,7 @@ export class TrustScoreManager {
     async sustainedGrowth(tokenAddress: string): Promise<boolean> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -323,7 +323,7 @@ export class TrustScoreManager {
     async isRapidDump(tokenAddress: string): Promise<boolean> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -333,7 +333,7 @@ export class TrustScoreManager {
     async checkTrustScore(tokenAddress: string): Promise<TokenSecurityData> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -508,7 +508,7 @@ export class TrustScoreManager {
                     error
                 );
                 if (attempt < retries) {
-                    elizaLogger.log(`Retrying in ${delayMs} ms...`);
+                    elizaLogger.info(`Retrying in ${delayMs} ms...`);
                     await this.delay(delayMs); // Wait for the specified delay before retrying
                 } else {
                     elizaLogger.error("All attempts failed.");

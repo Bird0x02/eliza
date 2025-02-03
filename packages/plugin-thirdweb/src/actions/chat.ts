@@ -13,7 +13,7 @@ const BASE_URL = "https://nebula-api.thirdweb.com";
 async function handleStreamResponse(
     response: Response
 ): Promise<ReadableStream> {
-    elizaLogger.log("Starting stream response handling");
+    elizaLogger.info("Starting stream response handling");
     const reader = response.body?.getReader();
     if (!reader) {
         elizaLogger.error("No readable stream available");
@@ -26,7 +26,7 @@ async function handleStreamResponse(
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) {
-                        elizaLogger.log("Stream reading completed");
+                        elizaLogger.info("Stream reading completed");
                         break;
                     }
 
@@ -44,7 +44,7 @@ async function handleStreamResponse(
             } finally {
                 reader.releaseLock();
                 controller.close();
-                elizaLogger.log("Stream controller closed");
+                elizaLogger.info("Stream controller closed");
             }
         },
     });
@@ -84,9 +84,9 @@ export const blockchainChatAction: Action = {
         _state: State,
         _options: Record<string, unknown>,  // Replaced any with Record<string, unknown>
         callback: HandlerCallback
-    ): Promise<Record<string, unknown> | ReadableStream> => { 
+    ): Promise<Record<string, unknown> | ReadableStream> => {
         try {
-            elizaLogger.log("Starting blockchain chat handler");
+            elizaLogger.info("Starting blockchain chat handler");
             const secretKey =
                 runtime.getSetting("THIRDWEB_SECRET_KEY") ??
                 process.env.THIRDWEB_SECRET_KEY;
@@ -101,7 +101,7 @@ export const blockchainChatAction: Action = {
                 stream: false,
             };
 
-            elizaLogger.log("NEBULA CHAT REQUEST: ", request);
+            elizaLogger.info("NEBULA CHAT REQUEST: ", request);
 
             elizaLogger.debug("Sending request to Nebula API");
             const response = await fetch(`${BASE_URL}/chat`, {
@@ -121,7 +121,7 @@ export const blockchainChatAction: Action = {
                 try {
                     const cleanedText = text.trim().split("\n").pop() || text;
                     const parsed = JSON.parse(cleanedText);
-                    elizaLogger.log("Successfully parsed response:", parsed);
+                    elizaLogger.info("Successfully parsed response:", parsed);
 
                     console.log(parsed.message);
 
@@ -138,7 +138,7 @@ export const blockchainChatAction: Action = {
                 }
             }
 
-            elizaLogger.log("Handling streaming response");
+            elizaLogger.info("Handling streaming response");
             return handleStreamResponse(response);
         } catch (error) {
             elizaLogger.error("Blockchain chat failed:", error);

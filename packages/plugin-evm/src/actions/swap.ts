@@ -355,7 +355,7 @@ export const swapAction = {
         _options: any,
         callback?: any
     ) => {
-        elizaLogger.log("Swap action handler called");
+        elizaLogger.info("Swap action handler called");
         const walletProvider = await initWalletProvider(runtime);
         const action = new SwapAction(walletProvider);
 

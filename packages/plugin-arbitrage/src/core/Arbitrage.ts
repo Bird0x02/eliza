@@ -34,13 +34,13 @@ export class Arbitrage {
     ) {}
 
     async evaluateMarkets(marketsByToken: MarketsByToken): Promise<CrossedMarketDetails[]> {
-        elizaLogger.log("Starting market evaluation...");
+        elizaLogger.info("Starting market evaluation...");
         const opportunities: CrossedMarketDetails[] = [];
 
         for (const [tokenAddress, markets] of Object.entries(marketsByToken)) {
             // Filter out markets with insufficient liquidity
             const validMarkets = await this.filterValidMarkets(markets, tokenAddress);
-            
+
             // Compare each market pair for arbitrage opportunities
             for (let i = 0; i < validMarkets.length; i++) {
                 for (let j = i + 1; j < validMarkets.length; j++) {
@@ -86,18 +86,18 @@ export class Arbitrage {
             const price2 = await market2.getTokensOut(WETH_ADDRESS, tokenAddress, ETHER);
 
             // Calculate potential profit
-            const [buyMarket, sellMarket] = price1.gt(price2) 
-                ? [market2, market1] 
+            const [buyMarket, sellMarket] = price1.gt(price2)
+                ? [market2, market1]
                 : [market1, market2];
-            
-            const profit = price1.gt(price2) 
-                ? price1.sub(price2) 
+
+            const profit = price1.gt(price2)
+                ? price1.sub(price2)
                 : price2.sub(price1);
 
             if (profit.gt(this.thresholds.minProfitThreshold)) {
                 // Calculate optimal trade volume
                 const volume = await this.calculateOptimalVolume(buyMarket, sellMarket, tokenAddress, profit);
-                
+
                 return {
                     marketPairs: [{
                         buyFromMarket: buyMarket,
@@ -117,8 +117,8 @@ export class Arbitrage {
     }
 
     async takeCrossedMarkets(
-        markets: CrossedMarketDetails[], 
-        currentBlock: number, 
+        markets: CrossedMarketDetails[],
+        currentBlock: number,
         maxAttempts: number
     ): Promise<void> {
         for (const market of markets) {
@@ -126,7 +126,7 @@ export class Arbitrage {
                 try {
                     const transaction = await this.executeArbitrageTrade(market, currentBlock);
                     if (transaction) {
-                        elizaLogger.log(`Successful arbitrage execution: ${transaction.hash}`);
+                        elizaLogger.info(`Successful arbitrage execution: ${transaction.hash}`);
                         // Wait for confirmation
                         await transaction.wait(1);
                         break;
@@ -217,10 +217,10 @@ export class Arbitrage {
 
         // Sign transaction
         const signedTx = await this.wallet.signTransaction(transaction);
-        
+
         // Create bundle entry
         const bundleEntry = await this.createBundleEntry(signedTx);
-        
+
         return [bundleEntry];
     }
 
@@ -246,14 +246,14 @@ export class Arbitrage {
     }
 
     private async executeBundleWithRetry(
-        bundle: BundleEntry[], 
+        bundle: BundleEntry[],
         blockNumber: number
     ): Promise<TransactionResponse | null> {
         for (let i = 0; i < this.MAX_RETRIES; i++) {
             try {
                 // Simulate first
                 await this.simulateBundle(bundle, blockNumber);
-                
+
                 // If simulation successful, submit
                 const response = await this.flashbotsProvider.sendBundle(
                     bundle.map(entry => ({
@@ -321,16 +321,16 @@ export class Arbitrage {
     }
 
     async submitBundleWithAdjustedGasPrice(bundle: BundleEntry[], blockNumber: number, blocksApi: any): Promise<void> {
-        elizaLogger.log(`Submitting bundle with adjusted gas price for block ${blockNumber}`);
-        
+        elizaLogger.info(`Submitting bundle with adjusted gas price for block ${blockNumber}`);
+
         try {
             // Get current gas prices
             const { currentGasPrice, avgGasPrice } = await getGasPriceInfo(this.wallet.provider as Provider);
-            
+
             // Monitor competing bundles
             const competingBundlesGasPrices = await monitorCompetingBundlesGasPrices(blocksApi);
             let competingBundleGasPrice = BigNumber.from(0);
-            
+
             // Find highest competing gas price
             for (const price of competingBundlesGasPrices) {
                 const currentPrice = BigNumber.from(price);
@@ -387,7 +387,7 @@ export class Arbitrage {
                 throw new Error(`Bundle submission failed: ${bundleSubmission.error.message}`);
             }
 
-            elizaLogger.log("Bundle submitted successfully:", {
+            elizaLogger.info("Bundle submitted successfully:", {
                 blockNumber: targetBlockNumber,
                 adjustedGasPrice: adjustedGasPrice.toString(),
                 bundleHash: bundleSubmission.bundleHash
@@ -404,7 +404,7 @@ export class Arbitrage {
         avgGasPrice: BigNumber,
         competingBundleGasPrice: BigNumber
     ): Promise<BigNumber> {
-        elizaLogger.log("Calculating adjusted gas price", {
+        elizaLogger.info("Calculating adjusted gas price", {
             current: currentGasPrice.toString(),
             average: avgGasPrice.toString(),
             competing: competingBundleGasPrice.toString()
@@ -423,7 +423,7 @@ export class Arbitrage {
         const premium = adjustedGasPrice.mul(10).div(100);
         adjustedGasPrice = adjustedGasPrice.add(premium);
 
-        elizaLogger.log("Adjusted gas price:", adjustedGasPrice.toString());
+        elizaLogger.info("Adjusted gas price:", adjustedGasPrice.toString());
         return adjustedGasPrice;
     }
 
@@ -433,7 +433,7 @@ export class Arbitrage {
         tokenAddress: string,
         profit: BigNumber
     ): Promise<BigNumber> {
-        elizaLogger.log("Entering calculateOptimalVolume");
+        elizaLogger.info("Entering calculateOptimalVolume");
 
         // Determine the available liquidity in both markets
         const availableLiquidityBuy = await buyFromMarket.getReserves(tokenAddress);
@@ -482,7 +482,7 @@ export class Arbitrage {
             availableLiquiditySell.toNumber()
         ));
 
-        elizaLogger.log(`calculateOptimalVolume: optimalVolume = ${optimalVolume}`);
+        elizaLogger.info(`calculateOptimalVolume: optimalVolume = ${optimalVolume}`);
         return optimalVolume;
     }
 }
@@ -490,25 +490,25 @@ export class Arbitrage {
 // Helper functions
 async function checkBundleGas(bundleGas: BigNumber): Promise<boolean> {
     const isValid = bundleGas.gte(42000);
-    elizaLogger.log(`checkBundleGas: bundleGas = ${bundleGas}, isValid = ${isValid}`);
+    elizaLogger.info(`checkBundleGas: bundleGas = ${bundleGas}, isValid = ${isValid}`);
     return isValid;
 }
 
 export async function monitorCompetingBundlesGasPrices(blocksApi: { getRecentBlocks: () => any; }): Promise<Array<BigNumber>> {
-    elizaLogger.log("Entering monitorCompetingBundlesGasPrices");
+    elizaLogger.info("Entering monitorCompetingBundlesGasPrices");
     const recentBlocks = await blocksApi.getRecentBlocks();
     const competingBundlesGasPrices = recentBlocks.map((block: { bundleGasPrice: any; }) => block.bundleGasPrice);
-    elizaLogger.log(`monitorCompetingBundlesGasPrices: competingBundlesGasPrices = ${competingBundlesGasPrices}`);
+    elizaLogger.info(`monitorCompetingBundlesGasPrices: competingBundlesGasPrices = ${competingBundlesGasPrices}`);
     return competingBundlesGasPrices;
 }
 
-export async function getGasPriceInfo(provider: Provider): Promise<{ 
-    currentGasPrice: BigNumber, 
-    avgGasPrice: BigNumber 
+export async function getGasPriceInfo(provider: Provider): Promise<{
+    currentGasPrice: BigNumber,
+    avgGasPrice: BigNumber
 }> {
     const feeData = await provider.getFeeData();
     const currentGasPrice = feeData.gasPrice || BigNumber.from(0);
-    
+
     // Get average from last few blocks
     const block = await provider.getBlock("latest");
     const prices: BigNumber[] = [];
@@ -518,8 +518,8 @@ export async function getGasPriceInfo(provider: Provider): Promise<{
             prices.push(historicalBlock.baseFeePerGas);
         }
     }
-    
-    const avgGasPrice = prices.length > 0 
+
+    const avgGasPrice = prices.length > 0
         ? prices.reduce((a, b) => a.add(b)).div(prices.length)
         : currentGasPrice;
 
@@ -534,16 +534,16 @@ export async function calculateOptimalVolume(
 ): Promise<BigNumber> {
     const buyLiquidity = await buyFromMarket.getReserves(tokenAddress);
     const sellLiquidity = await sellToMarket.getReserves(tokenAddress);
-    
+
     // Start with 1% of the smaller liquidity pool
-    let optimalVolume = buyLiquidity.lt(sellLiquidity) 
+    let optimalVolume = buyLiquidity.lt(sellLiquidity)
         ? buyLiquidity.div(100)
         : sellLiquidity.div(100);
 
     // Adjust based on price impact
     const buyImpact = await buyFromMarket.getPriceImpact(tokenAddress, optimalVolume);
     const sellImpact = await sellToMarket.getPriceImpact(tokenAddress, optimalVolume);
-    
+
     // If price impact is too high, reduce volume
     if (buyImpact.add(sellImpact).gt(BigNumber.from(300))) { // 3% total impact
         optimalVolume = optimalVolume.mul(80).div(100); // Reduce by 20%

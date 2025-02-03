@@ -13,7 +13,7 @@ export class EventHandler {
         client: WebClient,
         messageManager: MessageManager
     ) {
-        elizaLogger.log("🎮 Initializing Slack event handler...");
+        elizaLogger.info("🎮 Initializing Slack event handler...");
         elizaLogger.debug(
             "Creating event adapter with signing secret:",
             config.signingSecret.slice(0, 4) + "..."
@@ -22,11 +22,11 @@ export class EventHandler {
         this.messageManager = messageManager;
 
         this.setupEventListeners();
-        elizaLogger.log("✅ Event handler initialization complete");
+        elizaLogger.info("✅ Event handler initialization complete");
     }
 
     private setupEventListeners() {
-        elizaLogger.log("📡 Setting up event listeners...");
+        elizaLogger.info("📡 Setting up event listeners...");
 
         // Handle URL verification
         this.events.on("url_verification", (event: any) => {
@@ -134,7 +134,7 @@ export class EventHandler {
             });
         });
 
-        elizaLogger.log("✅ Event listeners setup complete");
+        elizaLogger.info("✅ Event listeners setup complete");
     }
 
     public getEventAdapter() {

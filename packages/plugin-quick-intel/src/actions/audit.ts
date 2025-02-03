@@ -39,7 +39,7 @@ class TokenAuditAction {
     }
 
     async audit(chain: string, tokenAddress: string): Promise<AuditResponse> {
-        elizaLogger.log("Auditing token:", { chain, tokenAddress });
+        elizaLogger.info("Auditing token:", { chain, tokenAddress });
         const myHeaders = new Headers();
         myHeaders.append("X-QKNTL-KEY", this.apiKey);
         myHeaders.append("Content-Type", "application/json");
@@ -59,7 +59,7 @@ class TokenAuditAction {
     }
 
     async fetchDexData(tokenAddress: string, chain: string): Promise<DexResponse | null> {
-        elizaLogger.log("Fetching DEX data:", { tokenAddress, chain });
+        elizaLogger.info("Fetching DEX data:", { tokenAddress, chain });
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -109,7 +109,7 @@ export const auditAction: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting QuickIntel audit handler...");
+        elizaLogger.info("Starting QuickIntel audit handler...");
 
         try {
             const apiKey = runtime.getSetting("QUICKINTEL_API_KEY");
@@ -126,7 +126,7 @@ export const auditAction: Action = {
             }
 
             // Perform audit
-            elizaLogger.log("Performing audit for:", { chain, tokenAddress });
+            elizaLogger.info("Performing audit for:", { chain, tokenAddress });
             const action = new TokenAuditAction(apiKey);
             const [auditData, dexData] = await Promise.all([
                 action.audit(chain, tokenAddress),

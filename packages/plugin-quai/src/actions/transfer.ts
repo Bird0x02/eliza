@@ -59,11 +59,11 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting TRANSFER_TOKEN handler...");
+        elizaLogger.info("Starting TRANSFER_TOKEN handler...");
 
         // Initialize or update state
-        const currentState = !state 
-            ? await runtime.composeState(message) 
+        const currentState = !state
+            ? await runtime.composeState(message)
             : await runtime.updateRecentMessageState(state);
 
         // Compose transfer context
@@ -98,7 +98,7 @@ export default {
             const amount = formatUnits(content.amount, "wei");
 
             // Declare transaction object at function scope
-            const txObj: TransactionRequest = content.tokenAddress 
+            const txObj: TransactionRequest = content.tokenAddress
                 ? {} // TODO: transfer QRC20s
                 : {
                     to: content.recipient,
@@ -106,7 +106,7 @@ export default {
                     from: account.address,
                 };
 
-            elizaLogger.log(
+            elizaLogger.info(
                 "Transferring",
                 amount,
                 "QUAI",

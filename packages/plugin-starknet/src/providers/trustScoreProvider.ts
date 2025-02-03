@@ -113,7 +113,7 @@ export class TrustScoreManager {
     }> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -308,7 +308,7 @@ export class TrustScoreManager {
         const unique_wallet_24h = processedData.tradeData.market.starknetTradingVolume24h;
         const volume_24h = processedData.tradeData.market.starknetVolume24h;
         const suspiciousVolume = unique_wallet_24h / volume_24h > 0.5;
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
         return suspiciousVolume;
@@ -317,7 +317,7 @@ export class TrustScoreManager {
     async sustainedGrowth(tokenAddress: string): Promise<boolean> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -333,7 +333,7 @@ export class TrustScoreManager {
     async isRapidDump(tokenAddress: string): Promise<boolean> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -347,7 +347,7 @@ export class TrustScoreManager {
     async checkTrustScore(tokenAddress: string): Promise<TokenSecurityData> {
         const processedData: ProcessedTokenData =
             await this.tokenProvider.getProcessedTokenData();
-        elizaLogger.log(
+        elizaLogger.info(
             `Fetched processed token data for token: ${tokenAddress}`
         );
 
@@ -461,7 +461,7 @@ export class TrustScoreManager {
                     error
                 );
                 if (attempt < retries) {
-                    elizaLogger.log(`Retrying in ${delayMs} ms...`);
+                    elizaLogger.info(`Retrying in ${delayMs} ms...`);
                     await this.delay(delayMs); // Wait for the specified delay before retrying
                 } else {
                     elizaLogger.error("All attempts failed.");
@@ -620,13 +620,13 @@ export class TrustScoreManager {
         const result = Object.keys(groupedRecommendations).map(
             (tokenAddress) => {
                 const tokenRecommendations = groupedRecommendations[tokenAddress];
-        
+
                 // Initialize variables to compute averages
                 let totalTrustScore = 0;
                 let totalRiskScore = 0;
                 let totalConsistencyScore = 0;
                 const recommenderData = [];
-        
+
                 // Changed from forEach to for...of
                 for (const recommendation of tokenRecommendations) {
                     const tokenPerformance = this.trustScoreDb.getTokenPerformance(
@@ -635,7 +635,7 @@ export class TrustScoreManager {
                     const recommenderMetrics = this.trustScoreDb.getRecommenderMetrics(
                         recommendation.recommenderId
                     );
-        
+
                     const trustScore = this.calculateTrustScore(
                         tokenPerformance,
                         recommenderMetrics
@@ -645,12 +645,12 @@ export class TrustScoreManager {
                         recommenderMetrics
                     );
                     const riskScore = this.calculateRiskScore(tokenPerformance);
-        
+
                     // Accumulate scores for averaging
                     totalTrustScore += trustScore;
                     totalRiskScore += riskScore;
                     totalConsistencyScore += consistencyScore;
-        
+
                     recommenderData.push({
                         recommenderId: recommendation.recommenderId,
                         trustScore,

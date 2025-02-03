@@ -76,7 +76,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SUBMIT_DATA handler...");
+        elizaLogger.info("Starting SUBMIT_DATA handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -129,7 +129,7 @@ export default {
                     .submitData(data)
                     .paymentInfo(keyring);
                 //print estimated fees
-                elizaLogger.log(`Transaction Fee for Submit Data:
+                elizaLogger.info(`Transaction Fee for Submit Data:
             class=${submitDataInfo.class.toString()},
             weight=${submitDataInfo.weight.toString()},
             partialFee=${submitDataInfo.partialFee.toHuman()}
@@ -144,7 +144,7 @@ export default {
                                 keyring,
                                 options,
                                 (result) => {
-                                    elizaLogger.log(
+                                    elizaLogger.info(
                                         `Tx status: ${result.status}`
                                     );
                                     if (result.isFinalized || result.isError) {
@@ -196,7 +196,7 @@ export default {
                 return false;
             }
         } else {
-            elizaLogger.log("No data mentioned to be submitted");
+            elizaLogger.info("No data mentioned to be submitted");
         }
     },
 

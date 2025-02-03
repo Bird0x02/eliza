@@ -86,7 +86,7 @@ export const suiTokenPriceByAddress: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[suiPools]");
+        elizaLogger.info("[suiPools]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;
@@ -103,7 +103,7 @@ export const suiTokenPriceByAddress: Action = {
             context: searchSuiTokenSymbolPromptTemplateContext,
             modelClass: ModelClass.SMALL,
         })
-        elizaLogger.log("content: ",content);
+        elizaLogger.info("content: ",content);
         const info = await getTokenOnSuiScan(content.token_address);
         console.log(info)
         if (callback) {

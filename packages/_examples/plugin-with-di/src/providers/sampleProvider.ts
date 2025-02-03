@@ -48,7 +48,7 @@ export class SampleProvider
         _message: Memory,
         _state?: State
     ): Promise<string> {
-        elizaLogger.log("Retrieving data in sampleProvider...");
+        elizaLogger.info("Retrieving data in sampleProvider...");
         return `Shared instance data: ${JSON.stringify(this._sharedInstance)}
 Dynamic data: ${JSON.stringify(this.dynamicData)}
 `;

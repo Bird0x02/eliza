@@ -121,7 +121,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting SWAP_TOKEN handler...");
+        elizaLogger.info("Starting SWAP_TOKEN handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -169,13 +169,13 @@ export default {
             "0x0000000000000000000000000000000000000000"
         ) {
             // todo: swap from native
-            elizaLogger.log("Swapping from native AVAX");
+            elizaLogger.info("Swapping from native AVAX");
         } else if (
             content.toTokenAddress ===
             "0x0000000000000000000000000000000000000000"
         ) {
             // todo: swap to native
-            elizaLogger.log("Swapping to native AVAX");
+            elizaLogger.info("Swapping to native AVAX");
         } else {
             const yakRouterAddress = YAK_SWAP_CONFIG.router as Address;
             const tx = await approve(
@@ -201,7 +201,7 @@ export default {
                     if (swapTx) {
                         receipt = await getTxReceipt(runtime, swapTx);
                         if (receipt.status === "success") {
-                            elizaLogger.log("Swap successful");
+                            elizaLogger.info("Swap successful");
                             callback?.({
                                 text: "swap successful",
                                 content: { success: true, txHash: swapTx },

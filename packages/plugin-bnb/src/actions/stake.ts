@@ -123,7 +123,7 @@ export class StakeAction {
             this.LISTA_DAO
         );
         if (allowance < amountToWithdraw) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Increasing slisBNB allowance for Lista DAO. ${amountToWithdraw - allowance} more needed`
             );
             const txHash = await this.walletProvider.approveERC20(
@@ -217,7 +217,7 @@ export const stakeAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting stake action...");
+        elizaLogger.info("Starting stake action...");
 
         // Validate stake
         if (!(message.content.source === "direct")) {

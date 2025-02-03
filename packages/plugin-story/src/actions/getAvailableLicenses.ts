@@ -39,7 +39,7 @@ export class GetAvailableLicensesAction {
     async getAvailableLicenses(
         params: GetAvailableLicensesParams
     ): Promise<GetAvailableLicensesResponse> {
-        elizaLogger.log(
+        elizaLogger.info(
             "Fetching from",
             `${API_URL}/${RESOURCE_TYPE.IP_LICENSE_DETAILS}`
         );
@@ -68,7 +68,7 @@ export class GetAvailableLicensesAction {
         try {
             const text = await response.text();
             const licenseDetailsResponse = JSON.parse(text);
-            elizaLogger.log("licenseDetailsResponse", licenseDetailsResponse);
+            elizaLogger.info("licenseDetailsResponse", licenseDetailsResponse);
             return licenseDetailsResponse;
         } catch (e) {
             elizaLogger.error("Failed to parse response");
@@ -89,7 +89,7 @@ const formatLicenseTerms = (license: IPLicenseDetails): string => {
   • Derivatives: ${terms.derivativesAllowed ? "Allowed" : "Not Allowed"}
   • Derivatives Attribution: ${terms.derivativesAttribution ? "Required" : "Not Required"}
   • Derivatives Approval: ${terms.derivativesApproval ? "Required" : "Not Required"}
-  • Revenue Share: ${terms.commercialRevenueShare ? `${terms.commercialRevenueShare}%` : "Not Required"}`; 
+  • Revenue Share: ${terms.commercialRevenueShare ? `${terms.commercialRevenueShare}%` : "Not Required"}`;
 };
 
 /**
@@ -105,7 +105,7 @@ export const getAvailableLicensesAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting GET_AVAILABLE_LICENSES handler...");
+        elizaLogger.info("Starting GET_AVAILABLE_LICENSES handler...");
 
         // Initialize or update state
         let currentState = state;  // Create a new variable instead of reassigning parameter

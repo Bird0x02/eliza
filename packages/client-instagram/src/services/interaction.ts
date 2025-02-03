@@ -133,13 +133,13 @@ import type { InstagramState } from "../types";
 
     private async handleInteractions() {
       if (this.isProcessing) {
-        elizaLogger.log("Already processing interactions, skipping");
+        elizaLogger.info("Already processing interactions, skipping");
         return;
       }
 
       try {
         this.isProcessing = true;
-        elizaLogger.log("Checking Instagram interactions");
+        elizaLogger.info("Checking Instagram interactions");
 
         const ig = getIgClient();
         const activity = await ig.feed.news().items();
@@ -233,7 +233,7 @@ import type { InstagramState } from "../types";
           const userFeed = await getIgClient().feed.user(item.user_id).items();
           if (userFeed.length > 0) {
             await likeMedia(userFeed[0].id);
-            elizaLogger.log(`Liked post from user: ${item.user?.username}`);
+            elizaLogger.info(`Liked post from user: ${item.user?.username}`);
           }
         }
       } catch (error) {

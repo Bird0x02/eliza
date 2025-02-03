@@ -123,7 +123,7 @@ describe('InstagramPostService', () => {
             expect(mockRuntime.getSetting).toHaveBeenCalledWith('INSTAGRAM_POST_INTERVAL_MIN');
             expect(mockRuntime.getSetting).toHaveBeenCalledWith('POST_INTERVAL_MIN');
             // Default values should be used (60 and 120)
-            expect(elizaLogger.log).toHaveBeenCalledWith(expect.stringContaining('Post interval:'));
+            expect(elizaLogger.info).toHaveBeenCalledWith(expect.stringContaining('Post interval:'));
         });
     });
 

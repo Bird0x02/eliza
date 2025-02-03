@@ -26,7 +26,7 @@ export const checkRewardAction: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Mind Network MIND_CHECK_VOTING_REWARD handler...");
+        elizaLogger.info("Starting Mind Network MIND_CHECK_VOTING_REWARD handler...");
 
         try {
             const rewardAmount = await checkColdWalletReward();

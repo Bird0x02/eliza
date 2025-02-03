@@ -33,7 +33,7 @@ function isTransferContent(
     runtime: IAgentRuntime,
     content: any
 ): content is TransferContent {
-    elizaLogger.log("Content for transfer", content);
+    elizaLogger.info("Content for transfer", content);
     return (
         typeof content.tokenAddress === "string" &&
         typeof content.recipient === "string" &&
@@ -66,21 +66,21 @@ export default {
     name: TRANSFER_ACTION.name,
     similes: TRANSFER_ACTION.similes,
     validate: async (runtime: IAgentRuntime, message: Memory) => {
-        elizaLogger.log("Validating transfer from user:", message.userId);
+        elizaLogger.info("Validating transfer from user:", message.userId);
         //add custom validate logic here
         /*
             const adminIds = runtime.getSetting("ADMIN_USER_IDS")?.split(",") || [];
-            //elizaLogger.log("Admin IDs from settings:", adminIds);
+            //elizaLogger.info("Admin IDs from settings:", adminIds);
 
             const isAdmin = adminIds.includes(message.userId);
 
             if (isAdmin) {
-                //elizaLogger.log(`Authorized transfer from user: ${message.userId}`);
+                //elizaLogger.info(`Authorized transfer from user: ${message.userId}`);
                 return true;
             }
             else
             {
-                //elizaLogger.log(`Unauthorized transfer attempt from user: ${message.userId}`);
+                //elizaLogger.info(`Unauthorized transfer attempt from user: ${message.userId}`);
                 return false;
             }
             */
@@ -94,7 +94,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
         const sak = await getSAK(runtime);
 
         // Initialize or update state

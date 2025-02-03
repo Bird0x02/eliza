@@ -91,7 +91,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CREATE_SUBDOMAIN handler...");
+        elizaLogger.info("Starting CREATE_SUBDOMAIN handler...");
 
         // Fix: Create new variable instead of reassigning parameter
         let currentState = state;

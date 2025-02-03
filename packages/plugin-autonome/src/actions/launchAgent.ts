@@ -20,7 +20,7 @@ export interface LaunchAgentContent extends Content {
 
 // Rafactoring
 function isLaunchAgentContent(content: unknown): content is LaunchAgentContent {
-    elizaLogger.log("Content for launchAgent", content);
+    elizaLogger.info("Content for launchAgent", content);
     return (
         typeof content === "object" &&
         content !== null &&
@@ -61,8 +61,8 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting LAUNCH_AGENT handler...");
-        
+        elizaLogger.info("Starting LAUNCH_AGENT handler...");
+
         // Initialize or update state also in lanuchContext
         let currentState = state;
         if (!currentState) {
@@ -124,10 +124,10 @@ export default {
         try {
             const resp = await sendPostRequest();
             if (resp?.data?.app?.id) {
-                elizaLogger.log(
+                elizaLogger.info(
                     "Launching successful, please find your agent on"
                 );
-                elizaLogger.log(
+                elizaLogger.info(
                     `https://dev.autonome.fun/autonome/${resp.data.app.id}/details`
                 );
             }

@@ -67,14 +67,14 @@ describe('ThreeDGeneration Action', () => {
         it('should validate successfully with API key', async () => {
             const result = await ThreeDGeneration.validate(mockRuntime, mockMessage);
             expect(result).toBe(true);
-            expect(elizaLogger.log).toHaveBeenCalledWith('FAL_API_KEY present:', true);
+            expect(elizaLogger.info).toHaveBeenCalledWith('FAL_API_KEY present:', true);
         });
 
         it('should fail validation without API key', async () => {
             mockRuntime.getSetting.mockReturnValue(undefined);
             const result = await ThreeDGeneration.validate(mockRuntime, mockMessage);
             expect(result).toBe(false);
-            expect(elizaLogger.log).toHaveBeenCalledWith('FAL_API_KEY present:', false);
+            expect(elizaLogger.info).toHaveBeenCalledWith('FAL_API_KEY present:', false);
         });
     });
 

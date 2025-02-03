@@ -32,7 +32,7 @@ export const EchoChamberClientInterface: Client = {
                     .map((r) => r.trim()) || ["general"],
             };
 
-            elizaLogger.log("Starting EchoChambers client...");
+            elizaLogger.info("Starting EchoChambers client...");
 
             // Initialize the API client
             const client = new EchoChamberClient(runtime, config);

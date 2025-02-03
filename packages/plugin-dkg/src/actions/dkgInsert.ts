@@ -73,8 +73,8 @@ export const dkgInsert: Action = {
         });
 
         const currentPost = String(state.currentPost);
-        elizaLogger.log("currentPost");
-        elizaLogger.log(currentPost);
+        elizaLogger.info("currentPost");
+        elizaLogger.info(currentPost);
 
         const userRegex = /From:.*\(@(\w+)\)/;
         let match = currentPost.match(userRegex);
@@ -82,7 +82,7 @@ export const dkgInsert: Action = {
 
         if (match?.[1]) {
             twitterUser = match[1];
-            elizaLogger.log(`Extracted user: @${twitterUser}`);
+            elizaLogger.info(`Extracted user: @${twitterUser}`);
         } else {
             elizaLogger.error("No user mention found or invalid input.");
         }
@@ -93,9 +93,9 @@ export const dkgInsert: Action = {
 
         if (match?.[1]) {
             postId = match[1];
-            elizaLogger.log(`Extracted ID: ${postId}`);
+            elizaLogger.info(`Extracted ID: ${postId}`);
         } else {
-            elizaLogger.log("No ID found.");
+            elizaLogger.info("No ID found.");
         }
 
         const createDKGMemoryContext = composeContext({
@@ -120,7 +120,7 @@ export const dkgInsert: Action = {
         // TODO: also store reply to the KA, aside of the question
 
         try {
-            elizaLogger.log("Publishing message to DKG");
+            elizaLogger.info("Publishing message to DKG");
 
             createAssetResult = await DkgClient.asset.create(
                 {
@@ -129,8 +129,8 @@ export const dkgInsert: Action = {
                 { epochsNum: 12 }
             );
 
-            elizaLogger.log("======================== ASSET CREATED");
-            elizaLogger.log(JSON.stringify(createAssetResult));
+            elizaLogger.info("======================== ASSET CREATED");
+            elizaLogger.info(JSON.stringify(createAssetResult));
         } catch (error) {
             elizaLogger.error(
                 "Error occurred while publishing message to DKG:",

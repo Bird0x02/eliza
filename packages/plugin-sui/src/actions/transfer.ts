@@ -92,7 +92,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         const walletInfo = await walletProvider.get(runtime, message, state);
         state.walletInfo = walletInfo;

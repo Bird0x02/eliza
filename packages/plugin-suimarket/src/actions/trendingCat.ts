@@ -66,7 +66,7 @@ export const trendingCat: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("[trendingCat]");
+        elizaLogger.info("[trendingCat]");
 
         if (!state) {
             state = (await runtime.composeState(message)) as State;

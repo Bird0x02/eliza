@@ -66,7 +66,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback,
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Balance handler...");
+        elizaLogger.info("Starting Balance handler...");
 
         const walletInfo = await walletProvider.get(runtime, message, state);
         state.walletInfo = walletInfo;
@@ -78,13 +78,13 @@ export default {
         } else {
             currentState = await runtime.updateRecentMessageState(state);
         }
-        
+
         // Define the schema for the expected output
         const BalanceSchema = z.object({
             address: z.string(),
             token: z.union([z.string(), z.null()]),
         });
-        
+
         // Compose Balance context
         const BalanceContext = composeContext({
             state: currentState,

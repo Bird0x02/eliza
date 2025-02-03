@@ -156,7 +156,7 @@ export const transferAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting transfer action...");
+        elizaLogger.info("Starting transfer action...");
 
         // Validate transfer
         if (!(message.content.source === "direct")) {

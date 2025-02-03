@@ -55,7 +55,7 @@ export const licenseIPAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting LICENSE_IP handler...");
+        elizaLogger.info("Starting LICENSE_IP handler...");
 
         // initialize or update state
         let currentState = state;

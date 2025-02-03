@@ -150,7 +150,7 @@ export const faucetAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Starting faucet action...");
+        elizaLogger.info("Starting faucet action...");
 
         // Initialize or update state
         let currentState = state;

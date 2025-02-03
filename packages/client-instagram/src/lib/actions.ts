@@ -72,7 +72,7 @@ export async function likeMedia(mediaId: string): Promise<void> {
         username: ig.state.cookieUsername
       }
     });
-    elizaLogger.log(`Liked media: ${mediaId}`);
+    elizaLogger.info(`Liked media: ${mediaId}`);
   } catch (error) {
     elizaLogger.error('Error liking media:', error);
     throw error;
@@ -94,7 +94,7 @@ export async function unlikeMedia(mediaId: string): Promise<void> {
         username: ig.state.cookieUsername
       }
     });
-    elizaLogger.log(`Unliked media: ${mediaId}`);
+    elizaLogger.info(`Unliked media: ${mediaId}`);
   } catch (error) {
     elizaLogger.error('Error unliking media:', error);
     throw error;
@@ -145,7 +145,7 @@ export async function deleteComment(
       mediaId,
       commentId
     });
-    elizaLogger.log(`Deleted comment: ${commentId} from media: ${mediaId}`);
+    elizaLogger.info(`Deleted comment: ${commentId} from media: ${mediaId}`);
   } catch (error) {
     elizaLogger.error('Error deleting comment:', error);
     throw error;

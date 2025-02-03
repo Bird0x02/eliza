@@ -72,7 +72,7 @@ export async function buildConversationThread({
         const memory = await runtime.messageManager.getMemoryById(roomId);
 
         if (!memory) {
-            elizaLogger.log(
+            elizaLogger.info(
                 "Creating memory for publication",
                 currentPublication.id
             );

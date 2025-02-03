@@ -105,7 +105,7 @@ export const transferAction: Action = {
 		_options: { [key: string]: unknown },
 		callback?: HandlerCallback,
 	): Promise<boolean> => {
-		elizaLogger.log("Starting Abstract SEND_TOKEN handler...");
+		elizaLogger.info("Starting Abstract SEND_TOKEN handler...");
 
 		// Initialize or update state
 		if (!state) {

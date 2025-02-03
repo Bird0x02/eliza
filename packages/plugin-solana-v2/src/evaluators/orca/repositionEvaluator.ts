@@ -22,7 +22,7 @@ export const managePositionActionRetriggerEvaluator: Evaluator = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ) => {
-        elizaLogger.log("Che");
+        elizaLogger.info("Che");
         if (!state) {
             state = (await runtime.composeState(message)) as State;
         } else {
@@ -36,7 +36,7 @@ export const managePositionActionRetriggerEvaluator: Evaluator = {
             return;
         }
         const instervalMs = config.intervalSeconds * 1000;
-        elizaLogger.log(`Using time threshold: ${instervalMs} miliseconds`);
+        elizaLogger.info(`Using time threshold: ${instervalMs} miliseconds`);
         await new Promise((resolve) => setTimeout(resolve, instervalMs));
         sendMessage({
             agentId: runtime.agentId,

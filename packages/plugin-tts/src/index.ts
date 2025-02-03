@@ -21,7 +21,7 @@ const generateTTS = async (prompt: string, voice: string, runtime: IAgentRuntime
     process.env.FAL_KEY = FAL_CONSTANTS.API_KEY_SETTING || runtime.getSetting("FAL_API_KEY");
 
     try {
-        elizaLogger.log("Starting TTS generation with prompt:", prompt);
+        elizaLogger.info("Starting TTS generation with prompt:", prompt);
 
         const response = await fal.subscribe(FAL_CONSTANTS.API_TTS_ENDPOINT, {
             input: {

@@ -89,7 +89,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting SEND_TOKEN handler...");
+        elizaLogger.info("Starting SEND_TOKEN handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -139,7 +139,7 @@ export default {
                 const amount = formatNumberToBalance(content.amount, decimals);
 
                 const oldBalance = await api.query.system.account(content.recipient);
-                elizaLogger.log(
+                elizaLogger.info(
                     `Balance before the transfer call: ${oldBalance.toString()}`
                 );
 
@@ -152,7 +152,7 @@ export default {
                                 keyring,
                                 options,
                                 (result) => {
-                                    elizaLogger.log(
+                                    elizaLogger.info(
                                         `Tx status: ${result.status}`
                                     );
                                     if (result.isFinalized || result.isError) {
@@ -166,23 +166,23 @@ export default {
                 // Error handling
                 const error = txResult.dispatchError;
                 if (txResult.isError) {
-                    elizaLogger.log("Transaction was not executed");
+                    elizaLogger.info("Transaction was not executed");
                 } else if (error !== undefined) {
                     if (error.isModule) {
                         const decoded = api.registry.findMetaError(
                             error.asModule
                         );
                         const { docs, name, section } = decoded;
-                        elizaLogger.log(
+                        elizaLogger.info(
                             `${section}.${name}: ${docs.join(" ")}`
                         );
                     } else {
-                        elizaLogger.log(error.toString());
+                        elizaLogger.info(error.toString());
                     }
                 }
 
                 const newBalance = await api.query.system.account(content.recipient);
-                elizaLogger.log(
+                elizaLogger.info(
                     `Balance after the transfer call: ${newBalance.toString()}`
                 );
 
@@ -208,7 +208,7 @@ export default {
                 return false;
             }
         } else {
-            elizaLogger.log("Either amount or recipient not specified");
+            elizaLogger.info("Either amount or recipient not specified");
         }
     },
 

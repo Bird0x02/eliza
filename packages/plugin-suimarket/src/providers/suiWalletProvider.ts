@@ -9,7 +9,7 @@ import {
 
 const suiWalletProvider: Provider = {
     get: async function (runtime: IAgentRuntime, message: Memory, state?: State): Promise<string | null> {
-        elizaLogger.log("[suiWalletProvider] loading ...");
+        elizaLogger.info("[suiWalletProvider] loading ...");
         return "<suiWalletProvider>";
     }
 }

@@ -126,15 +126,7 @@ export const executeSwapByAddress: Action = {
     },
     examples: [
         [
-            {
-                user: "{{user1}}",
-                content: {
-                    inputTokenSymbol: "SUI",
-                    outputTokenSymbol: "USDT",
-                    amount: 10,
-                    slippageBps: 50
-                }
-            },
+            
             {
                 user: "{{user2}}",
                 content: {

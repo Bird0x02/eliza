@@ -367,17 +367,17 @@ export async function generateText({
         return "";
     }
 
-    elizaLogger.log("Generating text...");
+    elizaLogger.info("Generating text...");
 
     elizaLogger.info("Generating text with options:", {
         modelProvider: runtime.modelProvider,
         model: modelClass,
         verifiableInference,
     });
-    elizaLogger.log("Using provider:", runtime.modelProvider);
+    elizaLogger.info("Using provider:", runtime.modelProvider);
     // If verifiable inference is requested and adapter is provided, use it
     if (verifiableInference && runtime.verifiableInferenceAdapter) {
-        elizaLogger.log(
+        elizaLogger.info(
             "Using verifiable inference adapter:",
             runtime.verifiableInferenceAdapter
         );
@@ -388,7 +388,7 @@ export async function generateText({
                     modelClass,
                     verifiableInferenceOptions
                 );
-            elizaLogger.log("Verifiable inference result:", result);
+            elizaLogger.info("Verifiable inference result:", result);
             // Verify the proof
             const isValid =
                 await runtime.verifiableInferenceAdapter.verifyProof(result);
@@ -1352,7 +1352,7 @@ export async function generateShouldRespond({
             }
         }
 
-        elizaLogger.log(`Retrying in ${retryDelay}ms...`);
+        elizaLogger.info(`Retrying in ${retryDelay}ms...`);
         await new Promise((resolve) => setTimeout(resolve, retryDelay));
         retryDelay *= 2;
     }
@@ -1591,7 +1591,7 @@ export async function generateMessageResponse({
     let retryLength = 1000; // exponential backoff
     while (true) {
         try {
-            elizaLogger.log("Generating message response...");
+            elizaLogger.info("Generating message response...");
 
             const response = await generateText({
                 runtime,
@@ -1599,7 +1599,7 @@ export async function generateMessageResponse({
                 modelClass,
             });
 
-            elizaLogger.log("Generating message response...done!");
+            elizaLogger.info("Generating message response...done!");
 
             // try parsing the response as JSON, if null then try again
             const parsedContent = parseJSONObjectFromText(response) as Content;
@@ -2608,7 +2608,7 @@ export async function generateTweetActions({
                 );
             }
         }
-        elizaLogger.log(`Retrying in ${retryDelay}ms...`);
+        elizaLogger.info(`Retrying in ${retryDelay}ms...`);
         await new Promise((resolve) => setTimeout(resolve, retryDelay));
         retryDelay *= 2;
     }

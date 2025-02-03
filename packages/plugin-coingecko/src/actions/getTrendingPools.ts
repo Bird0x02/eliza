@@ -60,7 +60,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback,
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CoinGecko GET_TRENDING_POOLS handler...");
+        elizaLogger.info("Starting CoinGecko GET_TRENDING_POOLS handler...");
 
         // Initialize or update state
         let currentState = state;
@@ -72,7 +72,7 @@ export default {
 
 
         try {
-            elizaLogger.log("Composing trending pools context...");
+            elizaLogger.info("Composing trending pools context...");
             const trendingContext = composeContext({
                 state: currentState,
                 template: getTrendingPoolsTemplate,
@@ -94,7 +94,7 @@ export default {
             const config = await validateCoingeckoConfig(runtime);
             const { baseUrl, apiKey, headerKey } = getApiConfig(config);
 
-            elizaLogger.log("Fetching trending pools data...");
+            elizaLogger.info("Fetching trending pools data...");
 
             const response = await axios.get<TrendingPoolsResponse>(
                 `${baseUrl}/onchain/networks/trending_pools?include=base_token,dex`,

@@ -48,7 +48,7 @@ export const fetchMatchAction: Action = {
             }
 
             const matchData = await response.json();
-            elizaLogger.log("Fetched match data:", matchData);
+            elizaLogger.info("Fetched match data:", matchData);
 
             callback(
                 {

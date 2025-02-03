@@ -97,7 +97,7 @@ export const TransferAction: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting ZKsync Era SEND_TOKEN handler...");
+        elizaLogger.info("Starting ZKsync Era SEND_TOKEN handler...");
 
 
         // Initialize or update state
@@ -132,7 +132,7 @@ export const TransferAction: Action = {
         ).object as unknown as TransferContent;
 
         if (!isAddress(content.recipient, { strict: false })) {
-            elizaLogger.log("Resolving ENS name...");
+            elizaLogger.info("Resolving ENS name...");
             try {
                 const name = normalize(content.recipient.trim());
                 const resolvedAddress = await ethereumClient.getEnsAddress({
@@ -140,7 +140,7 @@ export const TransferAction: Action = {
                 });
 
                 if (isAddress(resolvedAddress, { strict: false })) {
-                    elizaLogger.log(`${name} resolved to ${resolvedAddress}`);
+                    elizaLogger.info(`${name} resolved to ${resolvedAddress}`);
                     content.recipient = resolvedAddress;
                 }
             } catch (error) {

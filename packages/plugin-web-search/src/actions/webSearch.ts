@@ -60,13 +60,13 @@ export const webSearch: Action = {
         options: any,
         callback: HandlerCallback
     ) => {
-        elizaLogger.log("Composing state for message:", message);
+        elizaLogger.info("Composing state for message:", message);
         state = (await runtime.composeState(message)) as State;
         const userId = runtime.agentId;
-        elizaLogger.log("User ID:", userId);
+        elizaLogger.info("User ID:", userId);
 
         const webSearchPrompt = message.content.text;
-        elizaLogger.log("web search prompt received:", webSearchPrompt);
+        elizaLogger.info("web search prompt received:", webSearchPrompt);
 
         const webSearchService = new WebSearchService();
         await webSearchService.initialize(runtime);

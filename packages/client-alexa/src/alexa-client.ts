@@ -14,7 +14,7 @@ export class AlexaClient {
     private clientSecret: string;
 
     constructor(runtime: IAgentRuntime) {
-        elizaLogger.log("📱 Constructing new AlexaClient...");
+        elizaLogger.info("📱 Constructing new AlexaClient...");
         this.runtime = runtime;
         this.apiConfiguration = {
             apiClient: new DefaultApiClient(),
@@ -26,7 +26,7 @@ export class AlexaClient {
     }
 
     public async start(): Promise<void> {
-        elizaLogger.log("🚀 Starting Alexa bot...");
+        elizaLogger.info("🚀 Starting Alexa bot...");
         try {
             await this.initializeBot();
         } catch (error) {
@@ -45,7 +45,7 @@ export class AlexaClient {
             authenticationConfiguration,
         });
 
-        elizaLogger.log("✨ Alexa bot successfully launched and is running!");
+        elizaLogger.info("✨ Alexa bot successfully launched and is running!");
         const access_token = await this.LwaServiceClient.getAccessTokenForScope(
             "alexa::proactive_events"
         );
@@ -98,7 +98,7 @@ export class AlexaClient {
             );
             switch (response.status) {
                 case 202:
-                    elizaLogger.log("✅ Proactive event sent successfully.");
+                    elizaLogger.info("✅ Proactive event sent successfully.");
                     break;
                 case 400:
                     elizaLogger.error(

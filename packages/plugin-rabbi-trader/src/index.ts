@@ -83,7 +83,7 @@ function validateSolanaAddress(address: string | undefined): boolean {
         // Verify it's a valid Solana public key
         const pubKey = new PublicKey(address);
         const isValid = Boolean(pubKey.toBase58());
-        elizaLogger.log(
+        elizaLogger.info(
             `Solana address validation result for ${address}: ${isValid}`
         );
         return isValid;
@@ -109,7 +109,7 @@ export function loadTokenAddresses(): string[] {
             return validateSolanaAddress(addr);
         });
 
-        elizaLogger.log("Loaded token addresses:", {
+        elizaLogger.info("Loaded token addresses:", {
             total: validAddresses.length,
             solana: validAddresses.filter((addr) => !addr.startsWith("0x"))
                 .length,
@@ -309,7 +309,7 @@ async function updateSellDetails(
         sell_recommender_id: recommenderId || null,
     };
 
-    elizaLogger.log("Attempting to update trade performance with data:", {
+    elizaLogger.info("Attempting to update trade performance with data:", {
         sellDetails,
         whereClause: {
             tokenAddress,
@@ -322,7 +322,7 @@ async function updateSellDetails(
     try {
         try {
             // Pass sellDetails first (SET clause), then WHERE clause parameters
-            elizaLogger.log(
+            elizaLogger.info(
                 "Verifying parameters for updateTradePerformanceOnSell:",
                 {
                     sellDetails,
@@ -349,7 +349,7 @@ async function updateSellDetails(
                 });
             }
 
-            elizaLogger.log("Trade performance update completed", {
+            elizaLogger.info("Trade performance update completed", {
                 success,
                 tokenAddress,
                 recommenderId,
@@ -441,7 +441,7 @@ async function createRabbiTraderPlugin(
         const tokenAddresses = loadTokenAddresses().filter(
             (addr) => !addr.startsWith("0x")
         );
-        elizaLogger.log(`Analyzing ${tokenAddresses.length} Solana tokens...`);
+        elizaLogger.info(`Analyzing ${tokenAddresses.length} Solana tokens...`);
 
         // Analyze regular token list
         for (const tokenAddress of tokenAddresses) {
@@ -457,7 +457,7 @@ async function createRabbiTraderPlugin(
         await new Promise((resolve) => setTimeout(resolve, 1200000)); // 20 minutes
     };
 
-    elizaLogger.log("Starting GOAT plugin initialization");
+    elizaLogger.info("Starting GOAT plugin initialization");
 
     // Move connection initialization to the top
     const connection = new Connection(
@@ -483,7 +483,7 @@ async function createRabbiTraderPlugin(
         throw new Error(errorMsg);
     }
 
-    elizaLogger.log("Initializing Solana connection...");
+    elizaLogger.info("Initializing Solana connection...");
     const walletProvider: ExtendedWalletProvider = {
         connection,
         getChain: () => ({ type: "solana" }),
@@ -571,14 +571,14 @@ async function createRabbiTraderPlugin(
         getFormattedPortfolio: async () => "",
     };
 
-    elizaLogger.log(
+    elizaLogger.info(
         "Solana connection and wallet provider initialized successfully"
     );
 
     // Initialize Twitter service if enabled
     let twitterService: TwitterService | undefined;
     try {
-        elizaLogger.log(
+        elizaLogger.info(
             "Configuring Twitter service for trade notifications..."
         );
         const twitterConfig = TwitterConfigSchema.parse({
@@ -588,14 +588,14 @@ async function createRabbiTraderPlugin(
         });
 
         if (twitterConfig.enabled && runtime) {
-            elizaLogger.log("Starting Twitter client initialization...");
+            elizaLogger.info("Starting Twitter client initialization...");
             const twitterClient = await TwitterClientInterface.start(runtime);
             twitterService = new TwitterService(twitterClient, twitterConfig);
 
             // Add delay after initialization
             await new Promise((resolve) => setTimeout(resolve, 5000));
 
-            elizaLogger.log("Twitter service initialized successfully", {
+            elizaLogger.info("Twitter service initialized successfully", {
                 username: twitterConfig.username,
                 dryRun: twitterConfig.dryRun,
             });
@@ -604,7 +604,7 @@ async function createRabbiTraderPlugin(
         elizaLogger.error("Failed to initialize Twitter service:", error);
     }
 
-    elizaLogger.log("Initializing Solana plugin components...");
+    elizaLogger.info("Initializing Solana plugin components...");
 
     try {
         const customActions = actions;
@@ -627,7 +627,7 @@ async function createRabbiTraderPlugin(
         // Add auto-start trading analysis
         if (!runtime) return;
 
-        elizaLogger.log("Starting autonomous trading system...");
+        elizaLogger.info("Starting autonomous trading system...");
         const analyzeTradeAction = plugin.actions.find(
             (a) => a.name === "ANALYZE_TRADE"
         );
@@ -640,11 +640,11 @@ async function createRabbiTraderPlugin(
         // Then start trading loop if enabled
         if (!settings.ENABLE_TRADING) return;
 
-        elizaLogger.log("Initializing trading loop...");
+        elizaLogger.info("Initializing trading loop...");
         await resumeTrading();
         setInterval(resumeTrading, interval);
 
-        elizaLogger.log("GOAT plugin initialization completed successfully");
+        elizaLogger.info("GOAT plugin initialization completed successfully");
         return plugin;
     } catch (error) {
         elizaLogger.error("Failed to initialize plugin components:", error);
@@ -669,7 +669,7 @@ async function analyzeToken(
 
         // Skip if analyzed within last 20 minutes
         if (cachedData && now - cachedData.lastAnalysis < 1200000) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `Using cached data for ${tokenAddress}, last analyzed ${Math.floor(
                     (now - cachedData.lastAnalysis) / 1000
                 )}s ago`
@@ -677,7 +677,7 @@ async function analyzeToken(
             return;
         }
 
-        elizaLogger.log(`Starting analysis for token: ${tokenAddress}`);
+        elizaLogger.info(`Starting analysis for token: ${tokenAddress}`);
 
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -690,9 +690,9 @@ async function analyzeToken(
         const tokenProvider = new TokenProvider(tokenAddress);
 
         // Get processed token data which includes DexScreener data
-        elizaLogger.log(`Fetching token data for ${tokenAddress}`);
+        elizaLogger.info(`Fetching token data for ${tokenAddress}`);
         const tokenData = await tokenProvider.getProcessedTokenData();
-        elizaLogger.log(`Token data fetched for ${tokenAddress}:`, tokenData);
+        elizaLogger.info(`Token data fetched for ${tokenAddress}:`, tokenData);
 
         // Get trust score and cache it
         const trustProvider = new TrustScoreProvider();
@@ -734,7 +734,7 @@ async function analyzeToken(
             false // not simulation
         );
 
-        elizaLogger.log(`Latest trade for ${tokenAddress}:`, latestTrade);
+        elizaLogger.info(`Latest trade for ${tokenAddress}:`, latestTrade);
 
         // Before creating analysisParams, get the correct chain balance
         const walletBalance = await getChainWalletBalance(
@@ -802,7 +802,7 @@ async function analyzeToken(
                     return [];
                 }
 
-                elizaLogger.log(
+                elizaLogger.info(
                     `Analysis result for ${tokenAddress}:`,
                     response
                 );
@@ -847,7 +847,7 @@ async function analyzeToken(
                             trustScore,
                         });
                     } else {
-                        elizaLogger.log(
+                        elizaLogger.info(
                             `Trade not recommended for ${tokenAddress}:`,
                             result
                         );
@@ -886,7 +886,7 @@ async function buy({
     twitterService: TwitterService;
     trustScore: number;
 }) {
-    elizaLogger.log(`Trade recommended for ${tokenAddress}:`, result);
+    elizaLogger.info(`Trade recommended for ${tokenAddress}:`, result);
 
     // Continue with simulation if analysis recommends trading
     const simulationService = new SimulationService();
@@ -935,7 +935,7 @@ async function buy({
             });
 
             if (tradeResult.success) {
-                elizaLogger.log(
+                elizaLogger.info(
                     `Trade executed successfully for ${tokenAddress}:`,
                     {
                         signature: tradeResult.signature,
@@ -976,7 +976,7 @@ async function buy({
                         ),
                     });
                 } else {
-                    elizaLogger.log("Skipping tweet due to rate limit");
+                    elizaLogger.info("Skipping tweet due to rate limit");
                 }
 
                 // Record trade using TrustScoreDatabase methods
@@ -986,13 +986,13 @@ async function buy({
 
                 try {
                     // Remove the PublicKey validation for Base addresses
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Attempting to validate token address: ${tokenAddress}`
                     );
                     const formattedAddress = tokenAddress.startsWith("0x")
                         ? tokenAddress
                         : new PublicKey(tokenAddress).toBase58(); // Only convert Solana addresses
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Token address validated successfully: ${formattedAddress}`
                     );
 
@@ -1005,7 +1005,7 @@ async function buy({
                             solanaPubkey:
                                 runtime.getSetting("WALLET_PUBLIC_KEY") || "",
                         });
-                    elizaLogger.log(`Created/retrieved recommender:`, {
+                    elizaLogger.info(`Created/retrieved recommender:`, {
                         recommender,
                         chainType: tokenAddress.startsWith("0x")
                             ? "base"
@@ -1032,7 +1032,7 @@ async function buy({
                                     0
                             ),
                     };
-                    elizaLogger.log(`Prepared trade data:`, tradeData);
+                    elizaLogger.info(`Prepared trade data:`, tradeData);
 
                     // Create trade record directly using trustScoreDb
                     await trustScoreDb.addTradePerformance(
@@ -1063,7 +1063,7 @@ async function buy({
                         false
                     );
 
-                    elizaLogger.log(
+                    elizaLogger.info(
                         `Successfully recorded trade performance for ${tokenAddress}`
                     );
                 } catch (error) {
@@ -1097,7 +1097,7 @@ async function buy({
             );
         }
     } else {
-        elizaLogger.log(
+        elizaLogger.info(
             `Simulation rejected trade for ${tokenAddress}:`,
             simulation
         );
@@ -1155,7 +1155,7 @@ async function sell({
     });
 
     if (tradeResult.success) {
-        elizaLogger.log(`Sell executed successfully for ${tokenAddress}:`, {
+        elizaLogger.info(`Sell executed successfully for ${tokenAddress}:`, {
             signature: tradeResult.signature,
             amount: tradeAmount,
         });
@@ -1214,7 +1214,7 @@ async function sell({
             });
         }
 
-        elizaLogger.log(
+        elizaLogger.info(
             `Successfully updated sell details for ${tokenAddress}`,
             {
                 sellPrice: currentPrice,

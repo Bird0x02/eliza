@@ -159,7 +159,7 @@ export class WalletSolana {
             const mint = generateSigner(umi);
 
             let transaction = new TransactionBuilder();
-            elizaLogger.log("collection address", collectionAddress);
+            elizaLogger.info("collection address", collectionAddress);
             const collectionAddressKey = publicKey(collectionAddress);
 
             const info = {
@@ -231,7 +231,7 @@ export class WalletSolana {
 
             await transaction.sendAndConfirm(umi);
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `✅ NFT ${nftAddress} verified as member of collection ${collectionAddress}! See Explorer at ${getExplorerLink(
                     "address",
                     nftAddress,

@@ -39,7 +39,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CoinMarketCap GET_PRICE handler...");
+        elizaLogger.info("Starting CoinMarketCap GET_PRICE handler...");
 
         // Initialize or update state
         // Initialize or update state

@@ -103,7 +103,7 @@ export class DirectClient {
     private server: any; // Store server instance
     public startAgent: Function; // Store startAgent functor
     constructor() {
-        elizaLogger.log("DirectClient constructor");
+        elizaLogger.info("DirectClient constructor");
         this.app = express();
         this.app.use(cors());
         this.agents = new Map();
@@ -429,13 +429,13 @@ export class DirectClient {
         //             assetId
         //         );
 
-        //         elizaLogger.log("Download directory:", downloadDir);
+        //         elizaLogger.info("Download directory:", downloadDir);
 
         //         try {
-        //             elizaLogger.log("Creating directory...");
+        //             elizaLogger.info("Creating directory...");
         //             await fs.promises.mkdir(downloadDir, { recursive: true });
 
-        //             elizaLogger.log("Fetching file...");
+        //             elizaLogger.info("Fetching file...");
         //             const fileResponse = await fetch(
         //                 `https://api.bageldb.ai/api/v1/asset/${assetId}/download`,
         //                 {
@@ -451,7 +451,7 @@ export class DirectClient {
         //                 );
         //             }
 
-        //             elizaLogger.log("Response headers:", fileResponse.headers);
+        //             elizaLogger.info("Response headers:", fileResponse.headers);
 
         //             const fileName =
         //                 fileResponse.headers
@@ -459,19 +459,19 @@ export class DirectClient {
         //                     ?.split("filename=")[1]
         //                     ?.replace(/"/g, /* " */ "") || "default_name.txt";
 
-        //             elizaLogger.log("Saving as:", fileName);
+        //             elizaLogger.info("Saving as:", fileName);
 
         //             const arrayBuffer = await fileResponse.arrayBuffer();
         //             const buffer = Buffer.from(arrayBuffer);
 
         //             const filePath = path.join(downloadDir, fileName);
-        //             elizaLogger.log("Full file path:", filePath);
+        //             elizaLogger.info("Full file path:", filePath);
 
         //             await fs.promises.writeFile(filePath, buffer);
 
         //             // Verify file was written
         //             const stats = await fs.promises.stat(filePath);
-        //             elizaLogger.log(
+        //             elizaLogger.info(
         //                 "File written successfully. Size:",
         //                 stats.size,
         //                 "bytes"
@@ -669,7 +669,7 @@ export class DirectClient {
 
         // Handle graceful shutdown
         const gracefulShutdown = () => {
-            elizaLogger.log("Received shutdown signal, closing server...");
+            elizaLogger.info("Received shutdown signal, closing server...");
             this.server.close(() => {
                 elizaLogger.success("Server closed successfully");
                 process.exit(0);
@@ -700,7 +700,7 @@ export class DirectClient {
 
 export const DirectClientInterface: Client = {
     start: async (_runtime: IAgentRuntime) => {
-        elizaLogger.log("DirectClientInterface start");
+        elizaLogger.info("DirectClientInterface start");
         const client = new DirectClient();
         const serverPort = parseInt(settings.SERVER_PORT || "3000");
         client.start(serverPort);

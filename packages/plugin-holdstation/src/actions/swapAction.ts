@@ -169,7 +169,7 @@ export const swapAction: Action = {
         _options?: Record<string, unknown>,
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting HoldStation Wallet TOKEN_SWAP handler...");
+        elizaLogger.info("Starting HoldStation Wallet TOKEN_SWAP handler...");
 
         const walletProvider = await initWalletProvider(runtime);
         const action = new SwapAction(walletProvider);
@@ -215,17 +215,17 @@ export const swapAction: Action = {
                     hash: hash,
                 },
             });
-            
+
             return true;
         } catch (error) {
             elizaLogger.error("Error during token swap:", error);
             const errorMessage = error instanceof Error ? error.message : "Unknown error";
-            
+
             callback?.({
                 text: `Error during token swap: ${errorMessage}`,
                 content: { error: errorMessage },
             });
-            
+
             return false;
         }
     },

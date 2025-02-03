@@ -142,8 +142,8 @@ export class WalletProvider {
                 portfolioData.data.map(
                     (item: PortfolioItem): Item => ({
                         name: item.contract_name,
-                        address: item.contract_address.startsWith('0x') 
-                            ? item.contract_address as `0x${string}` 
+                        address: item.contract_address.startsWith('0x')
+                            ? item.contract_address as `0x${string}`
                             : `0x${item.contract_address}` as `0x${string}`,
                         symbol: item.contract_ticker_symbol,
                         decimals: item.contract_decimals,
@@ -164,10 +164,10 @@ export class WalletProvider {
             const cacheKey = 'all-hswallet-tokens';
             const cachedValue = this.cache.get<Array<Item>>(cacheKey);
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetch all");
+                elizaLogger.info("Cache hit for fetch all");
                 return cachedValue;
             }
-            elizaLogger.log("Cache miss for fetch all");
+            elizaLogger.info("Cache miss for fetch all");
 
             const fetchUrl = 'https://tokens.coingecko.com/zksync/all.json';
 
@@ -186,8 +186,8 @@ export class WalletProvider {
                 tokensData.tokens.map(
                     (item: TokenApiItem): Item => ({
                         name: item.name,
-                        address: item.address.startsWith('0x') 
-                            ? item.address as `0x${string}` 
+                        address: item.address.startsWith('0x')
+                            ? item.address as `0x${string}`
                             : `0x${item.address}` as `0x${string}`,
                         symbol: item.symbol,
                         decimals: item.decimals,

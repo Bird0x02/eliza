@@ -25,7 +25,7 @@ export const submitVoteAction: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting Mind Network MIND_FHE_VOTE handler...");
+        elizaLogger.info("Starting Mind Network MIND_FHE_VOTE handler...");
 
         if (!cache.latestEncryptedNumber) {
             const reply = "You need to encrypt a number of your choice first. Tell me your number of choice for FHE encryption."

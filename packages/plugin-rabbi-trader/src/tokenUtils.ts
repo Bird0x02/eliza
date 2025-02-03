@@ -10,7 +10,7 @@ export function loadTokenAddresses(): string[] {
         );
         const data = fs.readFileSync(filePath, "utf8");
         const addresses = JSON.parse(data);
-        elizaLogger.log("Loaded token addresses:", addresses);
+        elizaLogger.info("Loaded token addresses:", addresses);
         return addresses;
     } catch (error) {
         elizaLogger.error("Failed to load token addresses:", error);

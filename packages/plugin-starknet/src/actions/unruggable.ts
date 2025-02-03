@@ -96,7 +96,7 @@ export const deployToken: Action = {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log(
+        elizaLogger.info(
             "Starting DEPLOY_STARKNET_UNRUGGABLE_MEME_TOKEN handler..."
         );
         // Fix: Create new variable instead of reassigning parameter
@@ -118,8 +118,8 @@ export const deployToken: Action = {
             modelClass: ModelClass.MEDIUM,
         });
 
-        elizaLogger.log(`init supply. ${response.initialSupply}`);
-        elizaLogger.log(response);
+        elizaLogger.info(`init supply. ${response.initialSupply}`);
+        elizaLogger.info(response);
 
         if (!isDeployTokenContent(response)) {
             callback?.({
@@ -149,7 +149,7 @@ export const deployToken: Action = {
                 }
             );
 
-            elizaLogger.log(
+            elizaLogger.info(
                 `Token deployment initiated for: ${response.name} at address: ${tokenAddress}`
             );
 

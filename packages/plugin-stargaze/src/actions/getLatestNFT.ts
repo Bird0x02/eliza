@@ -78,7 +78,7 @@ export default {
     name: "GET_LATEST_NFT",
     similes: ["SHOW_LATEST_NFT", "FETCH_LATEST_NFT"],
     validate: async (runtime: IAgentRuntime, _message: Memory) => {
-        elizaLogger.log("🔄 Validating Stargaze configuration...");
+        elizaLogger.info("🔄 Validating Stargaze configuration...");
         try {
             const config = await validateStargazeConfig(runtime);
             debugLog.validation(config);
@@ -96,24 +96,24 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("🚀 Starting Stargaze GET_LATEST_NFT handler...");
+        elizaLogger.info("🚀 Starting Stargaze GET_LATEST_NFT handler...");
 
         if (!state) {
-            elizaLogger.log("Creating new state...");
+            elizaLogger.info("Creating new state...");
             state = (await runtime.composeState(message)) as State;
         } else {
-            elizaLogger.log("Updating existing state...");
+            elizaLogger.info("Updating existing state...");
             state = await runtime.updateRecentMessageState(state);
         }
 
         try {
-            elizaLogger.log("Composing NFT context...");
+            elizaLogger.info("Composing NFT context...");
             const nftContext = composeContext({
                 state,
                 template: getLatestNFTTemplate,
             });
 
-            elizaLogger.log("Generating content from context...");
+            elizaLogger.info("Generating content from context...");
             const content = (await generateObjectDeprecated({
                 runtime,
                 context: nftContext,
@@ -164,7 +164,7 @@ export default {
                     text: `Latest NFT from ${content.collectionAddr}:\nName: ${latestNFT.name}\nToken ID: ${latestNFT.tokenId}\nImage: ${latestNFT.media.url}`,
                     content: latestNFT,
                 };
-                elizaLogger.log("✅ Sending callback with NFT data:", message);
+                elizaLogger.info("✅ Sending callback with NFT data:", message);
                 callback(message);
             }
 

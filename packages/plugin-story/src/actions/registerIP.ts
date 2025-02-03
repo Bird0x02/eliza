@@ -82,7 +82,7 @@ export const registerIPAction = {
         _options: Record<string, unknown>,
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting REGISTER_IP handler...");
+        elizaLogger.info("Starting REGISTER_IP handler...");
 
         // initialize or update state
         let currentState = state;

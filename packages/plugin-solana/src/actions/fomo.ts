@@ -44,7 +44,7 @@ export interface CreateAndBuyContent extends Content {
 export function isCreateAndBuyContentForFomo(
     content: any
 ): content is CreateAndBuyContent {
-    elizaLogger.log("Content for create & buy", content);
+    elizaLogger.info("Content for create & buy", content);
     return (
         typeof content.tokenMetadata === "object" &&
         content.tokenMetadata !== null &&
@@ -121,7 +121,7 @@ export const createAndBuyToken = async ({
         preflightCommitment: "confirmed",
     });
 
-    elizaLogger.log("Transaction sent:", txid);
+    elizaLogger.info("Transaction sent:", txid);
 
     // Confirm transaction using the blockhash
     const confirmation = await connection.confirmTransaction(
@@ -134,7 +134,7 @@ export const createAndBuyToken = async ({
     );
 
     if (!confirmation.value.err) {
-        elizaLogger.log(
+        elizaLogger.info(
             "Success:",
             `https://fomo.fund/token/${mint.publicKey.toBase58()}`
         );
@@ -149,12 +149,12 @@ export const createAndBuyToken = async ({
         );
         const amount = balance.value.uiAmount;
         if (amount === null) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `${deployer.publicKey.toBase58()}:`,
                 "No Account Found"
             );
         } else {
-            elizaLogger.log(`${deployer.publicKey.toBase58()}:`, amount);
+            elizaLogger.info(`${deployer.publicKey.toBase58()}:`, amount);
         }
 
         return {
@@ -163,7 +163,7 @@ export const createAndBuyToken = async ({
             creator: deployer.publicKey.toBase58(),
         };
     } else {
-        elizaLogger.log("Create and Buy failed");
+        elizaLogger.info("Create and Buy failed");
         return {
             success: false,
             ca: mint.publicKey.toBase58(),
@@ -231,7 +231,7 @@ export const buyToken = async ({
         preflightCommitment: "confirmed",
     });
 
-    elizaLogger.log("Transaction sent:", txid);
+    elizaLogger.info("Transaction sent:", txid);
 
     // Confirm transaction using the blockhash
     const confirmation = await connection.confirmTransaction(
@@ -244,7 +244,7 @@ export const buyToken = async ({
     );
 
     if (!confirmation.value.err) {
-        elizaLogger.log(
+        elizaLogger.info(
             "Success:",
             `https://fomo.fund/token/${mint.toBase58()}`
         );
@@ -259,15 +259,15 @@ export const buyToken = async ({
         );
         const amount = balance.value.uiAmount;
         if (amount === null) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `${buyer.publicKey.toBase58()}:`,
                 "No Account Found"
             );
         } else {
-            elizaLogger.log(`${buyer.publicKey.toBase58()}:`, amount);
+            elizaLogger.info(`${buyer.publicKey.toBase58()}:`, amount);
         }
     } else {
-        elizaLogger.log("Buy failed");
+        elizaLogger.info("Buy failed");
     }
 };
 
@@ -330,7 +330,7 @@ export const sellToken = async ({
         preflightCommitment: "confirmed",
     });
 
-    elizaLogger.log("Transaction sent:", txid);
+    elizaLogger.info("Transaction sent:", txid);
 
     // Confirm transaction using the blockhash
     const confirmation = await connection.confirmTransaction(
@@ -343,7 +343,7 @@ export const sellToken = async ({
     );
 
     if (!confirmation.value.err) {
-        elizaLogger.log(
+        elizaLogger.info(
             "Success:",
             `https://fomo.fund/token/${mint.toBase58()}`
         );
@@ -358,15 +358,15 @@ export const sellToken = async ({
         );
         const amount = balance.value.uiAmount;
         if (amount === null) {
-            elizaLogger.log(
+            elizaLogger.info(
                 `${seller.publicKey.toBase58()}:`,
                 "No Account Found"
             );
         } else {
-            elizaLogger.log(`${seller.publicKey.toBase58()}:`, amount);
+            elizaLogger.info(`${seller.publicKey.toBase58()}:`, amount);
         }
     } else {
-        elizaLogger.log("Sell failed");
+        elizaLogger.info("Sell failed");
     }
 };
 
@@ -416,7 +416,7 @@ export default {
         _options: { [key: string]: unknown },
         callback?: HandlerCallback
     ): Promise<boolean> => {
-        elizaLogger.log("Starting CREATE_AND_BUY_TOKEN handler...");
+        elizaLogger.info("Starting CREATE_AND_BUY_TOKEN handler...");
 
         // Compose state if not provided
         if (!state) {
@@ -525,7 +525,7 @@ export default {
 
             // Generate new mint keypair
             const mintKeypair = Keypair.generate();
-            elizaLogger.log(
+            elizaLogger.info(
                 `Generated mint address: ${mintKeypair.publicKey.toBase58()}`
             );
 
@@ -541,14 +541,14 @@ export default {
 
             const createAndBuyConfirmation = await promptConfirmation();
             if (!createAndBuyConfirmation) {
-                elizaLogger.log("Create and buy token canceled by user");
+                elizaLogger.info("Create and buy token canceled by user");
                 return false;
             }
 
             // Convert SOL to lamports (1 SOL = 1_000_000_000 lamports)
             const lamports = Math.floor(Number(buyAmountSol) * 1_000_000_000);
 
-            elizaLogger.log("Executing create and buy transaction...");
+            elizaLogger.info("Executing create and buy transaction...");
             const result = await createAndBuyToken({
                 deployer: deployerKeypair,
                 mint: mintKeypair,
@@ -597,7 +597,7 @@ export default {
                 */
             // Log success message with token view URL
             const successMessage = `Token created and purchased successfully! View at: https://fomo.fund/token/${mintKeypair.publicKey.toBase58()}`;
-            elizaLogger.log(successMessage);
+            elizaLogger.info(successMessage);
             return result.success;
         } catch (error) {
             if (callback) {

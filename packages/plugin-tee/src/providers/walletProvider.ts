@@ -120,10 +120,10 @@ export class WalletProvider {
             const cachedValue = this.cache.get<WalletPortfolio>(cacheKey);
 
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetchPortfolioValue");
+                elizaLogger.info("Cache hit for fetchPortfolioValue");
                 return cachedValue;
             }
-            elizaLogger.log("Cache miss for fetchPortfolioValue");
+            elizaLogger.info("Cache miss for fetchPortfolioValue");
 
             const walletData = await this.fetchWithRetry(
                 runtime,
@@ -175,10 +175,10 @@ export class WalletProvider {
             const cachedValue = this.cache.get<Prices>(cacheKey);
 
             if (cachedValue) {
-                elizaLogger.log("Cache hit for fetchPrices");
+                elizaLogger.info("Cache hit for fetchPrices");
                 return cachedValue;
             }
-            elizaLogger.log("Cache miss for fetchPrices");
+            elizaLogger.info("Cache miss for fetchPrices");
 
             const { SOL, BTC, ETH } = PROVIDER_CONFIG.TOKEN_ADDRESSES;
             const tokens = [SOL, BTC, ETH];
@@ -304,7 +304,7 @@ const walletProvider: Provider = {
                     agentId
                 );
                 publicKey = derivedKeyPair.keypair.publicKey;
-                elizaLogger.log("Wallet Public Key: ", publicKey.toBase58());
+                elizaLogger.info("Wallet Public Key: ", publicKey.toBase58());
             } catch (error) {
                 elizaLogger.error("Error creating PublicKey:", error);
                 return "";

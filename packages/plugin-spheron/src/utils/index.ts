@@ -112,7 +112,7 @@ export const startDeployment = async (
     }
 
     if (isReady) {
-        elizaLogger.log("Deployment ready");
+        elizaLogger.info("Deployment ready");
     } else {
         elizaLogger.error(`Deployment not ready after ${maxAttempts} attempts`);
         throw new Error("Deployment timeout");
@@ -178,7 +178,7 @@ export const updateDeployment = async (
     }
 
     if (isReady) {
-        elizaLogger.log("Deployment ready");
+        elizaLogger.info("Deployment ready");
     } else {
         elizaLogger.error(`Deployment not ready after ${maxAttempts} attempts`);
         throw new Error("Deployment timeout");

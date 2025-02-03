@@ -46,7 +46,7 @@ export const createInvoiceAction = {
             content?: { success: boolean; invoice?: string };
         }) => void,
     ) => {
-        elizaLogger.log("CreateInvoice action handler called");
+        elizaLogger.info("CreateInvoice action handler called");
         const lightningProvider = await initLightningProvider(runtime);
         const action = new CreateInvoiceAction(lightningProvider);
 

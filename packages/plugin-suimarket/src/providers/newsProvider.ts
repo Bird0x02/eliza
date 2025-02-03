@@ -9,7 +9,7 @@ import {
 //@todo implement news provider
 const newsProvider: Provider = {
     get: async function (runtime: IAgentRuntime, message: Memory, state?: State): Promise<string | null> {
-        elizaLogger.log("[newsProvider] loading ...");
+        elizaLogger.info("[newsProvider] loading ...");
         return "<newsProvider>";
     }
 }

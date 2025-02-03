@@ -16,12 +16,12 @@ export const topGainer: Action = {
                   options: { [key: string]: unknown },
                   callback: HandlerCallback) => {
       try{
-          elizaLogger.log("[topgainer] Handle with message ...");
+          elizaLogger.info("[topgainer] Handle with message ...");
           callback({
             text: "It's must be you!!!",
             attachments: []
           })
-          elizaLogger.log("[topgainer] Handle with message ...DONE");
+          elizaLogger.info("[topgainer] Handle with message ...DONE");
           return [];
       }
       catch(error){
@@ -30,8 +30,8 @@ export const topGainer: Action = {
       }
   },
   validate: async (_runtime: IAgentRuntime, _message: Memory) => {
-    elizaLogger.log("[topgainer] Validating ...");
-    elizaLogger.log("[topgainer] Validating ...DONE");
+    elizaLogger.info("[topgainer] Validating ...");
+    elizaLogger.info("[topgainer] Validating ...DONE");
     return true;
   },
   similes:["top_gainer", "gainer today"],
