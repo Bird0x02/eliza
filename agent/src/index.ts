@@ -1022,7 +1022,7 @@ export async function createAgent(
         // character.plugins are handled when clients are added
         plugins: [
             // rookeePlugin,
-            suimarketPlugin,
+            // suimarketPlugin,
             // parseBooleanFromText(getSecret(character, "BITMIND")) &&
             // getSecret(character, "BITMIND_API_TOKEN")
             //     ? bittensorPlugin
