@@ -1261,7 +1261,7 @@ export class AgentRuntime implements IAgentRuntime {
             this.messageManager.getMemories({
                 roomId,
                 // count: conversationLength,
-                count:3,
+                count:1,
                 unique: false,
             }),
             getGoals({
@@ -1709,7 +1709,7 @@ Text: ${attachment.text}
         const recentMessagesData = await this.messageManager.getMemories({
             roomId: state.roomId,
             // count: conversationLength,
-            count:3,
+            count:1,
             unique: false,
         });
 
