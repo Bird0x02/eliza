@@ -31,12 +31,12 @@ Example response:
 Recent messages:  {{recentMessages}}
 Extract ONLY from the current message (ignore any previous context or messages):
 VALIDATION RULES:
-All property names must use double quotes
-All string values must use double quotes
-null values should not use quotes
-No trailing commas allowed
-No single quotes anywhere in the JSON
-Respond with a JSON markdown block containing only the extracted values.
+    All property names must use double quotes
+    All string values must use double quotes
+    null values should not use quotes
+    No trailing commas allowed
+    No single quotes anywhere in the JSON
+    Respond with a JSON markdown block containing only the extracted values.
 `;
 
 export const projectInfo: Action = {
@@ -151,6 +151,7 @@ export const projectInfo: Action = {
         let infoPrice,infoDetail;
         if(tokenObject){
             tokenSuiInfo = await getTokenOnSuiScan(tokenObject.type);
+            elizaLogger.info("tokenSuiInfo",tokenSuiInfo)
             if(tokenSuiInfo.symbol!=="ROCK"){
 
                 coinObject= await searchCoinInFileJsonProvider2(tokenObject.symbol, tokenObject.name);
