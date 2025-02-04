@@ -26,11 +26,6 @@ const rockeeStandardPlugin: Plugin = {
     topDexInfo,
     suiTokenPriceBySymbol,
     suiTokenPriceByAddress,
-    // topMeme,
-    // topDefi,
-    // trendingTokens,
-    // topNewMemeToken,
-    // topNftInfos
 ],
   evaluators: [],
   providers: []
