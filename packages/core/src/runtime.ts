@@ -1250,7 +1250,7 @@ export class AgentRuntime implements IAgentRuntime {
         additionalKeys: { [key: string]: unknown } = {},
     ) {
         const { userId, roomId } = message;
-        // const conversationLength = this.getConversationLength();
+        const conversationLength = Math.min(this.getConversationLength(), 2);
         const [actorsData, recentMessagesData, goalsData]: [
             Actor[],
             Memory[],
@@ -1259,8 +1259,7 @@ export class AgentRuntime implements IAgentRuntime {
             getActorDetails({ runtime: this, roomId }),
             this.messageManager.getMemories({
                 roomId,
-                // count: conversationLength,
-                count:1,
+                count: conversationLength,
                 unique: false,
             }),
             getGoals({
@@ -1345,7 +1344,6 @@ Text: ${attachment.text}
         let lore = "";
         // Assuming this.lore is an array of lore bits
 
-        elizaLogger.info("shuffledLore->start");
         if (this.character.lore && this.character.lore.length > 0) {
             const shuffledLore = [...this.character.lore].sort(
                 () => Math.random() - 0.5,

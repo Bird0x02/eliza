@@ -300,7 +300,6 @@ export class DirectClient {
                 let state = await runtime.composeState(userMessage, {
                     agentName: runtime.character.name,
                 });
-                elizaLogger.info(state);
                 elizaLogger.info("ai compose state ...done!");
 
                 let msgHash = hashUserMsg(userMessage, "direct_client:");
