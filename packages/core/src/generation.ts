@@ -509,9 +509,9 @@ export async function generateText({
     const apiKey = runtime.token;
 
     try {
-        elizaLogger.info(`Trimming context to max length of ${max_context_length} tokens.`);
-        context = await trimTokens(context, max_context_length, runtime);
-        elizaLogger.info(`Trimming context to max length of ${max_context_length} tokens ---> done!`);
+        // elizaLogger.info(`Trimming context to max length of ${max_context_length} tokens.`);
+        // context = await trimTokens(context, max_context_length, runtime);
+        // elizaLogger.info(`Trimming context to max length of ${max_context_length} tokens ---> done!`);
 
         let response: string;
 
