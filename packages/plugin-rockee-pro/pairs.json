@@ -1,0 +1,64 @@
+[
+
+    {
+        "name":"S/SUI",
+        "pair_address":"0x1de5cc16141c21923bfca33db9bb6c604de5760e4498e75ecdfcf80d62fb5818",
+        "token_address":"0xea65bb5a79ff34ca83e2995f9ff6edd0887b08da9b45bf2e31f930d3efb82866::s::S",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    },
+    {
+        "name":"LUSHAI/SUI",
+        "pair_address":"0x90d85ed9a1fe7ca8dce97514f4a0fbff9ddd933a8748cc55dd5f91f993be3741",
+        "token_address":"0xee6f3049ee331e304ffc8088f5a36b499fa708fedb0c27046242eedaad1541db::lushai::LUSHAI",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    },
+    {
+        "name":"TIMO/SUI",
+        "pair_address":"0x0a71481a6c77659e2b60f9fc3be8bccab4836e6135681547dec454c0e6b9d9b9",
+        "token_address":"0xfc08a7cb63acdc9c760b105f4e84ac6b895efd002e31da260a0afdd8719fbfef::timo::TIMO",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    }
+    ,
+    {
+        "name":"BBAxol/SUI",
+        "pair_address":"0x60a2a144064a356be9b46783641e7bd0fb63ec38d88da5af1846efe81ddba871",
+        "token_address":"0x6a04d15df13185ea25526c7afe550581fe73435e3e4e00cbd7f857871d3e1897::bbaxol::BBAXOL",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    }
+    ,
+    {
+        "name":"BBAxol/SUI",
+        "pair_address":"0x60a2a144064a356be9b46783641e7bd0fb63ec38d88da5af1846efe81ddba871",
+        "token_address":"0x6a04d15df13185ea25526c7afe550581fe73435e3e4e00cbd7f857871d3e1897::bbaxol::BBAXOL",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    }
+    ,
+    {
+        "name":"SUICY/SUI",
+        "pair_address":"0x8ebad96550ab6ccba7d0380731e0cc4676caa060f76d3e085d33438f64615d9c",
+        "token_address":"0x8989c726bf1ea8736919e41938f3801e286bc71d9612bfe250703232a375eaab::suicy::SUICY",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    }
+    ,
+    {
+        "name":"EYEAI/SUI",
+        "pair_address":"0x40eb85e9c50e4bb11abe073ccf4c6e3cc0efd0ca295023b2ff6bde0468aab3a2",
+        "token_address":"0x27c09bf0433ee7421ea6237dd8cee303b1260cb8a468b1ef720f4adb699a65e4::eyeai::EYEAI",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    }
+    ,
+    {
+        "name":"HIPPO/SUI",
+        "pair_address":"0xb785e6eed355c1f8367c06d2b0cb9303ab167f8359a129bb003891ee54c6fce0",
+        "token_address":"0x8993129d72e733985f7f1a00396cbd055bad6f817fee36576ce483c8bbb8b87b::sudeng::SUDENG",
+        "sui_address": "0x0000000000000000000000000000000000000000000000000000000000000002::sui::SUI"
+
+    }
+]

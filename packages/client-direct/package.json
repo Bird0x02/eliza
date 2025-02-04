@@ -21,7 +21,6 @@
     "dependencies": {
         "@elizaos/adapter-redis": "workspace:*",
         "@elizaos/core": "workspace:*",
-        "@elizaos/plugin-image-generation": "workspace:*",
         "@mysten/bcs": "^1.2.1",
         "@types/body-parser": "1.19.5",
         "@types/cors": "2.8.17",

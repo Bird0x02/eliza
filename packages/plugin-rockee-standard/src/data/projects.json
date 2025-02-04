@@ -1,0 +1,610 @@
+[{
+    "id": 51,
+    "name": "Sui",
+    "symbol": "SUI",
+    "categories": ["Layer1"],
+    "website": "https://sui.io/",
+    "x_website": "https://x.com/SuiNetwork",
+    "verified": "Yes",
+    "congecko_link": "https://www.coingecko.com/en/coins/sui",
+    "slogan": "Sui is a decentralized permissionless smart contract platform biased towards low-latency management of assets. "
+  },
+    {
+      "id": 1,
+      "name": "Cetus",
+      "symbol": "CETUS",
+      "categories": ["DEX"],
+      "website": "https://www.cetus.zone/",
+      "x_website": "https://x.com/CetusProtocol",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/cetus-protocol",
+      "slogan":"Cetus Protocol is the leading DEX and liquidity protocol on Sui. It serves as the key liquidity and swap infra of the Sui ecosystem."
+    },
+    {
+      "id": 2,
+      "name": "NAVI",
+      "symbol": "NAVX",
+      "categories": ["DEX"],
+      "website": "https://naviprotocol.io/",
+      "x_website": "https://x.com/navi_protocol",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/navi",
+      "slogan":"NAVI Protocol is the first Native One-Stop Liquidity Protocol on Sui, allowing to participate as liquidity providers or borrowers within the Ecosystem."
+    },
+    {
+      "id": 3,
+      "name": "DeepBook",
+      "symbol": "DEEP",
+      "categories": ["CLOB", "Defi"],
+      "website": "https://deepbook.tech/",
+      "x_website": "https://x.com/DeepBookonSui",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/deepbook",
+      "slogan":"DeepBook is a decentralized order book on Sui, using parallel execution and low fees to offer a high-performance, low-latency on-chain exchange."
+    },
+    {
+      "id": 4,
+      "name": "Walrus",
+      "symbol": "NA",
+      "categories": "Decentralized Philanthropy, Blockchain-based Donation Platforms",
+      "website": "https://www.walrus.xyz/vi",
+      "x_website": "https://x.com/WalrusProtocol",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan": "Walrus, decentralized storage network for blockchain apps, is now available as a developer preview for Sui builders to gather feedback."
+    },
+    {
+      "id": 5,
+      "name": "BIRDS",
+      "symbol": "NA",
+      "categories": ["Gamefi"],
+      "website": "https://birds.dog/",
+      "x_website": "https://x.com/TheBirdsDogs",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan": "MemeFi is the Leading Telegram gaming ecosystem with over 50M users"
+    },
+    {
+      "id": 6,
+      "name": "FanTV",
+      "symbol": "NA",
+      "categories": ["SociaFI"],
+      "website": "https://fantv.world/",
+      "x_website": "https://x.com/FanTV_official",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 7,
+      "name": "Wave",
+      "symbol": "NA",
+      "categories": ["Infrastructure"],
+      "website": "https://waveonsui.com/",
+      "x_website": "https://x.com/WaveOnSui",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 8,
+      "name": "7K",
+      "symbol": "NA",
+      "categories": ["DEX"],
+      "website": "https://7k.ag/trade/swap",
+      "x_website": "https://x.com/7k_ag_",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan":"FlowX Finance is an ecosystem-focused decentralized exchange built on the Sui blockchain, designed to offer a seamless, user-friendly trading experience for the entire ecosystem."
+    },
+    {
+      "id": 9,
+      "name": "Haedal",
+      "symbol": "NA",
+      "categories": ["Liquid Staking"],
+      "website": "https://www.haedal.xyz/",
+      "x_website": "https://x.com/HaedalProtocol",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/haedal-staked-sui"
+    },
+    {
+      "id": 10,
+      "name": "Aftermath",
+      "symbol": "",
+      "categories": ["DEX"],
+      "website": "https://aftermath.finance/",
+      "x_website": "https://x.com/AftermathFi",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan":"Aftermath is building an all-in-one platform for trading, investing, and earning yield that is fast, inexpensive, and fully transparent. "
+    },
+    {
+      "id": 11,
+      "name": "Bluefin",
+      "symbol": "BLUE",
+      "categories": ["Perp DEX"],
+      "website": "https://bluefin.io/",
+      "x_website": "https://x.com/bluefinapp",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/bluefin",
+      "slogan":"Bluefin is a Financial Network With Parallelized Performance. It is building a performant, accessible, and intuitive DeFi ecosystem"
+    },
+    {
+      "id": 12,
+      "name": "BlueMove",
+      "symbol": "MOVE",
+      "categories": ["DEX"],
+      "website": "https://DEX.bluemove.net/",
+      "x_website": "https://x.com/BlueMove_OA",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/bluemove"
+    },
+    {
+      "id": 13,
+      "name": "Turbos",
+      "symbol": "TURBOS",
+      "categories": ["DEX"],
+      "website": "https://turbos.finance/",
+      "x_website": "https://x.com/Turbos_finance",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/turbos-finance",
+      "slogan":"Turbos Finance is the ultimate asset management, trading gateway and meme/gamefi hub for Sui, powered by Concentrated Liquidity Market Making (CLMM) model."
+    },
+    {
+      "id": 14,
+      "name": "Hop Aggregator",
+      "symbol": "NA",
+      "categories": ["Decentralized trading aggregation"],
+      "website": "https://hop.ag/",
+      "x_website": "https://x.com/HopAggregator",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan":"Swap on Sui Network for the best price with zero fees on Hop Aggregator"
+    },
+    {
+      "id": 15,
+      "name": "Bucket Protocol",
+      "symbol": "",
+      "categories": ["Infrastructure"],
+      "website": "https://legacy.bucketprotocol.io/dashboard",
+      "x_website": "https://x.com/bucket_protocol",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/bucket-protocol-buck-stablecoin"
+    },
+    {
+      "id": 16,
+      "name": "Scallop",
+      "symbol": "SCA",
+      "categories": ["Lending"],
+      "website": "https://scallop.io/",
+      "x_website": "https://x.com/Scallop_io",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/scallop-2",
+      "slogan":"Scallop is the first peer-to-peer money market on Sui and the first DeFi protocol to receive an official grant from the Sui Foundation."
+    },
+    {
+      "id": 17,
+      "name": "Memefi",
+      "symbol": "MEME",
+      "categories": ["Gamefi"],
+      "website": "https://www.memefi.club/",
+      "x_website": "https://x.com/memeficlub",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/memefi",
+      "slogan":"MemeFi is the Leading Telegram gaming ecosystem with over 50M users"
+    },
+    {
+      "id": 18,
+      "name": "Tradeport",
+      "symbol": "NA",
+      "categories": ["NFT Marketplace"],
+      "website": "https://www.tradeport.xyz/",
+      "x_website": "https://x.com/tradeportxyz",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 19,
+      "name": "SuiNS",
+      "symbol": "NS",
+      "categories": ["Infrastructure"],
+      "website": "https://suins.io/",
+      "x_website": "https://x.com/SuiNSdapp",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/suins-token",
+      "slogan":"Your web3 identity for all things Sui!"
+    },
+    {
+      "id": 20,
+      "name": "Suilend",
+      "symbol": "SEND",
+      "categories": ["Defi"],
+      "website": "https://suilend.fi/",
+      "x_website": "https://x.com/suilendprotocol",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/suilend",
+      "slogan":"Suilend is the fastest-growing lending protocol on Sui, built by the team behind Solend. "
+    },
+    {
+      "id": 21,
+      "name": "SuiPlay",
+      "symbol": "NA",
+      "categories": ["GAME"],
+      "website": "https://www.suiplay0x1.com/",
+      "x_website": "https://x.com/suiplay",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 22,
+      "name": "RaidenX",
+      "symbol": "",
+      "categories": ["Trading Tool"],
+      "website": "https://raidenx.io/",
+      "x_website": "https://x.com/raidenx_io",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 23,
+      "name": "Typus Finance",
+      "symbol": "",
+      "categories": ["Infrastructure"],
+      "website": "https://typus.finance/",
+      "x_website": "https://x.com/TypusFinance",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/typus",
+      "slogan":"Real Yield Infrastructure - Trade Options, Perps, and Yield products."
+    },
+    {
+      "id": 24,
+      "name": "Kriya",
+      "symbol": "",
+      "categories": ["Defi"],
+      "website": "https://app.kriya.finance/",
+      "x_website": "https://x.com/KriyaDEX",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 25,
+      "name": "FlowX",
+      "symbol": "FLX",
+      "categories": ["DEX"],
+      "website": "https://flowx.finance/",
+      "x_website": "https://x.com/FlowX_finance",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/flowx-finance",
+      "slogan":"FlowX Finance is an ecosystem-focused decentralized exchange built on the Sui blockchain, designed to offer a seamless, user-friendly trading experience for the entire ecosystem."
+    },
+    {
+      "id": 26,
+      "name": "Sudo Finance",
+      "symbol": "",
+      "categories": ["Perp DEX"],
+      "website": "https://www.sudo.finance/",
+      "x_website": "https://x.com/sudofinance",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 27,
+      "name": "AlphaFi",
+      "symbol": "ALPHA",
+      "categories": ["Yield Aggregator"],
+      "website": "https://alphafi.xyz/portfolio",
+      "x_website": "https://x.com/AlphaFiSUI",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/alpha-fi"
+    },
+    {
+      "id": 28,
+      "name": "Kai Finance",
+      "symbol": "",
+      "categories": ["Yield Aggregator"],
+      "website": "https://kai.finance/",
+      "x_website": "https://x.com/kai_finance_sui",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 29,
+      "name": "Strater",
+      "symbol": "",
+      "categories": ["Yield Aggregator"],
+      "website": "https://www.strater.xyz/",
+      "x_website": "https://x.com/strater_sui",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 30,
+      "name": "Volo",
+      "symbol": "",
+      "categories": ["Liquid Staking"],
+      "website": "https://www.volosui.com/",
+      "x_website": "https://x.com/volo_sui",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/volo-staked-sui"
+    },
+    {
+      "id": 31,
+      "name": "Suiet",
+      "symbol": "",
+      "categories": ["Wallet"],
+      "website": "https://suiet.app/",
+      "x_website": "https://x.com/suiet_wallet",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan":"Suiet Wallet is a user-friendly, secure wallet designed for the Sui blockchain, offering seamless transactions, storage, and interaction with dApps. "
+    },
+    {
+      "id": 32,
+      "name": "Ethos Wallet",
+      "symbol": "",
+      "categories": ["Wallet"],
+      "website": "https://ethoswallet.xyz/blog/post/Sunsetting-Ethos-Sui-Blockchain-Products",
+      "x_website": "https://x.com/EthosWalletXYZ",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan":"Ethos Wallet is a user-friendly crypto wallet built on Sui, designed to make managing digital assets and interacting with dApps seamless and secure."
+    },
+    {
+      "id": 33,
+      "name": "Surf wallet",
+      "symbol": "",
+      "categories": ["Wallet"],
+      "website": "https://surf.tech/",
+      "x_website": "https://x.com/surf_wallet",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 34,
+      "name": "Nightly",
+      "symbol": "",
+      "categories": ["Wallet"],
+      "website": "https://nightly.app/",
+      "x_website": "https://x.com/Nightly_app",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 35,
+      "name": "Martian wallet",
+      "symbol": "",
+      "categories": ["Wallet"],
+      "website": "https://martianwallet.xyz/?utm_source=twitter&utm_medium=CTAlink&utm_campaign=visitwebsite&utm_id=twitterbio",
+      "x_website": "https://x.com/martian_wallet",
+      "verified": "No",
+      "congecko_link": "x",
+      "slogan":"Martian wallet is a crypto wallet that can be used to manage digital assets and access decentralized applications on the Sui and Aptos blockchain. "
+    },
+    {
+      "id": 36,
+      "name": "Stashed",
+      "symbol": "",
+      "categories": ["Wallet"],
+      "website": "https://getstashed.com/auth",
+      "x_website": "https://x.com/stashedofficial",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 37,
+      "name": "Suia",
+      "symbol": "",
+      "categories": ["SociaFi"],
+      "website": "https://suia.io/",
+      "x_website": "https://x.com/Suia2023",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/suia"
+    },
+    {
+      "id": 38,
+      "name": "Seafi",
+      "symbol": "SPT",
+      "categories": ["Launchpad"],
+      "website": "https://t.co/7HJlSBc80p",
+      "x_website": "https://x.com/SeaPad_defi",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/seapad",
+      "slogan":"SeaFi is the DeFi AI and Launchpad, empowering project launches, smart trading, yield optimization, and AI-driven innovation"
+
+    },
+    {
+      "id": 39,
+      "name": "DARKTIMES",
+      "symbol": "",
+      "categories": ["Gamefi"],
+      "website": "https://playdarktimes.com/",
+      "x_website": "https://x.com/playDARKTIMES",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/times"
+    },
+    {
+      "id": 40,
+      "name": "Cosmocadia",
+      "symbol": "",
+      "categories": ["Gamefi", "NFT"],
+      "website": "https://discord.com/invite/cosmocadia",
+      "x_website": "https://x.com/Cosmocadia",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 41,
+      "name": "Panzerdogs",
+      "symbol": "",
+      "categories": ["Gamefi", "NFT"],
+      "website": "https://www.panzerdogs.io/",
+      "x_website": "https://x.com/panzerdogs",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 42,
+      "name": "MotoDEX",
+      "symbol": "",
+      "categories":  ["Gamefi"],
+      "website": "https://www.DEXstudios.net/",
+      "x_website": "https://x.com/motoDEX_game",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 43,
+      "name": "Capybara",
+      "symbol": "",
+      "categories": ["Gamefi"],
+      "website": "https://www.capybara.vip/",
+      "x_website": "https://x.com/capybaraonsui",
+      "verified": "No",
+      "congecko_link": "x"
+    },
+    {
+      "id": 44,
+      "name": "Sacabam",
+      "symbol": "SCB",
+      "categories": ["Meme"],
+      "website": "https://linktr.ee/sacabamfun",
+      "x_website": "https://x.com/sacabamfun",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/sacabam"
+    },
+    {
+      "id": 45,
+      "name": "SuDeng",
+      "symbol": "HIPPO",
+      "categories": ["Meme"],
+      "website": "x",
+      "x_website": "https://x.com/SUDENG_HIPPO",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/sudeng",
+      "slogan":"SuDeng is the cutest $HIPPO on SUI."
+    },
+    {
+      "id": 46,
+      "name": "Blub",
+      "symbol": "BLUB",
+      "categories": ["Meme"],
+      "website": "https://www.blubsui.com/",
+      "x_website": "https://x.com/blubsui",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/blub",
+      "slogan":"The #1 Meme on Sui. A Dirty Fish in the Waters of the Sui Ocean. "
+    },
+    {
+      "id": 47,
+      "name": "Fud the Pug",
+      "symbol": "FUD",
+      "categories": ["Meme"],
+      "website": "https://spreadfudlovethepug.bigcartel.com/",
+      "x_website": "https://x.com/FudthePugcoin",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/fud-the-pug"
+    },
+    {
+      "id": 48,
+      "name": "Suiman",
+      "symbol": "",
+      "categories": ["Meme"],
+      "website": "https://linktr.ee/suimanmeme",
+      "x_website": "https://x.com/SuimanFanPage",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/suiman"
+    },
+    {
+      "id": 49,
+      "name": "Suipad",
+      "symbol": "SUIP",
+      "categories": ["Launchpad"],
+      "website": "",
+      "x_website": "https://x.com/SuiPadxyz",
+      "verified": "Yes",
+      "congecko_link": "https://www.coingecko.com/en/coins/suipad"
+    },
+    {
+      "id": 50,
+      "name": "Rockee AI",
+      "symbol": "ROCK",
+      "categories": ["Defai"],
+      "website": "https://rockee.ai/",
+      "x_website": "https://x.com/RockeeAI",
+      "verified": "Yes",
+      "congecko_link": ""
+    }
+
+    ,
+    {
+        "id": 52,
+        "name": "Lofi",
+        "symbol": "LOFI",
+        "categories": ["Meme"],
+        "website": "https://lofitheyeti.com/",
+        "x_website": "https://x.com/lofitheyeti",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/lofi-2"
+    },
+    {
+        "id": 53,
+        "name": "Sui Agents",
+        "symbol": "SUAI",
+        "categories": ["AI"],
+        "website": "https://suiagents.ai/",
+        "x_website": "https://x.com/SUI_agents",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/sui-agents"
+    }
+    ,
+    {
+        "id": 53,
+        "name": "SuiAI",
+        "symbol": "SUAI",
+        "categories": ["AI"],
+        "website": "https://suiagents.ai/",
+        "x_website": "https://x.com/SUI_agents",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/suiai"
+    }
+    ,
+    {
+        "id": 54,
+        "name": "AXOL",
+        "symbol": "AXOL",
+        "categories": ["Game"],
+        "website": "https://www.axolcoin.xyz/",
+        "x_website": "https://x.com/Axolonsui",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/axol"
+    },
+    {
+        "id": 54,
+        "name": "Agent S",
+        "symbol": "S",
+        "categories": ["AI"],
+        "website": "https://agent-s.site/",
+        "x_website": "https://x.com/0xAgent_S",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/agent-s"
+    }
+    ,
+    {
+        "id": 55,
+        "name": "LumiWave",
+        "symbol": "LWA",
+        "categories": ["Infrastructure"],
+        "website": "https://lumiwavelab.com/",
+        "x_website": "https://x.com/LumiWave_Lab",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/lumiwave-2"
+    },
+    {
+        "id": 56,
+        "name": "Bucket",
+        "symbol": "BUT",
+        "categories": ["DeFi","Stablecoin"],
+        "website": "",
+        "x_website": "https://x.com/bucket_protocol",
+        "verified": "Yes",
+        "congecko_link": "https://www.coingecko.com/en/coins/bucket-token"
+    }
+  ]
