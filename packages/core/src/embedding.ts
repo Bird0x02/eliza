@@ -180,7 +180,7 @@ export function getEmbeddingZeroVector(): number[] {
  */
 
 export async function embed(runtime: IAgentRuntime, input: string) {
-    elizaLogger.debug("Embedding request:", {
+    elizaLogger.info("Embedding request:", {
         modelProvider: runtime.character.modelProvider,
         useOpenAI: process.env.USE_OPENAI_EMBEDDING,
         input: input?.slice(0, 50) + "...",
@@ -274,11 +274,12 @@ export async function embed(runtime: IAgentRuntime, input: string) {
     });
 
     async function getLocalEmbedding(input: string): Promise<number[]> {
-        elizaLogger.debug("DEBUG - Inside getLocalEmbedding function");
-
         try {
+            elizaLogger.info("getLocalEmbedding...");
             const embeddingManager = LocalEmbeddingModelManager.getInstance();
-            return await embeddingManager.generateEmbedding(input);
+            let embedRes = await embeddingManager.generateEmbedding(input);
+            elizaLogger.info("getLocalEmbedding...");
+            return embedRes;
         } catch (error) {
             elizaLogger.error("Local embedding failed:", error);
             throw error;

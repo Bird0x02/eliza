@@ -1583,15 +1583,20 @@ export async function generateMessageResponse({
     context: string;
     modelClass: ModelClass;
 }): Promise<Content> {
+    elizaLogger.info("get model settings...");
     const modelSettings = getModelSettings(runtime.modelProvider, modelClass);
+    elizaLogger.info("get model settings...done");
     const max_context_length = modelSettings.maxInputTokens;
 
+    elizaLogger.info("trimTokens...");
     context = await trimTokens(context, max_context_length, runtime);
+    elizaLogger.info("trimTokens...done!");
+
     elizaLogger.debug("Context:", context);
     let retryLength = 1000; // exponential backoff
     while (true) {
         try {
-            elizaLogger.info("Generating message response...");
+            elizaLogger.info("gen text...");
 
             const response = await generateText({
                 runtime,
@@ -1599,14 +1604,16 @@ export async function generateMessageResponse({
                 modelClass,
             });
 
-            elizaLogger.info("Generating message response...done!");
+            elizaLogger.info("gen text...done!");
 
             // try parsing the response as JSON, if null then try again
+            elizaLogger.info("parse response...");
             const parsedContent = parseJSONObjectFromText(response) as Content;
             if (!parsedContent) {
                 elizaLogger.warn("parsedContent is null, retrying");
                 continue;
             }
+            elizaLogger.info("parse response...done!");
 
             return parsedContent;
         } catch (error) {
