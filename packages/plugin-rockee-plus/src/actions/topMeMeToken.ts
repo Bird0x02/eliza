@@ -1,6 +1,7 @@
 import {
     // ActionExample,
     composeContext,
+    elizaLogger,
     generateObjectDeprecated,
     HandlerCallback,
     IAgentRuntime,
@@ -17,27 +18,22 @@ import { findTypesBySymbols } from "../providers/searchCoinInAggre";
 import { GeckoTerminalProvider } from "../providers/coingeckoTerminalProvider";
 import getActionHint from "../utils/action_hint";
 // import { RedisClient } from "@elizaos/adapter-redis";
-const topMemeTemplate = `Respond with a JSON markdown block containing only the extracted values. Use null for any values that cannot be determined.
-Example response:
-\`\`\`json
-{
-    size:5
-}
-\`\`\`
-{{recentMessages}}
-Extract ONLY from the current message (ignore any previous context or messages):
-    Given the recent messages, extract the following information:
-    size: Number of news items to return: Must be a positive integer Default is 5 if not specified Maximum value is 100 Minimum value is 1 If mentioned in message, use that number If not mentioned, use default value 5
-VALIDATION RULES:
-    All property names must use double quotes
-    All string values must use double quotes
-    null values should not use quotes
-    No trailing commas allowed
-    No single quotes anywhere in the JSON
-Respond with a JSON markdown block containing only the extracted values.`;
-
-
-
+import SuiOnChainProvider from "../providers/fetchSuiChain/suiOnChainProvider";
+const topMemeTemplate = `
+Recent messages: {{recentMessages}}
+Extract the swap parameters from the conversation and wallet context above, follows these rules:
+    - Return only a JSON object with the specified fields in thise format:
+        {
+            "size": number | 5  ,  // Number of records
+            "sortBy": ""         // Sorting criteria
+        }
+    - Use null for any values that cannot be determined.
+    - All property names must use double quotes
+    - Null values should not use quotes
+    - No trailing commas allowed
+    - No single quotes anywhere in the JSON
+    - Ensure that sortBy is one of the following values: "MCAP", "24VOL", "PRICE_INCREASE", "PRICE_DECREASE", "HOLDERS", "MARKET_CAP", "24HVOLUME".
+`
 export const topMeme: Action = {
     name: "TOP_MEME",
     similes: [
@@ -73,50 +69,92 @@ export const topMeme: Action = {
             context: topDefiContext,
             modelClass: ModelClass.SMALL,
         });
-        const projectInfos = await searchCategoriesInFileJson("Meme");
-        const projectType = await findTypesBySymbols(projectInfos);
-        const GeckoTerminal = new GeckoTerminalProvider();
+        console.log("content:", content);
+        let dataResponse;
+        if(content.sortBy!=="HOLDERS"){
+            const projectInfos = await searchCategoriesInFileJson("Meme");
+            const projectType = await findTypesBySymbols(projectInfos);
+            const GeckoTerminal = new GeckoTerminalProvider();
+            const tokenInfo = await GeckoTerminal.fetchMultipleTokenOnNetwork("sui-network",projectType);
+            dataResponse = tokenInfo.data.map((data) => ({
+                volume_usd: data.attributes.volume_usd?.h24 || 0,
+                symbol: data.attributes.symbol,
+                price: data.attributes.price_usd,
+                icon_url: data.attributes.image_url,
+                name: data.attributes.name ? data.attributes.name.split(" / ")[0] : "N/A",
+                market_cap: data.attributes.market_cap_usd || 0,
+                price_change_percentage: "N/A",
+            }));
 
-        const tokenInfo = await GeckoTerminal.fetchMultipleTokenOnNetwork("sui-network",projectType);
+            tokenInfo.included.forEach((includedData) => {
+                const name = includedData.attributes.name.split(" / ")[0];
+                const price_change = includedData.attributes.price_change_percentage.h24 || "N/A";
+                const matchedToken = dataResponse.find((token) => token.symbol === name);
+                if (matchedToken) {
+                    matchedToken.price_change_percentage = price_change;
+                }
+            });
+            try {
 
-        let dataResponse = tokenInfo.data.map((data) => ({
-            volume_usd: data.attributes.volume_usd?.h24 || 0,
-            symbol: data.attributes.symbol,
-            price: data.attributes.price_usd,
-            icon_url: data.attributes.image_url,
-            name: data.attributes.name ? data.attributes.name.split(" / ")[0] : "N/A",
-            market_cap: data.attributes.market_cap_usd || 0,
-            price_change_percentage: "N/A",
-        }));
+                callback({
+                   text:`Here are the top Meme tokens:`,
+                   action:"TOP_MEME",
+                   result: {
+                    type: "top_token",
+                    data:dataResponse.slice(0,5),
+                    action_hint:getActionHint()
+                }
+                })
 
-        tokenInfo.included.forEach((includedData) => {
-            const name = includedData.attributes.name.split(" / ")[0];
-            const price_change = includedData.attributes.price_change_percentage.h24 || "N/A";
-            const matchedToken = dataResponse.find((token) => token.symbol === name);
-            if (matchedToken) {
-                matchedToken.price_change_percentage = price_change;
+                return true;
+            } catch (error) {
+                elizaLogger.info("Error top meme token:", error);
+                return false;
             }
-        });
-        try {
-
-            callback({
-               text:`Here are the top Meme tokens:`,
-               action:"TOP_MEME",
-               result: {
-                type: "top_token",
-                data:dataResponse,
-                action_hint:getActionHint()
+        }
+        else{
+            const projectInfos = await searchCategoriesInFileJson("Meme");
+            const projectType = await findTypesBySymbols(projectInfos);
+            const suiOnChainProvider = new SuiOnChainProvider()
+            const dataResponse = await suiOnChainProvider.fetchHolders(projectType.slice(0,content.size));
+            try {
+                callback({
+                   text:`Here are the top Meme tokens by holders:`,
+                   action:"TOP_MEME_BY_HOLDERS",
+                   result: {
+                    type: "top_token_meme_by_holders",
+                    data:dataResponse.slice(0,content.size),
+                    action_hint:getActionHint()
+                }
+                })
+                return true;
             }
-            })
-
-            return true;
-        } catch (error) {
-            console.error("Error during token swap:", error);
-            return false;
+            catch (error) {
+                elizaLogger.info("Error top meme token:", error);
+                return false;
+            }
         }
     },
     examples: [
-
+        [
+            {
+                user: "{{user1}}",
+                content: {
+                    text: "show me top 5 meme token by holders",
+                },
+            },
+            {
+                user: "{{agent}}",
+                content: {
+                    text: "Top meme token",
+                    action: "TOP_MEME",
+                    content: {
+                        "size": 5 ,  // Number of records
+                        "sortBy": "HOLDERS"
+                    },
+                },
+            },
+        ],
     ],
 } as Action;
 

@@ -41,7 +41,7 @@ export class SuiOnChainProvider {
     {
     try {
         const requests = types.map(type =>
-            this.axiosInstance.get(`/${type}`)
+            this.axiosInstance.get(`coins/${type}`)
           );
           const responses = await Promise.all(requests);
           return responses.map(response => response.data)
