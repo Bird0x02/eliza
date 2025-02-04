@@ -13,26 +13,16 @@ import { trendingTokens } from './actions/trendingTokens';
 import { topNewMemeToken } from './actions/topNewMemeToken';
 import { cronTopDexProvider } from './providers/topDex';
 import { topNftInfos } from './actions/topNft';
-import { topMemeByHolders } from './actions/topMemeCoinByHolders';
 
 const rockeePlusPlugin: Plugin = {
   name: "rockeePlusPlugin",
   description: "Everything about rockee plus",
   actions: [
-    // executeSwap,
-    // executeSwapByAddress,
-    // sendTokenBySymbol,
-    // checkTxhashOnSui,
-    // projectInfo,
-    // topDexInfo,
-    // suiTokenPriceBySymbol,
-    // suiTokenPriceByAddress,
     topMeme,
     topDefi,
     trendingTokens,
     topNewMemeToken,
     topNftInfos,
-    topMemeByHolders
 ],
   evaluators: [],
   providers: []
