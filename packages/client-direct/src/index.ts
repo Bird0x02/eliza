@@ -285,12 +285,12 @@ export class DirectClient {
                 elizaLogger.info(JSON.stringify(memory));
                 elizaLogger.info("---------------------");
 
-                elizaLogger.info("addEmbeddingToMemory...");
-                await runtime.messageManager.addEmbeddingToMemory(memory);
-                elizaLogger.info("addEmbeddingToMemory ...done >>>");
-                elizaLogger.info("---memory sniffer 2 ----");
-                elizaLogger.info(JSON.stringify(memory));
-                elizaLogger.info("---------------------");
+                // elizaLogger.info("addEmbeddingToMemory...");
+                // await runtime.messageManager.addEmbeddingToMemory(memory);
+                // elizaLogger.info("addEmbeddingToMemory ...done >>>");
+                // elizaLogger.info("---memory sniffer 2 ----");
+                // elizaLogger.info(JSON.stringify(memory));
+                // elizaLogger.info("---------------------");
 
                 elizaLogger.info("createMemory ...");
                 await runtime.messageManager.createMemory(memory);
