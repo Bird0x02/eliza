@@ -367,14 +367,13 @@ export async function generateText({
         return "";
     }
 
-    elizaLogger.info("Generating text...");
-
     elizaLogger.info("Generating text with options:", {
         modelProvider: runtime.modelProvider,
         model: modelClass,
         verifiableInference,
     });
     elizaLogger.info("Using provider:", runtime.modelProvider);
+
     // If verifiable inference is requested and adapter is provided, use it
     if (verifiableInference && runtime.verifiableInferenceAdapter) {
         elizaLogger.info(
@@ -404,7 +403,7 @@ export async function generateText({
     }
 
     const provider = runtime.modelProvider;
-    elizaLogger.debug("Provider settings:", {
+    elizaLogger.info("Provider settings:", {
         provider,
         hasRuntime: !!runtime,
         runtimeSettings: {
@@ -418,8 +417,7 @@ export async function generateText({
         },
     });
 
-    const endpoint =
-        runtime.character.modelEndpointOverride || getEndpoint(provider);
+    const endpoint = runtime.character.modelEndpointOverride || getEndpoint(provider);
     const modelSettings = getModelSettings(runtime.modelProvider, modelClass);
     let model = modelSettings.name;
 
@@ -511,16 +509,14 @@ export async function generateText({
     const apiKey = runtime.token;
 
     try {
-        elizaLogger.debug(
-            `Trimming context to max length of ${max_context_length} tokens.`
-        );
-
+        elizaLogger.info(`Trimming context to max length of ${max_context_length} tokens.`);
         context = await trimTokens(context, max_context_length, runtime);
+        elizaLogger.info(`Trimming context to max length of ${max_context_length} tokens ---> done!`);
 
         let response: string;
 
         const _stop = stop || modelSettings.stop;
-        elizaLogger.debug(
+        elizaLogger.info(
             `Using provider: ${provider}, model: ${model}, temperature: ${temperature}, max response length: ${max_response_length}`
         );
 
@@ -536,18 +532,19 @@ export async function generateText({
             case ModelProviderName.NINETEEN_AI:
             case ModelProviderName.AKASH_CHAT_API:
             case ModelProviderName.LMSTUDIO: {
-                elizaLogger.debug(
+                elizaLogger.info(
                     "Initializing OpenAI model with Cloudflare check"
                 );
                 const baseURL =
                     getCloudflareGatewayBaseURL(runtime, "openai") || endpoint;
 
-                //elizaLogger.debug("OpenAI baseURL result:", { baseURL });
+                elizaLogger.info("OpenAI baseURL result:", { baseURL });
                 const openai = createOpenAI({
                     apiKey,
                     baseURL,
                     fetch: runtime.fetch,
                 });
+                elizaLogger.info("calling ai...");
                 const { text: openaiResponse } = await aiGenerateText({
                     model: openai.languageModel(model),
                     prompt: context,
@@ -566,12 +563,12 @@ export async function generateText({
                 });
 
                 response = openaiResponse;
-                console.log("Received response from OpenAI model.");
+                elizaLogger.info("calling ai...done!");
                 break;
             }
 
             case ModelProviderName.ETERNALAI: {
-                elizaLogger.debug("Initializing EternalAI model.");
+                elizaLogger.info("Initializing EternalAI model.");
                 const openai = createOpenAI({
                     apiKey,
                     baseURL: endpoint,
@@ -1593,7 +1590,8 @@ export async function generateMessageResponse({
     // context = await trimTokens(context, max_context_length, runtime);
     // elizaLogger.info("trimTokens...done!");
 
-    elizaLogger.debug("Context:", context);
+    elizaLogger.info("Context:", context);
+
     let retryLength = 1000; // exponential backoff
     while (true) {
         try {
