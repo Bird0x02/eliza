@@ -1250,7 +1250,6 @@ export class AgentRuntime implements IAgentRuntime {
         additionalKeys: { [key: string]: unknown } = {},
     ) {
         const { userId, roomId } = message;
-        elizaLogger.info("initStated->start")
         // const conversationLength = this.getConversationLength();
         const [actorsData, recentMessagesData, goalsData]: [
             Actor[],

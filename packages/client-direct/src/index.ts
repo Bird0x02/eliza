@@ -281,15 +281,16 @@ export class DirectClient {
                     content,
                     createdAt: Date.now(),
                 };
-                elizaLogger.info("---msg sniffer start ----");
+                elizaLogger.info("---memory sniffer 1 ----");
                 elizaLogger.info(JSON.stringify(memory));
-                elizaLogger.info("---msg sniffer end ----");
+                elizaLogger.info("---------------------");
 
-                elizaLogger.info("Validate ... done!");
-
-                elizaLogger.info("addEmbeddingToMemory...");
-                await runtime.messageManager.addEmbeddingToMemory(memory);
-                elizaLogger.info("addEmbeddingToMemory ...done!");
+                // elizaLogger.info("addEmbeddingToMemory...");
+                // await runtime.messageManager.addEmbeddingToMemory(memory);
+                // elizaLogger.info("addEmbeddingToMemory ...done >>>");
+                // elizaLogger.info("---memory sniffer 2 ----");
+                // elizaLogger.info(JSON.stringify(memory));
+                // elizaLogger.info("---------------------");
 
                 elizaLogger.info("createMemory ...");
                 await runtime.messageManager.createMemory(memory);
@@ -306,14 +307,14 @@ export class DirectClient {
                 let response: Content = await runtime.cacheManager.get(msgHash);
 
                 if(!response){
-                    elizaLogger.info("ai compose response ...");
+                    elizaLogger.info("ai compose text ...");
                     const context = composeContext({
                         state,
                         template: messageHandlerTemplate,
                     });
-                    elizaLogger.info("ai compose response ...done!");
+                    elizaLogger.info("ai compose text ...done!");
 
-                    console.info(">>> context: ",context)
+                    console.info("------ context >>>> ",context)
 
                     elizaLogger.info("ai compose response ...");
                     response = await generateMessageResponse({
