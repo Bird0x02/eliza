@@ -134,10 +134,7 @@ export const projectInfo: Action = {
         //     modelClass: ModelClass.SMALL,
         // })
         elizaLogger.info("content: ",content);
-        content = {
-            project_name:null,
-            token_symbol:"ROCK"}
-        elizaLogger.info("hello",{project_name:null, token_symbol:"ROCK"})
+
         const projectObj = await searchProjectInFileJson(content.project_name?content.project_name:content.token_symbol);
         console.log("projectObj", projectObj)
         const tokenObject = await findByVerifiedAndName(content.project_name?content.project_name:content.token_symbol);
