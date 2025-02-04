@@ -2,7 +2,7 @@
     "name": "Rockee AI Agent(Plus Version)",
     "clients": ["direct"],
     "modelProvider": "groq",
-    "plugins": ["@elizaos/plugin-rockee-plus"],
+    "plugins": ["@elizaos/plugin-rockee-plus","@elizaos/plugin-rockee-standard"],
 
     "settings": {
         "languages": ["en", "vi", "es", "fr", "de"],

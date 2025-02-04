@@ -15,7 +15,7 @@ import {
 // import { hashUserMsg } from "../utils/format";
 // import { getTopDexOnSuiScan } from "../providers/getTopDexOnSuiScan";
 // import {RedisClient} from "@elizaos/adapter-redis"
-import SuiOnChainProvider from "../providers/fetchSuiChain.ts/Nft";
+import SuiOnChainProvider from "../providers/fetchSuiChain/suiOnChainProvider";
 import getActionHint from "../utils/action_hint";
 export interface InfoContent extends Content {
     coin_symbol: string;

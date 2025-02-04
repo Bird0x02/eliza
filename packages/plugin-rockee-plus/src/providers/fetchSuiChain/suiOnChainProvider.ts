@@ -36,6 +36,20 @@ export class SuiOnChainProvider {
       throw new Error("Failed to fetch market data");
     }
   }
+  async fetchHolders(
+    types:string[])
+    {
+    try {
+        const requests = types.map(type =>
+            this.axiosInstance.get(`/${type}`)
+          );
+          const responses = await Promise.all(requests);
+          return responses.map(response => response.data)
+    } catch (error) {
+      console.error("Error fetching market data:", error);
+      throw new Error("Failed to fetch market data");
+    }
+  }
 
 
 }

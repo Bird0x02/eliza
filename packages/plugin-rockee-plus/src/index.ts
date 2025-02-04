@@ -13,28 +13,30 @@ import { trendingTokens } from './actions/trendingTokens';
 import { topNewMemeToken } from './actions/topNewMemeToken';
 import { cronTopDexProvider } from './providers/topDex';
 import { topNftInfos } from './actions/topNft';
+import { topMemeByHolders } from './actions/topMemeCoinByHolders';
 
-const suimarketPlugin: Plugin = {
-  name: "suimarketPlugin",
-  description: "Everything about Sui blockchain",
+const rockeePlusPlugin: Plugin = {
+  name: "rockeePlusPlugin",
+  description: "Everything about rockee plus",
   actions: [
-    executeSwap,
-    executeSwapByAddress,
-    sendTokenBySymbol,
-    checkTxhashOnSui,
-    projectInfo,
-    topDexInfo,
-    suiTokenPriceBySymbol,
-    suiTokenPriceByAddress,
+    // executeSwap,
+    // executeSwapByAddress,
+    // sendTokenBySymbol,
+    // checkTxhashOnSui,
+    // projectInfo,
+    // topDexInfo,
+    // suiTokenPriceBySymbol,
+    // suiTokenPriceByAddress,
     topMeme,
     topDefi,
     trendingTokens,
     topNewMemeToken,
-    topNftInfos
+    topNftInfos,
+    topMemeByHolders
 ],
   evaluators: [],
   providers: []
 };
 
-export default suimarketPlugin;
-export {suimarketPlugin as suimarketPlugin };
+export default rockeePlusPlugin;
+// export {suimarketPlugin as suimarketPlugin };
