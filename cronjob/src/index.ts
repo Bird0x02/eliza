@@ -11,15 +11,12 @@ const jobQueue = new JobQueue(QUEUE_NAME, REDIS_URL);
 
 const scheduledJobs = [
     { jobName: "fetchSuiDex", data:{}, cron: "*/5 * * * *" }, // run 5 min
-
 ];
-
 (async () => {
     for (const job of scheduledJobs) {
         await jobQueue.addJob(job.jobName, job.data, { repeat: { cron: job.cron } });
     }
 })();
-
 const worker = new JobWorker(QUEUE_NAME, REDIS_URL);
 
 worker.registerJob("fetchSuiDex", fetchTopDexByNetwork);

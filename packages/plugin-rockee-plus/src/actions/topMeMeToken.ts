@@ -113,11 +113,11 @@ export const topMeme: Action = {
             }
         }
         else{
-            const projectInfos = await searchCategoriesInFileJson("Meme");
-            const projectType = await findTypesBySymbols(projectInfos);
-            const suiOnChainProvider = new SuiOnChainProvider()
-            const dataResponse = await suiOnChainProvider.fetchHolders(projectType.slice(0,content.size));
             try {
+                const projectInfos = await searchCategoriesInFileJson("Meme");
+                const projectType = await findTypesBySymbols(projectInfos);
+                const suiOnChainProvider = new SuiOnChainProvider()
+                const dataResponse = await suiOnChainProvider.fetchHolders(projectType.slice(0,content.size));
                 callback({
                    text:`Here are the top Meme tokens by holders:`,
                    action:"TOP_MEME_BY_HOLDERS",

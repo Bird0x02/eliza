@@ -8,3 +8,4 @@
 /generatedImages
 !src/utils/*
 !src/services/*
+certificate.json
