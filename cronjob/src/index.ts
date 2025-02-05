@@ -24,4 +24,4 @@ const worker = new JobWorker(QUEUE_NAME, REDIS_URL);
 
 worker.registerJob("fetchSuiDex", fetchTopDexByNetwork);
 
-console.log("🚀 Worker & Scheduler running...");
+elizaLogger.info("🚀 Worker & Scheduler running...");
