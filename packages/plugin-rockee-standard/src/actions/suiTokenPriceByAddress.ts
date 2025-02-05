@@ -27,30 +27,21 @@ Example response:
     }
     \`\`\`
 {{recentMessages}}
-Extract ONLY from the current message (ignore any previous context or messages):
 
 Given the recent messages, extract the following information:
 
 token_address:
-    Recognizes that token_address is a unique contract identifier on the blockchain (e.g., 0x...::token_name::TOKEN_NAME).
+    Recognizes that token_address is a unique contract identifier on the blockchain (e.g., 0x...::module::TOKEN_NAME).
     Extract the full contract address of the token.
     Must be a string.
     Include the module and token name if present.
     Default is null if not specified.
-
-VALIDATION RULES:
-
-    All property names must use double quotes
-    All string values must use double quotes
-    null values should not use quotes
-    No trailing commas allowed
-    No single quotes anywhere in the JSON
-    Respond with a JSON markdown block containing only the extracted values.`
+`
 
 export const suiTokenPriceByAddress: Action = {
     name: "TOKEN_PRICE_INFO_BY_ADDRESS",
 
-    description: "pRICE OF TOKEN address ON sui",
+    description: "price of token address on sui",
 
     similes: [
         "{INPUT}_PRICE",
@@ -76,7 +67,7 @@ export const suiTokenPriceByAddress: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    text:"0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT price"
+                    "text": "0x94e7a8e71830d2b34b3edaa195dc24c45d142584f06fa257b73af753d766e690::celer_wbtc_coin::CELER_WBTC_COIN price"
                 }
             },
             {
@@ -84,8 +75,8 @@ export const suiTokenPriceByAddress: Action = {
                 "content": {
                     "text": "price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
-                    "params":{
-                        "token_address": "0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
+                    "params": {
+                        "token_address": "0x94e7a8e71830d2b34b3edaa195dc24c45d142584f06fa257b73af753d766e690::celer_wbtc_coin::CELER_WBTC_COIN"
                     }
                 }
             }
@@ -94,20 +85,21 @@ export const suiTokenPriceByAddress: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    text:"price 0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
+                    "text": "price 0x94e7a8e71830d2b34b3edaa195dc24c45d142584f06fa257b73af753d766e690::celer_wbtc_coin::CELER_WBTC_COIN"
                 }
             },
             {
                 "user": "{{user2}}",
                 "content": {
-                    "text": "price",
+                    "text": "price {TOKEN_ADDRESS}",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
-                    "params":{
-                        "token_address": "0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
+                    "params": {
+                        "token_address": "{TOKEN_ADDRESS}"
                     }
                 }
             }
-        ],
+        ]
+
 
     ],
 
@@ -129,14 +121,14 @@ export const suiTokenPriceByAddress: Action = {
         } else {
             state = await runtime.updateRecentMessageState(state);
         }
-        const searchSuiTokenSymbolPromptTemplateContext = composeContext({
+        const tokenPricePromptTemplateContext = composeContext({
             state,
             template: promptSuiTokenInfoTemplate,
         });
         // Generate transfer content
         const content = await generateObjectDeprecated({
             runtime,
-            context: searchSuiTokenSymbolPromptTemplateContext,
+            context: tokenPricePromptTemplateContext,
             modelClass: ModelClass.SMALL,
         })
         elizaLogger.info("content: ",content);

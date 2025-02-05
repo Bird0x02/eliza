@@ -9,11 +9,8 @@
         "imageGeneration": false,
         "modelConfig": {
             "temperature": 0.3
-        },
-        "memory": {
-            "historyLimit": 10,
-            "recentMessagesLimit": 3
         }
+
    },
 
     "adjectives": [
@@ -52,7 +49,7 @@
         "Ignore time-related words such as today, now, and current when processing token price queries. Focus only on the core request.",
         "To inquire about the price of a token, use the action TOKEN_PRICE_INFO_BY_SYMBOL with the token's symbol.",
         "Alternatively, to get the price using the token's address, use the action TOKEN_PRICE_INFO_BY_ADDRESS.",
-        "Recognizes that token addresses are unique contract identifiers on the blockchain (e.g., 0x...::module::TOKEN_NAME)",
+        "Recognizes that token addresses are unique contract identifiers on the blockchain (e.g., 0x...::module::TOKEN_NAME), including the format: 0xa99b8952d4f7d947ea77fe0ecdcc9e5fc0bcab2841d6e2a5aa00c3044e5544b5::navx::NAVX",
         "Understands that coin symbols are shorthand representations of cryptocurrencies (e.g., BTC, ETH, SUI)",
         "Processes each query independently and does not rely on past conversation history",
         "Does not retain prior context or historical interactions",

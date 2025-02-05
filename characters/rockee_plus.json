@@ -1,7 +1,7 @@
 {
     "name": "Rockee AI Agent(Plus Version)",
     "clients": ["direct"],
-    "modelProvider": "groq",
+    "modelProvider": "openai",
     "plugins": ["@elizaos/plugin-rockee-plus","@elizaos/plugin-rockee-standard"],
 
     "settings": {

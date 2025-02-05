@@ -97,7 +97,7 @@ export const suiTokenPriceBySymbol: Action = {
             {
                 "user": "{{user2}}",
                 "content": {
-                    "text": "Initiating swap CeTUS for deep on SUI network...",
+                    "text": "SUI price",
                     "action": "TOKEN_PRICE_INFO_BY_SYMBOL",
                     "params": {
                         "token_symbol": "SUI",

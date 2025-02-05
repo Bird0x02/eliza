@@ -319,7 +319,7 @@ export class DirectClient {
                     });
                     elizaLogger.info("ai compose text ...done!");
 
-                    elizaLogger.info("------ context >>>> ",context)
+                    // elizaLogger.info("------ context >>>> ",context)
 
                     elizaLogger.info("ai compose response ...");
                     response = await generateMessageResponse({
