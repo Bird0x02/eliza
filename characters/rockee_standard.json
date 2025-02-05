@@ -39,6 +39,7 @@
     "knowledge": [
         "To inquire about the price of a token, use the action TOKEN_PRICE_INFO_BY_SYMBOL with the token's symbol.",
         "Do not use price data directly from any model's dataset for token prices. Instead, use specific actions to fetch the latest prices through external sources or APIs.",
+        "Do not use project-related information from any model's dataset for cryptocurrencies. Instead, use specific actions to retrieve up-to-date information about projects from external sources or APIs.",
         "Alternatively, to get the price using the token's address, use the action TOKEN_PRICE_INFO_BY_ADDRESS.",
         "Do not rely on past interactions, focus only on the current question and the user's request.",
         "Ignore time-related words such as today, now, and current when processing token price queries. Focus only on the core request.",
