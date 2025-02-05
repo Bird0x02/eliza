@@ -124,19 +124,19 @@ export const executeSwapByAddress: Action = {
         }
     },
     examples: [
-        [
 
+        [
+            {
+                user: "{{user1}}",
+                content: {
+                    text:"Swap 10 0x2::sui::SUI to 0x4fb3c0f9e62b5d3956e2f0e284f2a5d128954750b109203a0f34c92c6ba21247::coin::USDT"
+                }
+            },
             {
                 user: "{{user2}}",
                 content: {
-                    text: "Initiating swap of 10 SUI for USDT on SUI network...",
-                    action: "SUI_EXECUTE_SWAP_BY_SYMBOL",
-                    params: {
-                        inputType: "0x2::sui::SUI",
-                        outputType: "0x4fb3c0f9e62b5d3956e2f0e284f2a5d128954750b109203a0f34c92c6ba21247::coin::USDT",
-                        amount: "10000000000", // Amount in base units
-                        slippageBps: 50
-                    }
+                    text: "Initiating swap of 10 0x2::sui::SUI for 0x4fb3c0f9e62b5d3956e2f0e284f2a5d128954750b109203a0f34c92c6ba21247::coin::USDT on SUI network...",
+                    action: "SUI_EXECUTE_SWAP_BY_ADDRESS",
                 }
             }
         ]

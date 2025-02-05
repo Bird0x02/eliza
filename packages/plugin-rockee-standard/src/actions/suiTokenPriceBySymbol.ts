@@ -46,7 +46,7 @@ Respond with a JSON markdown block containing only the extracted values.`
 export const suiTokenPriceBySymbol: Action = {
     name: "TOKEN_PRICE_INFO_BY_SYMBOL",
 
-    description: "pRICE OF TOKEN symbol ON sui",
+    description: "price of token on sui",
 
     similes: [
         "{INPUT}_PRICE",

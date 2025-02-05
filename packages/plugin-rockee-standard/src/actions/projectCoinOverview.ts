@@ -29,7 +29,10 @@ Example response:
 }
     \`\`\`
 Recent messages:  {{recentMessages}}
-Extract ONLY from the current message (ignore any previous context or messages):
+The following are project names within the Sui Network: Cetus, NAVI, DeepBook, Walrus, BIRDS, FanTV, Wave, 7K, Haedal, Aftermath, Bluefin, BlueMove, Turbos, Hop Aggregator, Bucket Protocol, Scallop, Memefi, Tradeport, SuiNS, Suilend, SuiPlay, RaidenX, Typus Finance, Kriya, FlowX, Sudo Finance, AlphaFi, Kai Finance, Strater, Volo, Suiet, Ethos Wallet, Surf Wallet, Nightly, Martian Wallet, Stashed, Suia, SeaPad, DARKTIMES, Cosmocadia, Panzerdogs, MotoDEX, Capybara, Sacabam, SuDeng, Blub, Fud the Pug, Suiman, Suipad, Rockee AI, Sui, Lofi, Sui Agents, SuiAI, AXOL, Agent S, LumiWave, Bucket, Rockee. All project names are recognized regardless of case format.
+
+The following are token symbols within the Sui Network: SUI, NS, kSUI, WBNB, USDY, CAPO, SEND, USDT, DEEP, FLX, ALPHA, SPAM, FDUSD, AFSUI, WETH, SPT, SUIP, HOPI, CETUS, MOVE, wUSDC, WFTM, ARTFI, SOL, USDC, haSUI, PIGU, PRH, FUD, AXOL, SCB, KOTO, JWLSUI, BLUB, AUSD, TYPUS, ETH, SCA, vSUI, SSWP, sSUI, stSUI, SUIA, SCUBA, Chad, WMATIC, NAVX, BLUE, PDO, OINK, HSUI, TURBOS, BUCK, WBTC, WAVAX, APT, REAP, PSH, ROCK. All token symbols are recognized regardless of case format.
+
 VALIDATION RULES:
     All property names must use double quotes
     All string values must use double quotes
@@ -82,6 +85,30 @@ export const projectInfo: Action = {
                     }
                 }
             }
+        ],
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    "text": "project overview CetUS?",
+                    "action": "PROJECT_OVERVIEW",
+                    "params": {
+                        "project_name": "Cetus",
+                        "token_symbol": "cetus"
+                    }
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "overview CetUS",
+                    "action": "PROJECT_OVERVIEW",
+                    "params": {
+                        "project_name": "Cetus",
+                        "token_symbol": "cetus"
+                    }
+                }
+            }
         ]
 
     ],
@@ -119,6 +146,7 @@ export const projectInfo: Action = {
                 state,
                 template: projectInfoTemplate,
             })
+            elizaLogger.info("projectInfoContext: ",projectInfoContext);
             content = await generateObjectDeprecated({
                 runtime,
                 context: projectInfoContext,
@@ -133,8 +161,7 @@ export const projectInfo: Action = {
         //     context: projectPromptTemplateContext,
         //     modelClass: ModelClass.SMALL,
         // })
-        elizaLogger.info("content: ",content);
-        elizaLogger.info("content: ",content.project_name?content.project_name:content.token_symbol);
+
         const projectObj = await searchProjectInFileJson(content.project_name && content.project_name!=="null" ?content.project_name:content.token_symbol);
         console.log("projectObj", projectObj)
         const tokenObject = await findByVerifiedAndName(content.project_name && content.project_name!=="null" ?content.project_name:content.token_symbol);

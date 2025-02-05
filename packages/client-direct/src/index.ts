@@ -104,7 +104,7 @@ export const messageHandlerTemplate =
 # Action Examples
 {{actionExamples}}
 (Action examples are for reference only. Do not use the information from them in your response.)
-    # Knowledge
+# Knowledge
 {{knowledge}}
 
 # Task: Generate dialog and actions for the character {{agentName}}.
@@ -319,7 +319,7 @@ export class DirectClient {
                     });
                     elizaLogger.info("ai compose text ...done!");
 
-                    // elizaLogger.info("------ context >>>> ",context)
+                    elizaLogger.info("------ context >>>> ",context)
 
                     elizaLogger.info("ai compose response ...");
                     response = await generateMessageResponse({

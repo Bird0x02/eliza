@@ -125,7 +125,7 @@ export const checkTxhashOnSui: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    "txHash": "9XbGmKRrX2cYeHiY4LJDdHNY77c3MzBrMKpxz3F5BV2E"
+                    "text": "check txhash 9XbGmKRrX2cYeHiY4LJDdHNY77c3MzBrMKpxz3F5BV2E"
                 }
             },
             {

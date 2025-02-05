@@ -135,21 +135,14 @@ export const sendTokenBySymbol: Action = {
             {
                 user: "{{user1}}",
                 content: {
-                    "amount": 10.5,
-                    "tokenSymbol": "UNI",
-                    "destinationAddress": "0xa3b1c5d6e7f8g9h0i1j2k3l4m5n6o7p8q9r0"
+                    text:"Send 10 UNI to 0xa3b1c5d6e7f8g9h0i1j2k3l4m5n6o7p8q9r0"
                 }
             },
             {
                 user: "{{user2}}",
                 content: {
-                    text: "Send 10 UNI to 0xa3b1c5d6e7f8g9h0i1j2k3l4m5n6o7p8q9r0",
-                    action: "SUI_EXECUTE_SWAP_BY_SYMBOL",
-                    params: {
-                        "amount": 10.5,
-                        "tokenSymbol": "UNI",
-                        "destinationAddress": "0xa3b1c5d6e7f8g9h0i1j2k3l4m5n6o7p8q9r0"
-                    }
+                    text: "Initiating swap of 10 0x2::sui::SUI for 0x4fb3c0f9e62b5d3956e2f0e284f2a5d128954750b109203a0f34c92c6ba21247::coin::USDT on SUI network...",
+                    action: "SUI_SEND_TOKEN_BY_SYMBOL",
                 }
             }
         ]

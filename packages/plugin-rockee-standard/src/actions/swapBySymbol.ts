@@ -112,9 +112,7 @@ export const executeSwap: Action = {
             {
                 user: "{{user1}}",
                 content: {
-                    inputTokenSymbol: "SUI",
-                    outputTokenSymbol: "USDT",
-                    amount: 10,
+                    text:"Swap 10 SUI to USDC"
                 }
             },
             {
@@ -134,9 +132,7 @@ export const executeSwap: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    "inputTokenSymbol": "CETUS",
-                    "outputTokenSymbol": "DEEP",
-                    "amount": 0
+                    text:"Swap SUI to USDC"
                 }
             },
             {
@@ -145,8 +141,8 @@ export const executeSwap: Action = {
                     "text": "Initiating swap CeTUS for deep on SUI network...",
                     "action": "SUI_EXECUTE_SWAP_BY_SYMBOL",
                     "params": {
-                        "inputTokenSymbol": "CeTUS",
-                        "outputTokenSymbol": "deep",
+                        "inputTokenSymbol": "SUI",
+                        "outputTokenSymbol": "USDC",
                         "amount": "0"
                     }
                 }
