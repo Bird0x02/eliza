@@ -105,6 +105,8 @@ export const messageHandlerTemplate =
 
 # Task: Generate dialog and actions for the character {{agentName}}.
 About {{agentName}}:
+{{bio}}
+{{lore}}
 
 # Capabilities
 Note that {{agentName}} is capable of reading/seeing/hearing plaintext only.
@@ -314,7 +316,7 @@ export class DirectClient {
                     });
                     elizaLogger.info("ai compose text ...done!");
 
-                    console.info("------ context >>>> ",context)
+                    elizaLogger.info("------ context >>>> ",context)
 
                     elizaLogger.info("ai compose response ...");
                     response = await generateMessageResponse({
