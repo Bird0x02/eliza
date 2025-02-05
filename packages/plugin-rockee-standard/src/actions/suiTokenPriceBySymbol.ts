@@ -67,7 +67,44 @@ export const suiTokenPriceBySymbol: Action = {
         "{INPUT}_WORTH",
       ],
 
-    examples: [],
+    examples: [
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    text:"SUI price"
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "SUI price",
+                    "action": "TOKEN_PRICE_INFO_BY_SYMBOL",
+                    "params": {
+                        "token_symbol": "SUI",
+                    }
+                }
+            }
+        ],
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    text:"price SUI"
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "Initiating swap CeTUS for deep on SUI network...",
+                    "action": "TOKEN_PRICE_INFO_BY_SYMBOL",
+                    "params": {
+                        "token_symbol": "SUI",
+                    }
+                }
+            }
+        ],
+    ],
 
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
         return true;

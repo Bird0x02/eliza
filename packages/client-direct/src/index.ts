@@ -100,7 +100,11 @@ Note that {{agentName}} is capable of reading/seeing/hearing various forms of me
 
 export const messageHandlerTemplate =
     // {{goals}}
-    `# Knowledge
+    `
+# Action Examples
+{{actionExamples}}
+(Action examples are for reference only. Do not use the information from them in your response.)
+    # Knowledge
 {{knowledge}}
 
 # Task: Generate dialog and actions for the character {{agentName}}.

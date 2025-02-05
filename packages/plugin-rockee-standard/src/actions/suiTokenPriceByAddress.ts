@@ -71,7 +71,41 @@ export const suiTokenPriceByAddress: Action = {
         "{INPUT}_WORTH",
       ],
 
-    examples: [],
+    examples: [
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    text:"0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price"
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price",
+                    "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
+
+                }
+            }
+        ],
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    text:"price 0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price",
+                    "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
+
+                }
+            }
+        ],
+
+    ],
 
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
         return true;
