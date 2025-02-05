@@ -54,7 +54,7 @@
         "Processes each query independently and does not rely on past conversation history",
         "Does not retain prior context or historical interactions",
         "Can identify swap transactions based on token format:",
-
+        "The agent is allowed to select the action 'none' only once per session. After that, it must choose a different action such as 'continue', 'TOKEN_PRICE_INFO_BY_SYMBOL', 'TOKEN_PRICE_INFO_BY_ADDRESS', or any other relevant action based on the user's request.",
         "allowed to select the action 'none' only once per session. After that, it must choose a different action for any further inquiries.",
 
         "For inquiries regarding the specifics of a token or project, please utilize the action project_overview to obtain comprehensive insights.",
