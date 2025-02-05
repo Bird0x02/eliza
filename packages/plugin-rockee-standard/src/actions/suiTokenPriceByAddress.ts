@@ -32,20 +32,20 @@ Extract ONLY from the current message (ignore any previous context or messages):
 Given the recent messages, extract the following information:
 
 token_address:
-Recognizes that token_address are unique contract identifiers on the blockchain (e.g., 0x...::module::TOKEN_NAME)
-Full contract address of the token
-Must be a string
-Include module and token name if present
-Default is null if not specified
+    Recognizes that token_address is a unique contract identifier on the blockchain (e.g., 0x...::token_name::TOKEN_NAME).
+    Extract the full contract address of the token.
+    Must be a string.
+    Include the module and token name if present.
+    Default is null if not specified.
 
 VALIDATION RULES:
 
-All property names must use double quotes
-All string values must use double quotes
-null values should not use quotes
-No trailing commas allowed
-No single quotes anywhere in the JSON
-Respond with a JSON markdown block containing only the extracted values.`
+    All property names must use double quotes
+    All string values must use double quotes
+    null values should not use quotes
+    No trailing commas allowed
+    No single quotes anywhere in the JSON
+    Respond with a JSON markdown block containing only the extracted values.`
 
 export const suiTokenPriceByAddress: Action = {
     name: "TOKEN_PRICE_INFO_BY_ADDRESS",
@@ -76,16 +76,16 @@ export const suiTokenPriceByAddress: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    text:"0x...::module::TOKEN_NAME price"
+                    text:"0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT price"
                 }
             },
             {
                 "user": "{{user2}}",
                 "content": {
-                    "text": "0x...::module::TOKEN_NAME price",
+                    "text": "price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
                     "params":{
-                        "token_address": "0x...::module::TOKEN_NAME"
+                        "token_address": "0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
                     }
                 }
             }
@@ -94,16 +94,16 @@ export const suiTokenPriceByAddress: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    text:"price 0x...::module::TOKEN_NAME"
+                    text:"price 0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
                 }
             },
             {
                 "user": "{{user2}}",
                 "content": {
-                    "text": "0x...::module::TOKEN_NAME price",
+                    "text": "price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
                     "params":{
-                        "token_address": "0x...::module::TOKEN_NAME"
+                        "token_address": "0x7123ef5ec546c363f270ef770472dfad231eeb86469a2d1fba566d6fd74cb9e1::craft::CRAFT"
                     }
                 }
             }

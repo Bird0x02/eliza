@@ -181,7 +181,7 @@ export function getEmbeddingZeroVector(): number[] {
 
 export async function embed(runtime: IAgentRuntime, input: string) {
 
-    return getEmbeddingZeroVector().slice();
+    // return getEmbeddingZeroVector().slice();
 
     elizaLogger.info("Embedding request:", {
         modelProvider: runtime.character.modelProvider,
