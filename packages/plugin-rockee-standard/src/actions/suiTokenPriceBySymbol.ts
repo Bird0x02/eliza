@@ -65,7 +65,7 @@ export const suiTokenPriceBySymbol: Action = {
         "CAN_YOU_TELL_ME_{INPUT}_PRICE",
         "WHAT_ABOUT_{INPUT}_RATE",
         "{INPUT}_WORTH",
-        
+
       ],
 
     examples: [
@@ -140,7 +140,6 @@ export const suiTokenPriceBySymbol: Action = {
         const tokenInfo = await findByVerifiedAndSymbol(content.token_symbol);
         const info = await getTokenOnSuiScan(tokenInfo.type);
 
-        console.log(info)
         if (callback) {
             callback({
                 text: `Here are the token prices:`,

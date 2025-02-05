@@ -141,7 +141,7 @@ export const suiTokenPriceByAddress: Action = {
         })
         elizaLogger.info("content: ",content);
         const info = await getTokenOnSuiScan(content.token_address);
-        console.log(info)
+
         if (callback) {
             callback({
                 text: `Here are the token prices:`,
