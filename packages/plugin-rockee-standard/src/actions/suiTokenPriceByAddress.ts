@@ -76,16 +76,16 @@ export const suiTokenPriceByAddress: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    text:"0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price"
+                    text:"0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::{TOKEN_SYMBOL}::{TOKEN_SYMBOL} price"
                 }
             },
             {
                 "user": "{{user2}}",
                 "content": {
-                    "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price",
+                    "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::{TOKEN_SYMBOL}::{TOKEN_SYMBOL} price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
                     "params":{
-                        "token_address": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
+                        "token_address": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::{TOKEN_SYMBOL}::{TOKEN_SYMBOL}"
                     }
                 }
             }
@@ -94,16 +94,16 @@ export const suiTokenPriceByAddress: Action = {
             {
                 "user": "{{user1}}",
                 "content": {
-                    text:"price 0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
+                    text:"price 0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::{TOKEN_SYMBOL}::{TOKEN_SYMBOL}"
                 }
             },
             {
                 "user": "{{user2}}",
                 "content": {
-                    "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price",
+                    "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::{TOKEN_SYMBOL}::{TOKEN_SYMBOL} price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
                     "params":{
-                        "token_address": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
+                        "token_address": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::{TOKEN_SYMBOL}::{TOKEN_SYMBOL}"
                     }
                 }
             }
