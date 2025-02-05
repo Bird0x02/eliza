@@ -65,6 +65,7 @@ export const suiTokenPriceBySymbol: Action = {
         "CAN_YOU_TELL_ME_{INPUT}_PRICE",
         "WHAT_ABOUT_{INPUT}_RATE",
         "{INPUT}_WORTH",
+        
       ],
 
     examples: [

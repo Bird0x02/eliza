@@ -32,7 +32,7 @@ Extract ONLY from the current message (ignore any previous context or messages):
 Given the recent messages, extract the following information:
 
 token_address:
-
+Recognizes that token_address are unique contract identifiers on the blockchain (e.g., 0x...::module::TOKEN_NAME)
 Full contract address of the token
 Must be a string
 Include module and token name if present
@@ -84,7 +84,9 @@ export const suiTokenPriceByAddress: Action = {
                 "content": {
                     "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
-
+                    "params":{
+                        "token_address": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
+                    }
                 }
             }
         ],
@@ -100,7 +102,9 @@ export const suiTokenPriceByAddress: Action = {
                 "content": {
                     "text": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB price",
                     "action": "TOKEN_PRICE_INFO_BY_ADDRESS",
-
+                    "params":{
+                        "token_address": "0xfa7ac3951fdca92c5200d468d31a365eb03b2be9936fde615e69f0c1274ad3a0::BLUB::BLUB"
+                    }
                 }
             }
         ],
