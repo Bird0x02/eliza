@@ -10,7 +10,7 @@ const files = [
 
 ];
 
-export const searchProjectInFileJson = async(name:string)=>{
+export const searchProjectInFileJson = async (name: string) => {
     const results = await Promise.all(
         files.map(async (file) => {
             try {
@@ -18,9 +18,10 @@ export const searchProjectInFileJson = async(name:string)=>{
                 const projects = JSON.parse(data);
 
                 const foundProject = projects.find(
-                    (project: { name: string }) => {
+                    (project: { name: string, symbol: string }) => {
                         return (
-                            (project.name && project.name.toLowerCase().includes(name.toLowerCase()) )
+                            (project.name && project.name.toLowerCase().includes(name.toLowerCase())) ||
+                            (project.symbol && project.symbol.toLowerCase().includes(name.toLowerCase()))
                         );
                     }
                 );
@@ -33,9 +34,9 @@ export const searchProjectInFileJson = async(name:string)=>{
         })
     );
 
-
     return results.find(result => result !== null) || null;
 }
+
 export const searchCategoriesInFileJson = async(nameCategories :string= "Meme")=>{
     const results = await Promise.all(
         files.map(async (file) => {

@@ -24,12 +24,12 @@ const projectInfoTemplate = `Respond with a JSON markdown block containing only 
 Example response:
     \`\`\`json
     {
-    "project_name": "Cetus" | null, // Project crypto  currency name
-    "token_symbol": "cetus" | null, // token symbol of crypto currency
+    "project_name": "Sui" | null, // Project crypto  currency name
+    "token_symbol": "sui" | null, // token symbol of crypto currency
 }
     \`\`\`
 Recent messages:  {{recentMessages}}
-The following are project names within the Sui Network: Cetus, NAVI, DeepBook, Walrus, BIRDS, FanTV, Wave, 7K, Haedal, Aftermath, Bluefin, BlueMove, Turbos, Hop Aggregator, Bucket Protocol, Scallop, Memefi, Tradeport, SuiNS, Suilend, SuiPlay, RaidenX, Typus Finance, Kriya, FlowX, Sudo Finance, AlphaFi, Kai Finance, Strater, Volo, Suiet, Ethos Wallet, Surf Wallet, Nightly, Martian Wallet, Stashed, Suia, SeaPad, DARKTIMES, Cosmocadia, Panzerdogs, MotoDEX, Capybara, Sacabam, SuDeng, Blub, Fud the Pug, Suiman, Suipad, Rockee AI, Sui, Lofi, Sui Agents, SuiAI, AXOL, Agent S, LumiWave, Bucket, Rockee. All project names are recognized regardless of case format.
+The following are project names within the Sui Network: SUI, Cetus, NAVI, DeepBook, Walrus, BIRDS, FanTV, Wave, 7K, Haedal, Aftermath, Bluefin, BlueMove, Turbos, Hop Aggregator, Bucket Protocol, Scallop, Memefi, Tradeport, SuiNS, Suilend, SuiPlay, RaidenX, Typus Finance, Kriya, FlowX, Sudo Finance, AlphaFi, Kai Finance, Strater, Volo, Suiet, Ethos Wallet, Surf Wallet, Nightly, Martian Wallet, Stashed, Suia, SeaPad, DARKTIMES, Cosmocadia, Panzerdogs, MotoDEX, Capybara, Sacabam, SuDeng, Blub, Fud the Pug, Suiman, Suipad, Rockee AI, Sui, Lofi, Sui Agents, SuiAI, AXOL, Agent S, LumiWave, Bucket, Rockee. All project names are recognized regardless of case format.
 
 The following are token symbols within the Sui Network: SUI, NS, kSUI, WBNB, USDY, CAPO, SEND, USDT, DEEP, FLX, ALPHA, SPAM, FDUSD, AFSUI, WETH, SPT, SUIP, HOPI, CETUS, MOVE, wUSDC, WFTM, ARTFI, SOL, USDC, haSUI, PIGU, PRH, FUD, AXOL, SCB, KOTO, JWLSUI, BLUB, AUSD, TYPUS, ETH, SCA, vSUI, SSWP, sSUI, stSUI, SUIA, SCUBA, Chad, WMATIC, NAVX, BLUE, PDO, OINK, HSUI, TURBOS, BUCK, WBTC, WAVAX, APT, REAP, PSH, ROCK. All token symbols are recognized regardless of case format.
 
@@ -68,10 +68,7 @@ export const projectInfo: Action = {
                 "content": {
                     "text": "What is the project overview of CetUS?",
                     "action": "PROJECT_OVERVIEW",
-                    "params": {
-                        "project_name": "Cetus",
-                        "token_symbol": "cetus"
-                    }
+
                 }
             },
             {
@@ -79,10 +76,7 @@ export const projectInfo: Action = {
                 "content": {
                     "text": "Can you provide an overview of the CetUS project?",
                     "action": "PROJECT_OVERVIEW",
-                    "params": {
-                        "project_name": "Cetus",
-                        "token_symbol": "cetus"
-                    }
+
                 }
             }
         ],
@@ -92,10 +86,7 @@ export const projectInfo: Action = {
                 "content": {
                     "text": "project overview CetUS?",
                     "action": "PROJECT_OVERVIEW",
-                    "params": {
-                        "project_name": "Cetus",
-                        "token_symbol": "cetus"
-                    }
+
                 }
             },
             {
@@ -103,14 +94,48 @@ export const projectInfo: Action = {
                 "content": {
                     "text": "overview CetUS",
                     "action": "PROJECT_OVERVIEW",
-                    "params": {
-                        "project_name": "Cetus",
-                        "token_symbol": "cetus"
-                    }
+
                 }
             }
         ]
+        ,
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    "text": "overview {TOKEN_SYMBOL}?",
+                    "action": "PROJECT_OVERVIEW",
 
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "overview {TOKEN_SYMBOL}}?",
+                    "action": "PROJECT_OVERVIEW",
+
+                }
+            }
+        ]
+        ,
+        [
+            {
+                "user": "{{user1}}",
+                "content": {
+                    "text": "overview {PROJECT_NAME}?",
+                    "action": "PROJECT_OVERVIEW",
+
+                }
+            },
+            {
+                "user": "{{user2}}",
+                "content": {
+                    "text": "overview {PROJECT_NAME}?",
+                    "action": "PROJECT_OVERVIEW",
+
+                }
+            }
+        ]
     ],
 
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
@@ -161,11 +186,9 @@ export const projectInfo: Action = {
         //     context: projectPromptTemplateContext,
         //     modelClass: ModelClass.SMALL,
         // })
-
+        elizaLogger.info("content:", content)
         const projectObj = await searchProjectInFileJson(content.project_name && content.project_name!=="null" ?content.project_name:content.token_symbol);
-        console.log("projectObj", projectObj)
         const tokenObject = await findByVerifiedAndName(content.project_name && content.project_name!=="null" ?content.project_name:content.token_symbol);
-        console.log("tokenObject", tokenObject)
 
         if(!projectObj){
             callback({
