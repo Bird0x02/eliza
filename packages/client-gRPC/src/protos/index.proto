@@ -1,0 +1,55 @@
+// grpc-library/src/protos/index.proto
+syntax = "proto3";
+
+package helloworld;
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc SayGoodbye (GoodbyeRequest) returns (GoodbyeReply);
+  rpc GetUserDetails (UserRequest) returns (UserResponse);
+  rpc sendMessage (SendMessageRequest) returns (SendMessageResponse);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+
+message GoodbyeRequest {
+  string name = 1;
+}
+
+message GoodbyeReply {
+  string message = 1;
+}
+
+message UserRequest {
+  int32 user_id = 1;
+}
+
+message UserResponse {
+  int32 user_id = 1;
+  string name = 2;
+  string email = 3;
+}
+message SendMessageRequest{
+    string agentId = 1
+    string roomId = 2
+    string text = 3
+    string attachments = 4
+    string userName = 5
+    string name = 6
+}
+message sendMessageResponseItem {
+  string user = 1;
+  string text = 2;
+  string action = 3;
+  string result = 4; //JSON string
+}
+
+message SendMessageResponse {
+  repeated ResponseItem responses = 1;
+}
