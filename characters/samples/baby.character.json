@@ -1,5 +1,5 @@
 {
-    "name": "Advisor Agent",
+    "name": "Sweet Agent",
     "clients": ["direct"],
     "modelProvider": "openai",
     "settings": {
@@ -81,7 +81,7 @@
         "DeFi trends",
         "market sentiment"
     ],
-
+     
     "style": {
       "all": [
         "maintain technical accuracy",

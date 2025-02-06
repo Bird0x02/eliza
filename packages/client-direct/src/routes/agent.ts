@@ -227,7 +227,11 @@ export default function createAgentRouter(
         }
     });
 
-    router.get("/agents/:agentId/:userId", async (req, res) => {
+    router.get("/:agentId/:userId", async (req, res) => {
+    })
+
+    router.get("/examples", async(req,res)=>{
+        
     })
     return router;
 }
