@@ -10,7 +10,7 @@ puppeteer.use(StealthPlugin());
 export const fetchTopDexByNetwork = async (job:any)  => {
 
     const browser = await puppeteer.launch({
-        headless: "new",
+        headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
@@ -26,6 +26,8 @@ export const fetchTopDexByNetwork = async (job:any)  => {
     } catch (error) {
         elizaLogger.info("❌ JSON:", error);
     }
-    await browser.close();
+    finally {
+        await browser.close(); // Đảm bảo luôn đóng trình duyệt
+    }
 
 }
