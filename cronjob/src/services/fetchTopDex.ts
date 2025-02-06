@@ -10,7 +10,7 @@ puppeteer.use(StealthPlugin());
 export const fetchTopDexByNetwork = async (job:any)  => {
 
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: "new",
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
