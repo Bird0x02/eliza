@@ -1,16 +1,61 @@
 {
-    "advisor":[
-        1
-
-    ],
-    "baby":[1],
-    "c3po":[],
-    "cosmosHelper":[],
-    "dobby":[],
-    "eternalai":[],
-    "lpmanager":[],
-    "portfolio":[],
-    "tate":[],
-    "trader":[],
-    "trading":[]
+    "advisor": {
+        "id": "1",
+        "name": "advisor",
+        "clone": [
+            1
+        ]
+    },
+    "baby": {
+        "id": "2",
+        "name": "baby",
+        "clone": [
+            1
+        ]
+    },
+    "c3po": {
+        "id": "3",
+        "name": "c3po",
+        "clone": []
+    },
+    "cosmosHelper": {
+        "id": "4",
+        "name": "cosmosHelper",
+        "clone": []
+    },
+    "dobby": {
+        "id": "5",
+        "name": "dobby",
+        "clone": []
+    },
+    "eternalai": {
+        "id": "6",
+        "name": "eternalai",
+        "clone": []
+    },
+    "lpmanager": {
+        "id": "7",
+        "name": "lpmanager",
+        "clone": []
+    },
+    "portfolio": {
+        "id": "8",
+        "name": "portfolio",
+        "clone": []
+    },
+    "tate": {
+        "id": "9",
+        "name": "tate",
+        "clone": []
+    },
+    "trader": {
+        "id": "10",
+        "name": "trader",
+        "clone": []
+    },
+    "trading": {
+        "id": "2",
+        "name": "baby",
+        "clone": []
+    }
 }

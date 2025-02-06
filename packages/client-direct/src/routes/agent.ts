@@ -13,6 +13,7 @@ import { REST, Routes } from "discord.js";
 import { DirectClient } from "../index";
 import { stringToUuid } from "@elizaos/core";
 // import authMiddleware from "../middleware/auth";
+import listCharactorExample from "../controllers/agentControllers/listCharactorExample"
 export default function createAgentRouter(
     agents: Map<string, AgentRuntime>,
     directClient: DirectClient
@@ -36,7 +37,7 @@ export default function createAgentRouter(
         }));
         res.json({ agents: agentsList });
     });
-
+    router.get("/examples", listCharactorExample)
     router.get("/:agentId", (req, res) => {
         const agentId = req.params.agentId;
         const agent = agents.get(agentId);
@@ -227,11 +228,5 @@ export default function createAgentRouter(
         }
     });
 
-    router.get("/:agentId/:userId", async (req, res) => {
-    })
-
-    router.get("/examples", async(req,res)=>{
-        
-    })
     return router;
 }
