@@ -1,34 +1,27 @@
-import { google } from "googleapis";
-import { GoogleAuth } from "google-auth-library";
 import * as fs from "fs";
+import * as xlsx from "xlsx";
 import { elizaLogger } from "@elizaos/core";
-const credentialsPath = "../certificate.json";
-const spreadsheetId = "12l01g0tP4qA7YdX4Bz5300aOgFakRsr1uTXl_0AVOHE"; // ID of Google Sheet
-const range = "Projects!A1:D10";
 
-async function readGoogleSheet(job:any): Promise<void> {
+const excelFilePath = "../data.xlsx";
+
+export default async function readExcelFile(job: any): Promise<void> {
   try {
-    if (!fs.existsSync(credentialsPath)) {
-      throw new Error("❌ File credentials không tồn tại.");
+
+    if (!fs.existsSync(excelFilePath)) {
+      throw new Error("❌ File Excel không tồn tại.");
     }
 
-    const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf-8"));
 
-    const auth: GoogleAuth = new google.auth.GoogleAuth({
-      credentials,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-    });
+    const workbook = xlsx.readFile(excelFilePath);
 
-    const sheets = google.sheets({ version: "v4", auth });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
 
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range,
-    });
 
-    elizaLogger.info("✅ Data of Google Sheets:", response.data.values);
+    const data = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+
+    elizaLogger.info("✅ Data of Excel Sheet:", data);
   } catch (error) {
-    elizaLogger.info("❌ Lỗi khi đọc Google Sheets:", error);
+    elizaLogger.info("❌ Lỗi khi đọc file Excel:", error);
   }
 }
-
