@@ -22,7 +22,7 @@ export const stakePoolsNavi: Action = {
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
         return true;
     },
-    description: "Perform a token swap.",
+    description: "List pools",
     handler: async (
         runtime: IAgentRuntime,
         message: Memory,

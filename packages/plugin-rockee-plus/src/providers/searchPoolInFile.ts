@@ -15,9 +15,9 @@ export const searchPoolInFileJson = async(name:string)=>{
         stake_pool_info.map(async (file) => {
             try {
                 const data = await fs.readFile(file, 'utf8');
-                const projects = JSON.parse(data);
+                const listPools = JSON.parse(data);
 
-                const foundProject = projects.find(
+                const foundPool = listPools.find(
                     (project: { name: string }) => {
                         return (
                             (project.name && project.name.toLowerCase().includes(name.toLowerCase()) )
@@ -25,15 +25,13 @@ export const searchPoolInFileJson = async(name:string)=>{
                     }
                 );
 
-                return foundProject || null;
+                return foundPool || null;
             } catch (err) {
                 console.error(`Error reading file ${file}:`, err);
                 return null;
             }
         })
     );
-
-
     return results.find(result => result !== null) || null;
 }
 export const listPoolsInFileJson = async()=>{

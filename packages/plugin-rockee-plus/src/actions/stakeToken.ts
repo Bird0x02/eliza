@@ -1,6 +1,7 @@
 import {
     ActionExample,
     composeContext,
+    elizaLogger,
     generateObjectDeprecated,
     HandlerCallback,
     IAgentRuntime,
@@ -11,10 +12,23 @@ import {
     type Action,
 } from "@elizaos/core";
 import getActionHint from "../utils/action_hint";
-import { listPoolsInFileJson } from "../providers/searchPoolInFile";
+import { searchPoolInFileJson } from "../providers/searchPoolInFile";
 // // import { RedisClient } from "@elizaos/adapter-redis";
-
-export const stakePoolsNavi: Action = {
+const stakeTokenTemplate = `
+Recent messages: {{recentMessages}}
+Extract the swap parameters from the conversation and wallet context above, follows these rules:
+Recognized Pools in NAVI: SUI, USDT, WETH, CETUS, VoloSui, HaedalSui, NAVX, WBTC, AUSD, wUSDC, nUSDC, ETH, USDY, NS, stBTC, DEEP, FDUSD, BLUE, BUCK, suiUSDT, stSUI, suiBTC.
+    - Return only a JSON object with the specified fields in thise format:
+        {
+            "pool_name": string | null,
+        }
+    - Use null for any values that cannot be determined.
+    - All property names must use double quotes
+    - Null values should not use quotes
+    - No trailing commas allowed
+    - No single quotes anywhere in the JSON
+`;
+export const stakeTokenPoolsNavi: Action = {
     name: "STAKE_TOKEN",
     similes: [
         "TOKEN_STAKE",
@@ -23,7 +37,7 @@ export const stakePoolsNavi: Action = {
     validate: async (_runtime: IAgentRuntime, _message: Memory) => {
         return true;
     },
-    description: "Perform a token swap.",
+    description: "Stake by token",
     handler: async (
         runtime: IAgentRuntime,
         message: Memory,
@@ -32,29 +46,30 @@ export const stakePoolsNavi: Action = {
         callback?: HandlerCallback
     ): Promise<boolean> => {
         // composeState
-        // if (!state) {
-        //     state = (await runtime.composeState(message)) as State;
-        // } else {
-        //     state = await runtime.updateRecentMessageState(state);
-        // }
+        if (!state) {
+            state = (await runtime.composeState(message)) as State;
+        } else {
+            state = await runtime.updateRecentMessageState(state);
+        }
 
-        // const swapContext = composeContext({
-        //     state,
-        //     template: swapTemplate,
-        // });
+        const stakeTokenContext = composeContext({
+            state,
+            template: stakeTokenTemplate,
+        });
 
-        // const content = await generateObjectDeprecated({
-        //     runtime,
-        //     context: swapContext,
-        //     modelClass: ModelClass.SMALL,
-        // });
-        let responseData = await listPoolsInFileJson();
+        const content = await generateObjectDeprecated({
+            runtime,
+            context: stakeTokenContext,
+            modelClass: ModelClass.SMALL,
+        });
+        elizaLogger.info("content:",content)
+        let responseData = await searchPoolInFileJson(content.pool_name);
         try {
             callback({
                text: "Below is a list of stake pools:",
-               action:"STAKE_POOLS",
+               action:"STAKE_TOKEN",
                result: {
-                type: "stake_pools",
+                type: "stake_token",
                 data:responseData,
                 action_hint:getActionHint()
 
@@ -69,17 +84,36 @@ export const stakePoolsNavi: Action = {
     },
     examples: [
         [
-
             {
-                user: "{{user2}}",
+                user: "{{user1}}",
+                content: {
+                    text: "Stake USDC",
+                },
+            },
+            {
+                user: "{{agent}}",
                 content: {
                     text: "Stake USDC",
                     action: "STAKE_TOKEN",
-                    params: {
-                        
-                    }
-                }
-            }
+
+                },
+            },
+        ],
+        [
+            {
+                user: "{{user1}}",
+                content: {
+                    text: "Stake {TOKEN_SYMBOL}",
+                },
+            },
+            {
+                user: "{{agent}}",
+                content: {
+                    text: "Stake {TOKEN_SYMBOL}",
+                    action: "STAKE_TOKEN",
+
+                },
+            },
         ]
     ] as ActionExample[][],
 } as Action;
