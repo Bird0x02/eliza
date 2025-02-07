@@ -4,6 +4,7 @@ import { topDefi } from './actions/topDefiToken';
 import { trendingTokens } from './actions/trendingTokens';
 import { topNewMemeToken } from './actions/topNewMemeToken';
 import { topNftInfos } from './actions/topNft';
+import { stakePoolsNavi } from './actions/stakePools';
 
 const rockeePlusPlugin: Plugin = {
   name: "rockeePlusPlugin",
@@ -14,6 +15,7 @@ const rockeePlusPlugin: Plugin = {
     trendingTokens,
     topNewMemeToken,
     topNftInfos,
+    stakePoolsNavi
 ],
   evaluators: [],
   providers: []
