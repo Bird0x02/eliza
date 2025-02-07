@@ -1590,7 +1590,7 @@ export async function generateMessageResponse({
     // context = await trimTokens(context, max_context_length, runtime);
     // elizaLogger.info("trimTokens...done!");
 
-    elizaLogger.info("Context:", context);
+    // elizaLogger.info("Context:", context);
 
     let retryLength = 1000; // exponential backoff
     while (true) {
