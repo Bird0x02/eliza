@@ -499,7 +499,7 @@ async function handlePluginImporting(plugins: string[]) {
             plugins.map(async (plugin) => {
                 try {
                     const importedPlugin = await import(plugin);
-                    elizaLogger.info("importedPlugin",importedPlugin)
+             
                     const functionName =
                         plugin
                             .replace("@elizaos/plugin-", "")

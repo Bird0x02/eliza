@@ -123,11 +123,10 @@ export default function createAgentRouter(
 
 
     })
-    router.post("/new2", async (req, res) => {
-        // const samepleAgentId = req.params.sampleAgentId
+    router.post("/new", async (req, res) => {
+
         const {sampleAgentId, name} = req.body;
-        console.info('1');
-        // const samplesDir = path.join(__dirname, '../../../characters/data/samples');
+
         const mapDataPath = path.join(__dirname, '../../../characters/data/mapData.json');
         let sampleAgents;
         try {
@@ -143,37 +142,27 @@ export default function createAgentRouter(
 
         const data = await fs.promises.readFile(agentSamplePath, 'utf8');
         sampleAgentCharacterData = JSON.parse(data);
-        elizaLogger.info('sampleAgentCharacterData:', data);
+
         sampleAgentWriteFile = sampleAgentCharacterData
 
         sampleAgentCharacterData.name = name;
         sampleAgentWriteFile.name = name;
-        try {
-            validateCharacterConfig(sampleAgentCharacterData);
-        } catch (e) {
-            elizaLogger.error(`Error parsing character: ${e}`);
-            res.status(400).json({
-                success: false,
-                message: e.message,
-            });
-            return;
-        }
+
+
+        validateCharacterConfig(sampleAgentCharacterData);
+
+
 
         // start it up (and register it)
+        const pathCharacter = `../../../characters/data/${Date.now()}.${sampleAgentInfo.name}.character.json`;
+        const  newCharacterPath= path.join(__dirname, pathCharacter);
+        await fs.promises.writeFile(newCharacterPath, JSON.stringify(sampleAgentWriteFile, null, 2), 'utf8');
+
         await directClient.startAgent(sampleAgentCharacterData);
+        // elizaLogger.info('sampleAgentWriteFile:', sampleAgentWriteFile);
         elizaLogger.info(`${sampleAgentCharacterData.name} started`);
-        const newCharacterPath = path.join(__dirname, `../../../characters/data/${sampleAgentCharacterData.id}.${sampleAgentInfo.name}.character.json`);
-        try {
-            await fs.promises.writeFile(newCharacterPath, JSON.stringify(sampleAgentWriteFile, null, 2), 'utf8');
-            elizaLogger.info(`Character data saved to ${newCharacterPath}`);
-        } catch (writeErr) {
-            elizaLogger.error(`Error writing character data to file: ${writeErr}`);
-            res.status(500).json({
-            success: false,
-            message: "Failed to save character data",
-            });
-            return;
-        }
+        const newCharacterPathWithId = path.join(__dirname, `../../../characters/data/${sampleAgentCharacterData.id}.${sampleAgentInfo.name}.character.json`);
+        await fs.promises.rename(newCharacterPath, newCharacterPathWithId);
 
         // Update mapData.json with new character
         sampleAgents.push({
@@ -181,54 +170,46 @@ export default function createAgentRouter(
             name: sampleAgentCharacterData.name,
         });
 
-        try {
-            const updatedSampleAgents = sampleAgents.map(agent => {
-                if (agent.id === sampleAgentId) {
-                    return {
-                        ...agent,
-                        clone: [...(agent.clone || []), sampleAgentCharacterData.id]
-                    };
-                }
-                return agent;
-            });
-            await fs.promises.writeFile(mapDataPath, JSON.stringify(updatedSampleAgents, null, 2), 'utf8');
-            elizaLogger.info(`mapData.json updated with new character`);
-        } catch (writeErr) {
-            elizaLogger.error(`Error updating mapData.json: ${writeErr}`);
-            res.status(500).json({
-            success: false,
-            message: "Failed to update mapData.json",
-            });
-            return;
-        }
+        const updatedSampleAgents = sampleAgents.map(agent => {
+            if (agent.id === sampleAgentId) {
+                return {
+                    ...agent,
+                    clone: [...(agent.clone || []), sampleAgentCharacterData.id]
+                };
+            }
+            return agent;
+        });
+        await fs.promises.writeFile(mapDataPath, JSON.stringify(updatedSampleAgents, null, 2), 'utf8');
+        elizaLogger.info(`mapData.json updated with new character`);
+
         res.json({
             id: sampleAgentCharacterData.id,
             character: sampleAgentCharacterData,
         });
     });
-    router.post("/new", async (req, res) => {
-        // load character from body
-        const character = req.body;
-        try {
-            validateCharacterConfig(character);
-        } catch (e) {
-            elizaLogger.error(`Error parsing character: ${e}`);
-            res.status(400).json({
-                success: false,
-                message: e.message,
-            });
-            return;
-        }
+    // router.post("/new", async (req, res) => {
+    //     // load character from body
+    //     const character = req.body;
+    //     try {
+    //         validateCharacterConfig(character);
+    //     } catch (e) {
+    //         elizaLogger.error(`Error parsing character: ${e}`);
+    //         res.status(400).json({
+    //             success: false,
+    //             message: e.message,
+    //         });
+    //         return;
+    //     }
 
-        // start it up (and register it)
-        await directClient.startAgent(character);
-        elizaLogger.info(`${character.name} started`);
+    //     // start it up (and register it)
+    //     await directClient.startAgent(character);
+    //     elizaLogger.info(`${character.name} started`);
 
-        res.json({
-            id: character.id,
-            character: character,
-        });
-    });
+    //     res.json({
+    //         id: character.id,
+    //         character: character,
+    //     });
+    // });
 
     router.get("/:agentId/channels",async (req, res) => {
         const agentId = req.params.agentId;

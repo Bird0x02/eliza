@@ -4,14 +4,7 @@
     "name": "advisor",
     "clone": [
       1,
-      "8f0bc65d-a355-06cb-984d-e9d17bfe1baa",
-      "8f0bc65d-a355-06cb-984d-e9d17bfe1baa",
-      "afee8cb6-e874-02cc-bd6b-f07e1c387cc8",
-      "afee8cb6-e874-02cc-bd6b-f07e1c387cc8",
-      "49921ef8-88da-04b5-86d7-498719fdbe50",
-      "b4fe8c4d-e3fb-067c-8f04-67c498e6cb58",
-      "42979cc2-7aad-0736-8692-756d433b08dd",
-      "466a9e44-5f0f-0e95-96ff-3ceeed17305f"
+      "f5bf2a75-40a7-06d4-b6e0-d2b167430679"
     ]
   },
   {
@@ -92,5 +85,9 @@
   {
     "id": "466a9e44-5f0f-0e95-96ff-3ceeed17305f",
     "name": "hello9"
+  },
+  {
+    "id": "f5bf2a75-40a7-06d4-b6e0-d2b167430679",
+    "name": "hello19"
   }
 ]

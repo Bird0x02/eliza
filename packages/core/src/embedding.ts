@@ -278,10 +278,10 @@ export async function embed(runtime: IAgentRuntime, input: string) {
 
     async function getLocalEmbedding(input: string): Promise<number[]> {
         try {
-            elizaLogger.info("getLocalEmbedding...");
+            // elizaLogger.info("getLocalEmbedding...");
             const embeddingManager = LocalEmbeddingModelManager.getInstance();
             let embedRes = await embeddingManager.generateEmbedding(input);
-            elizaLogger.info("getLocalEmbedding...done!");
+            // elizaLogger.info("getLocalEmbedding...done!");
             return embedRes;
         } catch (error) {
             elizaLogger.error("Local embedding failed:", error);
