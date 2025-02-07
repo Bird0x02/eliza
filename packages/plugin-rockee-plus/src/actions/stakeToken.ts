@@ -73,13 +73,10 @@ export const stakePoolsNavi: Action = {
             {
                 user: "{{user2}}",
                 content: {
-                    text: "Initiating swap of 10 SUI for USDT on SUI network...",
-                    action: "SUI_EXECUTE_SWAP_BY_SYMBOL",
+                    text: "Stake USDC",
+                    action: "STAKE_TOKEN",
                     params: {
-                        inputType: "0x2::sui::SUI",
-                        outputType: "0x4fb3c0f9e62b5d3956e2f0e284f2a5d128954750b109203a0f34c92c6ba21247::coin::USDT",
-                        amount: "10000000000", // Amount in base units
-                        slippageBps: 50
+                        
                     }
                 }
             }

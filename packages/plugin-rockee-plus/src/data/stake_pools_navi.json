@@ -1,5 +1,5 @@
-{
-	"Sui": {
+[
+	{
 		"name": "SUI",
 		"assetId": 0,
 		"poolId": "0x96df0fce3c471489f4debaaa762cf960b3d97820bd1f3f025ff8190730e958c5",
@@ -10,7 +10,7 @@
 		"img_icon": "https://strapi-dev.scand.app/uploads/sui_c07df05f00.png",
 		"decimal": 9
 	},
-	"USDT": {
+	{
 		"name": "USDT",
 		"assetId": 2,
 		"poolId": "0x0e060c3b5b8de00fb50511b7a45188c8e34b6995c01f69d98ea5a466fe10d103",
@@ -21,7 +21,7 @@
 		"img_icon": "https://kbjqugvqmnqhcwzoc4cxd5d57apkgpvn24nc5q4e6kvdmtlku6la.arweave.net/UFMKGrBjYHFbLhcFcfR9-B6jPq3XGi7DhPKqNk1qp5Y",
 		"decimal": 6
 	},
-	"WETH": {
+	{
 		"name": "WETH",
 		"assetId": 3,
 		"poolId": "0x71b9f6e822c48ce827bceadce82201d6a7559f7b0350ed1daa1dc2ba3ac41b56",
@@ -32,7 +32,7 @@
 		"img_icon": "https://t4gq524jdiihjr6ihouhzsemfczi3eq2cnjyhbfms5utl3hueu6q.arweave.net/nw0O64kaEHTHyDuofMiMKLKNkhoTU4OErJdpNez0JT0",
 		"decimal": 8
 	},
-	"CETUS": {
+	{
 		"name": "CETUS",
 		"assetId": 4,
 		"poolId": "0x3c376f857ec4247b8ee456c1db19e9c74e0154d4876915e54221b5052d5b1e2e",
@@ -43,7 +43,7 @@
 		"img_icon": "https://strapi-dev.scand.app/uploads/Cetus_fd3e9a7dbd.png",
 		"decimal": 9
 	},
-	"vSui": {
+	{
 		"name": "VoloSui",
 		"assetId": 5,
 		"poolId": "0x9790c2c272e15b6bf9b341eb531ef16bcc8ed2b20dfda25d060bf47f5dd88d01",
@@ -54,7 +54,7 @@
 		"img_icon": "https://strapi-dev.scand.app/uploads/volo_SUI_Logo_f28ed9c6a1.png",
 		"decimal": 9
 	},
-	"haSui": {
+	{
 		"name": "HaedalSui",
 		"assetId": 6,
 		"poolId": "0x6fd9cb6ebd76bc80340a9443d72ea0ae282ee20e2fd7544f6ffcd2c070d9557a",
@@ -65,7 +65,7 @@
 		"img_icon": "https://assets.haedal.xyz/logos/hasui.svg",
 		"decimal": 9
 	},
-	"NAVX": {
+	{
 		"name": "NAVX",
 		"assetId": 7,
 		"poolId": "0xc0e02e7a245e855dd365422faf76f87d9f5b2148a26d48dda6e8253c3fe9fa60",
@@ -76,7 +76,7 @@
 		"img_icon": "https://arweave.net/FNGKLRGBS7D4lXxsmz4_F-xkMQs9DIRsTQT_q0Nn-iI",
 		"decimal": 9
 	},
-	"WBTC": {
+	{
 		"name": "WBTC",
 		"assetId": 8,
 		"poolId": "0xd162cbe40f8829ce71c9b3d3bf3a83859689a79fa220b23d70dc0300b777ae6e",
@@ -87,7 +87,7 @@
 		"img_icon": "https://ucnnvm4qciffcmk5cervagst6et7v45hmtq33uy5awcr4kjivt5q.arweave.net/oJras5ASClExXREjUBpT8Sf686dk4b3THQWFHikorPs",
 		"decimal": 8
 	},
-	"AUSD": {
+	{
 		"name": "AUSD",
 		"assetId": 9,
 		"poolId": "0xc9208c1e75f990b2c814fa3a45f1bf0e85bb78404cfdb2ae6bb97de58bb30932",
@@ -98,7 +98,7 @@
 		"img_icon": "https://static.agora.finance/ausd-token-icon.svg",
 		"decimal": 6
 	},
-	"wUSDC": {
+	{
 		"name": "wUSDC",
 		"assetId": 1,
 		"poolId": "0xa02a98f9c88db51c6f5efaaf2261c81f34dd56d86073387e0ef1805ca22e39c8",
@@ -109,7 +109,7 @@
 		"img_icon": "https://klrhtty4kphjcsrez2eaeh6r27tbaayw3odjadigbrek544f3i2a.arweave.net/UuJ5zxxTzpFKJM6IAh_R1-YQAxbbhpANBgxIrvOF2jQ",
 		"decimal": 6
 	},
-	"nUSDC": {
+	{
 		"name": "nUSDC",
 		"assetId": 10,
 		"poolId": "0xa3582097b4c57630046c0c49a88bfc6b202a3ec0a9db5597c31765f7563755a8",
@@ -120,7 +120,7 @@
 		"img_icon": "https://www.circle.com/hubfs/Brand/USDC/USDC_icon_32x32.png",
 		"decimal": 6
 	},
-	"ETH": {
+	{
 		"name": "ETH",
 		"assetId": 11,
 		"poolId": "0x78ba01c21d8301be15690d3c30dc9f111871e38cfb0b2dd4b70cc6052fba41bb",
@@ -131,7 +131,7 @@
 		"img_icon": "https://bridge-assets.sui.io/eth.png",
 		"decimal": 8
 	},
-	"USDY": {
+	{
 		"name": "USDY",
 		"assetId": 12,
 		"poolId": "0x4b6253a9f8cf7f5d31e6d04aed4046b9e325a1681d34e0eff11a8441525d4563",
@@ -142,7 +142,7 @@
 		"img_icon": "https://ondo.finance/images/tokens/usdy.svg",
 		"decimal": 6
 	},
-	"NS": {
+	 {
 		"name": "NS",
 		"assetId": 13,
 		"poolId": "0x2fcc6245f72795fad50f17c20583f8c6e81426ab69d7d3590420571364d080d4",
@@ -153,7 +153,7 @@
 		"img_icon": "https://token-image.suins.io/icon.svg",
 		"decimal": 6
 	},
-	"LorenzoBTC": {
+	{
 		"name": "stBTC",
 		"assetId": 14,
 		"poolId": "0xd96dcd6982c45e580c83ff1d96c2b4455a874c284b637daf67c0787f25bc32dd",
@@ -164,7 +164,7 @@
 		"img_icon": "https://strapi-dev.scand.app/uploads/Lorenzo_st_BTC_01d18aebd3.png",
 		"decimal": 8
 	},
-	"DEEP": {
+	{
 		"name": "DEEP",
 		"assetId": 15,
 		"poolId": "0x08373c5efffd07f88eace1c76abe4777489d9ec044fd4cd567f982d9c169e946",
@@ -175,7 +175,7 @@
 		"img_icon": "https://images.deepbook.tech/icon.svg",
 		"decimal": 6
 	},
-	"FDUSD": {
+	{
 		"name": "FDUSD",
 		"assetId": 16,
 		"poolId": "0x38d8ac76efc14035bbc8c8b38803f5bd012a0f117d9a0bad2103f8b2c6675b66",
@@ -186,7 +186,7 @@
 		"img_icon": "https://cdn.1stdigital.com/icon/fdusd.svg",
 		"decimal": 6
 	},
-	"BLUE": {
+	{
 		"name": "BLUE",
 		"assetId": 17,
 		"poolId": "0xe2cfd1807f5b44b44d7cabff5376099e76c5f0e4b35a01bdc4b0ef465a23e32c",
@@ -197,7 +197,7 @@
 		"img_icon": "https://bluefin.io/images/square.png",
 		"decimal": 9
 	},
-	"BUCK": {
+	{
 		"name": "BUCK",
 		"assetId": 18,
 		"poolId": "0x98953e1c8af4af0cd8f59a52f9df6e60c9790b8143f556751f10949b40c76c50",
@@ -208,7 +208,7 @@
 		"img_icon": "https://ipfs.io/ipfs/QmYH4seo7K9CiFqHGDmhbZmzewHEapAhN9aqLRA7af2vMW",
 		"decimal": 9
 	},
-	"suiUSDT": {
+	{
 		"name": "suiUSDT",
 		"assetId": 19,
 		"poolId": "0xa3e0471746e5d35043801bce247d3b3784cc74329d39f7ed665446ddcf22a9e2",
@@ -219,7 +219,7 @@
 		"img_icon": "https://bridge-assets.sui.io/usdt.png",
 		"decimal": 6
 	},
-	"stSUI": {
+	{
 		"name": "stSUI",
 		"assetId": 20,
 		"poolId": "0x0bccd5189d311002f4e10dc98270a3362fb3f7f9d48164cf40828f6c09f351e2",
@@ -230,7 +230,7 @@
 		"img_icon": "https://images.alphafi.xyz/stSUI.png",
 		"decimal": 9
 	},
-	"suiBTC": {
+	{
 		"name": "suiBTC",
 		"assetId": 21,
 		"poolId": "0x348f4049063e6c4c860064d67a170a7b3de033db9d67545d98fa5da3999966bc",
@@ -241,4 +241,4 @@
 		"img_icon": "https://www.flaticon.com/free-icons/bitcoin",
 		"decimal": 8
 	}
-}
+]

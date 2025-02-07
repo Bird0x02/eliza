@@ -54,5 +54,5 @@ export const listPoolsInFileJson = async()=>{
     );
 
 
-    return results;
+    return results[0];
 }
