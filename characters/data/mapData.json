@@ -1,61 +1,96 @@
-{
-    "advisor": {
-        "id": "1",
-        "name": "advisor",
-        "clone": [
-            1
-        ]
-    },
-    "baby": {
-        "id": "2",
-        "name": "baby",
-        "clone": [
-            1
-        ]
-    },
-    "c3po": {
-        "id": "3",
-        "name": "c3po",
-        "clone": []
-    },
-    "cosmosHelper": {
-        "id": "4",
-        "name": "cosmosHelper",
-        "clone": []
-    },
-    "dobby": {
-        "id": "5",
-        "name": "dobby",
-        "clone": []
-    },
-    "eternalai": {
-        "id": "6",
-        "name": "eternalai",
-        "clone": []
-    },
-    "lpmanager": {
-        "id": "7",
-        "name": "lpmanager",
-        "clone": []
-    },
-    "portfolio": {
-        "id": "8",
-        "name": "portfolio",
-        "clone": []
-    },
-    "tate": {
-        "id": "9",
-        "name": "tate",
-        "clone": []
-    },
-    "trader": {
-        "id": "10",
-        "name": "trader",
-        "clone": []
-    },
-    "trading": {
-        "id": "2",
-        "name": "baby",
-        "clone": []
-    }
-}
+[
+  {
+    "id": 1,
+    "name": "advisor",
+    "clone": [
+      1,
+      "8f0bc65d-a355-06cb-984d-e9d17bfe1baa",
+      "8f0bc65d-a355-06cb-984d-e9d17bfe1baa",
+      "afee8cb6-e874-02cc-bd6b-f07e1c387cc8",
+      "afee8cb6-e874-02cc-bd6b-f07e1c387cc8",
+      "49921ef8-88da-04b5-86d7-498719fdbe50",
+      "b4fe8c4d-e3fb-067c-8f04-67c498e6cb58",
+      "42979cc2-7aad-0736-8692-756d433b08dd",
+      "466a9e44-5f0f-0e95-96ff-3ceeed17305f"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "baby",
+    "clone": [
+      1
+    ]
+  },
+  {
+    "id": 3,
+    "name": "c3po",
+    "clone": []
+  },
+  {
+    "id": 4,
+    "name": "cosmosHelper",
+    "clone": []
+  },
+  {
+    "id": 5,
+    "name": "dobby",
+    "clone": []
+  },
+  {
+    "id": 6,
+    "name": "eternalai",
+    "clone": []
+  },
+  {
+    "id": 7,
+    "name": "lpmanager",
+    "clone": []
+  },
+  {
+    "id": 8,
+    "name": "portfolio",
+    "clone": []
+  },
+  {
+    "id": 9,
+    "name": "tate",
+    "clone": []
+  },
+  {
+    "id": 10,
+    "name": "trader",
+    "clone": []
+  },
+  {
+    "id": "8f0bc65d-a355-06cb-984d-e9d17bfe1baa",
+    "name": "hello4"
+  },
+  {
+    "id": "8f0bc65d-a355-06cb-984d-e9d17bfe1baa",
+    "name": "hello4"
+  },
+  {
+    "id": "afee8cb6-e874-02cc-bd6b-f07e1c387cc8",
+    "name": "hello5"
+  },
+  {
+    "id": "afee8cb6-e874-02cc-bd6b-f07e1c387cc8",
+    "name": "hello5"
+  },
+  {
+    "id": "49921ef8-88da-04b5-86d7-498719fdbe50",
+    "name": "hello6"
+  },
+  {
+    "id": "b4fe8c4d-e3fb-067c-8f04-67c498e6cb58",
+    "name": "hello7"
+  },
+  {
+    "id": "42979cc2-7aad-0736-8692-756d433b08dd",
+    "name": "hello8"
+  },
+  {
+    "id": "466a9e44-5f0f-0e95-96ff-3ceeed17305f",
+    "name": "hello9"
+  }
+]
