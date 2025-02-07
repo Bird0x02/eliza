@@ -20,7 +20,7 @@ Extract the swap parameters from the conversation and wallet context above, foll
 Recognized Pools in NAVI: SUI, USDT, WETH, CETUS, VoloSui, HaedalSui, NAVX, WBTC, AUSD, wUSDC, nUSDC, ETH, USDY, NS, stBTC, DEEP, FDUSD, BLUE, BUCK, suiUSDT, stSUI, suiBTC.
     - Return only a JSON object with the specified fields in thise format:
         {
-            "pool_name": string | null,
+            "pool_name": string | NAVX,
         }
     - Use null for any values that cannot be determined.
     - All property names must use double quotes
