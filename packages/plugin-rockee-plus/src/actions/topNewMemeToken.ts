@@ -75,6 +75,8 @@ export const topNewMemeToken: Action = {
         elizaLogger.info("content: ",content);
         const coinGecko = new CoingeckoProvider();
         const info = await coinGecko.topNewMeMeCoin();
+        
+
         if (callback) {
             callback({
                 text: `Below are ${content.size} trending coins we have collected:`,

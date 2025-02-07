@@ -236,6 +236,7 @@ export class CoingeckoProvider {
             price: token.current_price,
             market_cap: token.market_cap,
             price_change_24h: token.price_change_percentage_24h,
+            img_icon:token.image
         }));
 
     } catch (error) {
