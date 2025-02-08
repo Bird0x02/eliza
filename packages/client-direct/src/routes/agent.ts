@@ -123,9 +123,9 @@ export default function createAgentRouter(
 
 
     })
-    router.post("/new", async (req, res) => {
+    router.post("/new2", async (req, res) => {
 
-        const {sampleAgentId, name} = req.body;
+        const {sampleAgentId, name, adjectives, bio, lore, knowledge, style, plugins, clients, modelProvider, settings} = req.body;
 
         const mapDataPath = path.join(__dirname, '../../../characters/data/mapData.json');
         let sampleAgents;
@@ -147,11 +147,19 @@ export default function createAgentRouter(
 
         sampleAgentCharacterData.name = name;
         sampleAgentWriteFile.name = name;
+        sampleAgentCharacterData.adjectives = adjectives;
+        sampleAgentWriteFile.adjectives = adjectives;
+        sampleAgentCharacterData.bio = bio;
+        sampleAgentWriteFile.bio = bio;
+        sampleAgentCharacterData.lore = lore;
+        sampleAgentWriteFile.lore = lore;
+        sampleAgentCharacterData.knowledge = knowledge;
+        sampleAgentWriteFile.knowledge = knowledge;
+        sampleAgentCharacterData.knowledge = style;
+        sampleAgentWriteFile.knowledge = style;
 
 
         validateCharacterConfig(sampleAgentCharacterData);
-
-
 
         // start it up (and register it)
         const pathCharacter = `../../../characters/data/${Date.now()}.${sampleAgentInfo.name}.character.json`;
@@ -187,30 +195,78 @@ export default function createAgentRouter(
             character: sampleAgentCharacterData,
         });
     });
-    // router.post("/new", async (req, res) => {
-    //     // load character from body
-    //     const character = req.body;
-    //     try {
-    //         validateCharacterConfig(character);
-    //     } catch (e) {
-    //         elizaLogger.error(`Error parsing character: ${e}`);
-    //         res.status(400).json({
-    //             success: false,
-    //             message: e.message,
-    //         });
-    //         return;
-    //     }
+    router.post("/new", async (req, res) => {
+        // load character from body
+        const character = req.body;
+        try {
+            validateCharacterConfig(character);
+        } catch (e) {
+            elizaLogger.error(`Error parsing character: ${e}`);
+            res.status(400).json({
+                success: false,
+                message: e.message,
+            });
+            return;
+        }
 
-    //     // start it up (and register it)
-    //     await directClient.startAgent(character);
-    //     elizaLogger.info(`${character.name} started`);
+        // start it up (and register it)
+        await directClient.startAgent(character);
+        elizaLogger.info(`${character.name} started`);
 
-    //     res.json({
-    //         id: character.id,
-    //         character: character,
-    //     });
-    // });
+        res.json({
+            id: character.id,
+            character: character,
+        });
+    });
+    router.post("/start", async (req, res) =>{
+        const {agentId} = req.body;
 
+        // const mapDataPath = path.join(__dirname, `../../../characters/data/${agentId}.xxx`);
+    try {
+        const files = await fs.promises.readdir(path.join(__dirname, '../../../characters/data'));
+        const characterFile = files.find(file => file.startsWith(`${agentId}.`) && file.endsWith('.character.json'));
+
+        if (!characterFile) {
+            throw new Error("Character file not found");
+        }
+
+        const characterFilePath = path.join(__dirname, '../../../characters/data', characterFile);
+        const data = await fs.promises.readFile(characterFilePath, 'utf8');
+        const character = JSON.parse(data);
+
+        validateCharacterConfig(character);
+
+        // start it up (and register it)
+        await directClient.startAgent(character);
+        elizaLogger.info(`${character.name} started`);
+
+        res.json({
+            id: character.id,
+            character: character,
+        });
+    } catch (error) {
+        elizaLogger.error(`Error starting agent: ${error}`);
+        res.status(404).json({
+            success: false,
+            message: "Character file not found",
+        });
+    }
+    })
+    router.post("/plugins", async(req,res)=>{
+        const packagesPath = path.join(__dirname, '../../../packages');
+        try {
+            const packageFolders = await fs.promises.readdir(packagesPath, { withFileTypes: true });
+            const moduleNames = packageFolders
+                .filter(dirent => dirent.isDirectory())
+                .map(dirent => dirent.name)
+                .filter(name => !name.startsWith('adapter-') && !['core', 'debug-audio', 'create-eliza-app', '_examples'].includes(name));
+
+            res.status(200).json({ plugins: moduleNames });
+        } catch (error) {
+            console.error("Error fetching modules:", error);
+            res.status(500).json({ error: "Failed to fetch modules" });
+        }
+    })
     router.get("/:agentId/channels",async (req, res) => {
         const agentId = req.params.agentId;
         const runtime = agents.get(agentId);
