@@ -1423,7 +1423,7 @@ async function startAgent(
 
         // start assigned clients
         runtime.clients = await initializeClients(character, runtime);
-
+        // elizaLogger.info("runtime:", runtime)
         // add to container
         directClient.registerAgent(runtime);
 
