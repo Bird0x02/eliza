@@ -17,7 +17,7 @@ import { searchPoolInFileJson } from "../providers/searchPoolInFile";
 const stakeTokenTemplate = `
 Recent messages: {{recentMessages}}
 Extract the swap parameters from the conversation and wallet context above, follows these rules:
-Recognized Pools in NAVI: SUI, USDT, WETH, CETUS, VoloSui, HaedalSui, NAVX, WBTC, AUSD, wUSDC, nUSDC, ETH, USDY, NS, stBTC, DEEP, FDUSD, BLUE, BUCK, suiUSDT, stSUI, suiBTC.
+Recognized Pools name in NAVI: SUI, USDT, WETH, CETUS, VoloSui, HaedalSui, NAVX, WBTC, AUSD, wUSDC, nUSDC, ETH, USDY, NS, stBTC, DEEP, FDUSD, BLUE, BUCK, suiUSDT, stSUI, suiBTC.
     - Return only a JSON object with the specified fields in thise format:
         {
             "pool_name": string | NAVX,

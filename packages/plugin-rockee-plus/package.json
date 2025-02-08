@@ -5,14 +5,15 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@elizaos/core": "workspace:*",
     "@elizaos/adapter-redis": "workspace:*",
+    "@elizaos/core": "workspace:*",
     "@elizaos/plugin-tee": "^0.1.7",
     "@mysten/sui.js": "^0.53.0",
     "axios": "^1.7.9",
     "bignumber": "1.1.0",
     "bignumber.js": "9.1.2",
     "cheerio": "^1.0.0",
+    "navi-sdk": "^1.4.27",
     "node-cache": "5.1.2",
     "puppeteer": "^24.1.1",
     "puppeteer-extra": "3.3.6",
@@ -30,6 +31,6 @@
     "whatwg-url": "7.1.0"
   },
   "devDependencies": {
-    "@mysten/sui": "^1.19.0"
+    "@mysten/sui": "^1.21.1"
   }
 }

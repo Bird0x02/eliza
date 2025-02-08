@@ -1,6 +1,7 @@
 import {
     ActionExample,
     composeContext,
+    elizaLogger,
     generateObjectDeprecated,
     HandlerCallback,
     IAgentRuntime,
@@ -11,9 +12,10 @@ import {
     type Action,
 } from "@elizaos/core";
 import getActionHint from "../utils/action_hint";
-import { listPoolsInFileJson } from "../providers/searchPoolInFile";
+import { listPoolsInFileJson,pool } from "../providers/searchPoolInFile";
 // // import { RedisClient } from "@elizaos/adapter-redis";
-
+// import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
+import {getPoolInfo} from "navi-sdk";
 export const stakePoolsNavi: Action = {
     name: "STAKE_POOLS",
     similes: [
@@ -48,6 +50,14 @@ export const stakePoolsNavi: Action = {
         //     modelClass: ModelClass.SMALL,
         // });
         let responseData = await listPoolsInFileJson();
+        let getPools = pool;
+        elizaLogger.info(responseData)
+        elizaLogger.info(getPools)
+        // for (const poolId of getPools) {
+        //     const poolInfo = await getPoolInfo(poolId);
+        //     elizaLogger.info(poolInfo);
+        // }
+        // elizaLogger.info(sdkinfo)
         try {
             callback({
                text: "Below is a list of stake pools:",
@@ -56,7 +66,6 @@ export const stakePoolsNavi: Action = {
                 type: "stake_pools",
                 data:responseData,
                 action_hint:getActionHint()
-
             }
             })
 
