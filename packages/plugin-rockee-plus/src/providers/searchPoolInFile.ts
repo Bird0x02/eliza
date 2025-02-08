@@ -324,19 +324,19 @@ export const pool: Pool = {
       supplyBalanceParentId:
         "0xfa30b3db35ee961f702f259ea42fb9c5524dce630187e3a7e0b0e24eb0187fef",
     },
-    suiBTC: {
-      name: "suiBTC",
-      assetId: 21,
-      poolId:
-        "0x348f4049063e6c4c860064d67a170a7b3de033db9d67545d98fa5da3999966bc",
-      type: "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC",
-      reserveObjectId:
-        "0xb6a8441d447dd5b7cd45ef874728a700cd05366c331f9cc1e37a4665f0929c2b",
-      borrowBalanceParentId:
-        "0x33d8a4cb800c863f19ae27fc173e1eb5895cdbcea7ae302b756fb275c678dc72",
-      supplyBalanceParentId:
-        "0xf99e9bbd4c2b5dee460abeddc0f96042f2fb51420cb634d5a378d5d7643dd189",
-    },
+    // suiBTC: {
+    //   name: "suiBTC",
+    //   assetId: 21,
+    //   poolId:
+    //     "0x348f4049063e6c4c860064d67a170a7b3de033db9d67545d98fa5da3999966bc",
+    //   type: "0xaafb102dd0902f5055cadecd687fb5b71ca82ef0e0285d90afde828ec58ca96b::btc::BTC",
+    //   reserveObjectId:
+    //     "0xb6a8441d447dd5b7cd45ef874728a700cd05366c331f9cc1e37a4665f0929c2b",
+    //   borrowBalanceParentId:
+    //     "0x33d8a4cb800c863f19ae27fc173e1eb5895cdbcea7ae302b756fb275c678dc72",
+    //   supplyBalanceParentId:
+    //     "0xf99e9bbd4c2b5dee460abeddc0f96042f2fb51420cb634d5a378d5d7643dd189",
+    // },
   };
 
   export interface Pool {
@@ -361,7 +361,7 @@ export const pool: Pool = {
     BUCK: PoolConfig;
     suiUSDT: PoolConfig;
     stSUI: PoolConfig;
-    suiBTC: PoolConfig;
+    // suiBTC: PoolConfig;
   }
   export interface PoolConfig {
     name: string; // Customized Names
