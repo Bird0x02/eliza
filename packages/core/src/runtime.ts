@@ -1702,11 +1702,11 @@ Text: ${attachment.text}
     }
 
     async updateRecentMessageState(state: State): Promise<State> {
-        // const conversationLength = this.getConversationLength();
+        const conversationLength = Math.min(this.getConversationLength(), 2);
         const recentMessagesData = await this.messageManager.getMemories({
             roomId: state.roomId,
-            // count: conversationLength,
-            count:1,
+            count: conversationLength,
+            // count:1,
             unique: false,
         });
 

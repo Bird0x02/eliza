@@ -1583,7 +1583,7 @@ export async function generateMessageResponse({
     elizaLogger.info("get model settings...");
     const modelSettings = getModelSettings(runtime.modelProvider, modelClass);
     elizaLogger.info("get model settings...done");
-    const max_context_length = modelSettings.maxInputTokens;
+    // const max_context_length = modelSettings.maxInputTokens;
 
     // elizaLogger.info("trimTokens...");
     //@todo ignore trim tokens
